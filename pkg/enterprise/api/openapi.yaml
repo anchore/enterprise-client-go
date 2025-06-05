@@ -3714,9 +3714,9 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/stig:
+  /images/{image_digest}/stig/{content_uuid}/file:
     get:
-      operationId: list_image_stig
+      operationId: get_image_stig
       parameters:
       - explode: false
         in: path
@@ -3726,6 +3726,14 @@ paths:
           format: path
           pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
+        style: simple
+      - description: The UUID of the STIG content to retrieve
+        explode: false
+        in: path
+        name: content_uuid
+        required: true
+        schema:
+          $ref: '#/components/schemas/UUID'
         style: simple
       - description: "An account name to change the resource scope of the request\
           \ to that account, if permissions allow (admin only)"
@@ -3741,68 +3749,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/STIGMetadataResponseList'
-          description: Retrieved list of metadata for STIG content
+                format: binary
+                type: string
+          description: STIG document retrieved
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: List STIG content metadata for an image
+      summary: Get STIG content for an image
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
       x-anchore-authz-action: getImage
-    post:
-      operationId: post_image_stig
-      parameters:
-      - explode: false
-        in: path
-        name: image_digest
-        required: true
-        schema:
-          format: path
-          pattern: "^sha256:[a-fA-F0-9]{64}$"
-          type: string
-        style: simple
-      - description: "An account name to change the resource scope of the request\
-          \ to that account, if permissions allow (admin only)"
-        explode: false
-        in: header
-        name: x-anchore-account
-        required: false
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          multipart/form-data:
-            encoding:
-              file:
-                contentType: "application/xml, application/json"
-                style: form
-            schema:
-              $ref: '#/components/schemas/post_image_stig_request'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/STIGMetadataResponse'
-          description: STIG document uploaded
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Upload STIG content for an image
-      tags:
-      - Images
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
-      x-anchore-authz-action: addImage
   /images/{image_digest}/stig/{content_uuid}:
     delete:
       operationId: delete_image_stig
@@ -3881,10 +3841,10 @@ paths:
           multipart/form-data:
             encoding:
               file:
-                contentType: "application/xml, application/json"
+                contentType: application/json
                 style: form
             schema:
-              $ref: '#/components/schemas/post_image_stig_request'
+              $ref: '#/components/schemas/put_image_stig_request'
         required: true
       responses:
         "201":
@@ -3904,9 +3864,9 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
       x-anchore-authz-action: addImage
-  /images/{image_digest}/stig/{content_uuid}/file:
+  /images/{image_digest}/stig:
     get:
-      operationId: get_image_stig
+      operationId: list_image_stig
       parameters:
       - explode: false
         in: path
@@ -3916,14 +3876,6 @@ paths:
           format: path
           pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
-        style: simple
-      - description: The UUID of the STIG content to retrieve
-        explode: false
-        in: path
-        name: content_uuid
-        required: true
-        schema:
-          $ref: '#/components/schemas/UUID'
         style: simple
       - description: "An account name to change the resource scope of the request\
           \ to that account, if permissions allow (admin only)"
@@ -3939,24 +3891,68 @@ paths:
           content:
             application/json:
               schema:
-                format: binary
-                type: string
-            application/xml:
-              schema:
-                format: binary
-                type: string
-          description: STIG document retrieved
+                $ref: '#/components/schemas/STIGMetadataResponseList'
+          description: Retrieved list of metadata for STIG content
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Get STIG content for an image
+      summary: List STIG content metadata for an image
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
       x-anchore-authz-action: getImage
+    post:
+      operationId: post_image_stig
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          format: path
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              file:
+                contentType: application/json
+                style: form
+            schema:
+              $ref: '#/components/schemas/post_image_stig_request'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/STIGMetadataResponse'
+          description: STIG document uploaded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Upload STIG content for an image
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
+      x-anchore-authz-action: addImage
   /images/{image_digest}/sboms/cyclonedx-json:
     get:
       operationId: get_image_sbom_cyclonedx_json
@@ -25875,7 +25871,7 @@ components:
         content_uuid: content_uuid
         uploaded_at: 2000-01-23T04:56:07.000+00:00
         stig_profile: stig_profile
-        document_type: document_type
+        document_type: hdfjson
       properties:
         content_uuid:
           maxLength: 36
@@ -25890,6 +25886,8 @@ components:
           type: string
         document_type:
           description: The format of the STIG content
+          enum:
+          - hdfjson
           type: string
       type: object
     STIGMetadataResponseList:
@@ -25898,11 +25896,11 @@ components:
         - content_uuid: content_uuid
           uploaded_at: 2000-01-23T04:56:07.000+00:00
           stig_profile: stig_profile
-          document_type: document_type
+          document_type: hdfjson
         - content_uuid: content_uuid
           uploaded_at: 2000-01-23T04:56:07.000+00:00
           stig_profile: stig_profile
-          document_type: document_type
+          document_type: hdfjson
       properties:
         items:
           items:
@@ -25921,6 +25919,16 @@ components:
         status:
           enum:
           - revoked
+          type: string
+      type: object
+    put_image_stig_request:
+      properties:
+        stig_profile:
+          description: The name of the STIG profile that produced this result
+          type: string
+        file:
+          description: A valid STIG result file in HDF JSON format
+          format: binary
           type: string
       type: object
     post_image_stig_request:

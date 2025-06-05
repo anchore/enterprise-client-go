@@ -1323,7 +1323,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, application/xml
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2070,7 +2070,7 @@ func main() {
 	contentUuid := "contentUuid_example" // string | The UUID of the STIG content to retrieve
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 	stigProfile := "stigProfile_example" // string | The name of the STIG profile that produced this result (optional)
-	file := os.NewFile(1234, "some_file") // *os.File | A valid STIG result file in XML or JSON format (optional)
+	file := os.NewFile(1234, "some_file") // *os.File | A valid STIG result file in HDF JSON format (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2104,7 +2104,7 @@ Name | Type | Description  | Notes
 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
  **stigProfile** | **string** | The name of the STIG profile that produced this result | 
- **file** | ***os.File** | A valid STIG result file in XML or JSON format | 
+ **file** | ***os.File** | A valid STIG result file in HDF JSON format | 
 
 ### Return type
 
