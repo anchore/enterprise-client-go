@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.11.1
+API version: 2.12.0
 Contact: dev@anchore.com
 */
 
@@ -49,6 +49,7 @@ type ApiStatelessScanRequest struct {
 	policyId *string
 }
 
+// A valid docker tag reference (e.g. docker.io/nginx:latest) that will be used as part of the policy evaluation.
 func (r ApiStatelessScanRequest) Tag(tag string) ApiStatelessScanRequest {
 	r.tag = &tag
 	return r
@@ -65,6 +66,7 @@ func (r ApiStatelessScanRequest) XAnchoreAccount(xAnchoreAccount string) ApiStat
 	return r
 }
 
+// The ID of the policy used to evaluate the image
 func (r ApiStatelessScanRequest) PolicyId(policyId string) ApiStatelessScanRequest {
 	r.policyId = &policyId
 	return r

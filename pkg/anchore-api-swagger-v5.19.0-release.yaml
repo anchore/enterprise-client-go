@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.11.1
+  version: 2.12.0
 servers:
 - url: /v2
 tags:
@@ -3347,7 +3347,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
-      x-anchore-authz-action: addImage
+      x-anchore-authz-action: createImage
     delete:
       tags:
         - Images
@@ -3469,7 +3469,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
-      x-anchore-authz-action: addImage
+      x-anchore-authz-action: createImage
   /images/{image_digest}/sboms/cyclonedx-json:
     get:
       tags:
@@ -6871,59 +6871,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.oauth
       x-anchore-authz-action: None
-  /scan:
-    post:
-      tags:
-        - Onetime
-      summary: Return a onetime evaluation of the provided data.
-      description: Use this operation for checking sboms for vulnerabilities and policy evaluations
-        in cases where the sbom does not need to be stored for later re-scans or added to the
-        managed set of SBOMs in Anchore. If you need to upload and save an SBOM use
-        the "/import/*" API set instead.
-      operationId: stateless_scan
-      parameters:
-        - name: x-anchore-account
-          in: header
-          description: An account name to change the resource scope of the request to
-            that account, if permissions allow (admin only)
-          schema:
-            type: string
-        - name: policy_id
-          in: query
-          schema:
-            type: string
-        - name: tag
-          in: query
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ScanRequest"
-        required: true
-      responses:
-        "200":
-          description: Successful response with onetime scan status
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ScanResponse"
-        400:
-          description: Unable to evaluate the provided data
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-anchore-authz-action: getImageEvaluation
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stateless
   /policies:
     get:
       tags:
@@ -8108,6 +8055,62 @@ paths:
                 $ref: '#/components/schemas/SubscriptionList'
       x-anchore-authz-action: createRepository
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.repositories
+  /scan:
+    post:
+      tags:
+        - Onetime
+      summary: Return a onetime evaluation of the provided data.
+      description: Use this operation for checking sboms for vulnerabilities and policy evaluations
+        in cases where the sbom does not need to be stored for later re-scans or added to the
+        managed set of SBOMs in Anchore. If you need to upload and save an SBOM use
+        the "/import/*" API set instead.
+      operationId: stateless_scan
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
+        - name: policy_id
+          in: query
+          description: The ID of the policy used to evaluate the image
+          schema:
+            type: string
+        - name: tag
+          in: query
+          description: A valid docker tag reference (e.g. docker.io/nginx:latest)
+            that will be used as part of the policy evaluation.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScanRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful response with onetime scan status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScanResponse"
+        400:
+          description: Unable to evaluate the provided data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-anchore-authz-action: getImageEvaluation
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stateless
   /sources:
     get:
       tags:
