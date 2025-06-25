@@ -29,10 +29,10 @@ import (
 )
 
 func main() {
-	tag := "tag_example" // string | 
+	tag := "tag_example" // string | A valid docker tag reference (e.g. docker.io/nginx:latest) that will be used as part of the policy evaluation.
 	scanRequest := *openapiclient.NewScanRequest() // ScanRequest | 
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-	policyId := "policyId_example" // string |  (optional)
+	policyId := "policyId_example" // string | The ID of the policy used to evaluate the image (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -57,10 +57,10 @@ Other parameters are passed through a pointer to a apiStatelessScanRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tag** | **string** |  | 
+ **tag** | **string** | A valid docker tag reference (e.g. docker.io/nginx:latest) that will be used as part of the policy evaluation. | 
  **scanRequest** | [**ScanRequest**](ScanRequest.md) |  | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
- **policyId** | **string** |  | 
+ **policyId** | **string** | The ID of the policy used to evaluate the image | 
 
 ### Return type
 

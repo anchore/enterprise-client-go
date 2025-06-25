@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.11.1
+API version: 2.12.0
 Contact: dev@anchore.com
 */
 
@@ -24,6 +24,10 @@ type NvdDataObject struct {
 	Id *string `json:"id,omitempty"`
 	// The full NVD description text for the vulnerability
 	Description *string `json:"description,omitempty"`
+	// Indicates the classification of the CVSS
+	Type *string `json:"type,omitempty"`
+	// Identifies the organization or entity that generated or provided the CVSS score
+	Source *string `json:"source,omitempty"`
 	CvssV2 *CVSSV2Scores `json:"cvss_v2,omitempty"`
 	CvssV3 *CVSSV3Scores `json:"cvss_v3,omitempty"`
 }
@@ -109,6 +113,70 @@ func (o *NvdDataObject) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *NvdDataObject) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NvdDataObject) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *NvdDataObject) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *NvdDataObject) SetType(v string) {
+	o.Type = &v
+}
+
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *NvdDataObject) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NvdDataObject) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *NvdDataObject) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *NvdDataObject) SetSource(v string) {
+	o.Source = &v
+}
+
 // GetCvssV2 returns the CvssV2 field value if set, zero value otherwise.
 func (o *NvdDataObject) GetCvssV2() CVSSV2Scores {
 	if o == nil || IsNil(o.CvssV2) {
@@ -188,6 +256,12 @@ func (o NvdDataObject) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
 	}
 	if !IsNil(o.CvssV2) {
 		toSerialize["cvss_v2"] = o.CvssV2
