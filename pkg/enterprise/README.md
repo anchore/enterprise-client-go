@@ -137,7 +137,7 @@ Class | Method | HTTP request | Description
 *IdentityAPI* | [**PatchApiKey**](docs/IdentityAPI.md#patchapikey) | **Patch** /user/api-keys/{key_name} | Patch a user API key
 *ImagesAPI* | [**AddImage**](docs/ImagesAPI.md#addimage) | **Post** /images | Submit a new image for analysis by the engine
 *ImagesAPI* | [**DeleteImage**](docs/ImagesAPI.md#deleteimage) | **Delete** /images/{image_digest} | Delete an image analysis
-*ImagesAPI* | [**DeleteImageStig**](docs/ImagesAPI.md#deleteimagestig) | **Delete** /images/{image_digest}/stig/{content_uuid} | Delete STIG content for an image
+*ImagesAPI* | [**DeleteImageStig**](docs/ImagesAPI.md#deleteimagestig) | **Delete** /images/{image_digest}/stig/{evaluation_uuid} | Delete a specific STIG evaluation for an image
 *ImagesAPI* | [**DeleteImagesAsync**](docs/ImagesAPI.md#deleteimagesasync) | **Delete** /images | Bulk mark images for deletion
 *ImagesAPI* | [**GetImage**](docs/ImagesAPI.md#getimage) | **Get** /images/{image_digest} | Get image metadata
 *ImagesAPI* | [**GetImageAncestors**](docs/ImagesAPI.md#getimageancestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
@@ -152,18 +152,18 @@ Class | Method | HTTP request | Description
 *ImagesAPI* | [**GetImageSbomCyclonedxJson**](docs/ImagesAPI.md#getimagesbomcyclonedxjson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
 *ImagesAPI* | [**GetImageSbomNativeJson**](docs/ImagesAPI.md#getimagesbomnativejson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
 *ImagesAPI* | [**GetImageSbomSpdxJson**](docs/ImagesAPI.md#getimagesbomspdxjson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
-*ImagesAPI* | [**GetImageStig**](docs/ImagesAPI.md#getimagestig) | **Get** /images/{image_digest}/stig/{content_uuid}/file | Get STIG content for an image
+*ImagesAPI* | [**GetImageStig**](docs/ImagesAPI.md#getimagestig) | **Get** /images/{image_digest}/stig/{evaluation_uuid}/file | Get a specific STIG evaluation for an image
 *ImagesAPI* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesAPI.md#getimagevulnerabilitiesbydigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
 *ImagesAPI* | [**GetImageVulnerabilityTypes**](docs/ImagesAPI.md#getimagevulnerabilitytypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
 *ImagesAPI* | [**ListFileContentSearchResults**](docs/ImagesAPI.md#listfilecontentsearchresults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 *ImagesAPI* | [**ListImageContent**](docs/ImagesAPI.md#listimagecontent) | **Get** /images/{image_digest}/content | List image content types
 *ImagesAPI* | [**ListImageMetadata**](docs/ImagesAPI.md#listimagemetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
-*ImagesAPI* | [**ListImageStig**](docs/ImagesAPI.md#listimagestig) | **Get** /images/{image_digest}/stig | List STIG content metadata for an image
+*ImagesAPI* | [**ListImageStig**](docs/ImagesAPI.md#listimagestig) | **Get** /images/{image_digest}/stig | List STIG evaluation metadata for an image
 *ImagesAPI* | [**ListImages**](docs/ImagesAPI.md#listimages) | **Get** /images | List all visible images
 *ImagesAPI* | [**ListRetrievedFiles**](docs/ImagesAPI.md#listretrievedfiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
 *ImagesAPI* | [**ListSecretSearchResults**](docs/ImagesAPI.md#listsecretsearchresults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
-*ImagesAPI* | [**PostImageStig**](docs/ImagesAPI.md#postimagestig) | **Post** /images/{image_digest}/stig | Upload STIG content for an image
-*ImagesAPI* | [**PutImageStig**](docs/ImagesAPI.md#putimagestig) | **Put** /images/{image_digest}/stig/{content_uuid} | Update STIG content for an image
+*ImagesAPI* | [**PostImageStig**](docs/ImagesAPI.md#postimagestig) | **Post** /images/{image_digest}/stig | Upload a STIG evaluation for an image
+*ImagesAPI* | [**PutImageStig**](docs/ImagesAPI.md#putimagestig) | **Put** /images/{image_digest}/stig/{evaluation_uuid} | Update a STIG evaluation for an image
 *ImagesAPI* | [**SummaryImageCounts**](docs/ImagesAPI.md#summaryimagecounts) | **Get** /summaries/image-counts | Image summary counts
 *ImagesAPI* | [**SummaryImageTags**](docs/ImagesAPI.md#summaryimagetags) | **Get** /summaries/image-tags | Summarize image tags
 *ImportsAPI* | [**CreateOperation**](docs/ImportsAPI.md#createoperation) | **Post** /imports/images | Begin the import of an image SBOM into the system

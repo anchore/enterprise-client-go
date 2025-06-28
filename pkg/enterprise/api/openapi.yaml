@@ -3714,7 +3714,7 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/stig/{content_uuid}/file:
+  /images/{image_digest}/stig/{evaluation_uuid}/file:
     get:
       operationId: get_image_stig
       parameters:
@@ -3727,10 +3727,10 @@ paths:
           pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: The UUID of the STIG content to retrieve
+      - description: The UUID of the STIG evaluation to retrieve
         explode: false
         in: path
-        name: content_uuid
+        name: evaluation_uuid
         required: true
         schema:
           $ref: '#/components/schemas/UUID'
@@ -3751,19 +3751,19 @@ paths:
               schema:
                 format: binary
                 type: string
-          description: STIG document retrieved
+          description: The STIG evaluation retrieved
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Get STIG content for an image
+      summary: Get a specific STIG evaluation for an image
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
       x-anchore-authz-action: getImage
-  /images/{image_digest}/stig/{content_uuid}:
+  /images/{image_digest}/stig/{evaluation_uuid}:
     delete:
       operationId: delete_image_stig
       parameters:
@@ -3776,10 +3776,10 @@ paths:
           pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: The UUID of the STIG content to retrieve
+      - description: The UUID of the STIG evaluation to delete
         explode: false
         in: path
-        name: content_uuid
+        name: evaluation_uuid
         required: true
         schema:
           $ref: '#/components/schemas/UUID'
@@ -3795,14 +3795,14 @@ paths:
         style: simple
       responses:
         "204":
-          description: STIG document deleted
+          description: STIG evaluation deleted
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Delete STIG content for an image
+      summary: Delete a specific STIG evaluation for an image
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
@@ -3819,10 +3819,10 @@ paths:
           pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: The UUID of the STIG content to retrieve
+      - description: The UUID of the STIG evaluation to update
         explode: false
         in: path
-        name: content_uuid
+        name: evaluation_uuid
         required: true
         schema:
           $ref: '#/components/schemas/UUID'
@@ -3852,14 +3852,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/STIGMetadataResponse'
-          description: STIG document uploaded
+          description: Metadata of the STIG evaluation for the image
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Update STIG content for an image
+      summary: Update a STIG evaluation for an image
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
@@ -3892,14 +3892,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/STIGMetadataResponseList'
-          description: Retrieved list of metadata for STIG content
+          description: List of STIG evaluation metadata for the image
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: List STIG content metadata for an image
+      summary: List STIG evaluation metadata for an image
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
@@ -3941,14 +3941,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/STIGMetadataResponse'
-          description: STIG document uploaded
+          description: Metadata of the STIG evaluation for the image
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Upload STIG content for an image
+      summary: Upload a STIG evaluation for an image
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
@@ -7753,7 +7753,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.policies
       x-anchore-authz-action: deletePolicy
     get:
-      description: Get the policy content
+      description: Get the policy metadata and document for a specific policy
       operationId: get_policy
       parameters:
       - explode: false
@@ -7764,8 +7764,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: Include policy detail in the form of the full policy content
-          for each entry
+      - description: "Setting this to false, will return only the policy metadata.\
+          \ Otherwise, this call will always return both the policy metadata and document."
         explode: true
         in: query
         name: detail
@@ -7952,7 +7952,9 @@ paths:
         schema:
           type: string
         style: form
-      - description: Filter results by specified package version (e.g. 4.4-1)
+      - deprecated: true
+        description: Filter results by specified package version (e.g. 4.4-1) (This
+          options is deprecated and will be removed in a future release)
         explode: true
         in: query
         name: affected_package_version
@@ -10455,6 +10457,7 @@ paths:
           - kev_db
           - clamav_db
           - epss_db
+          - vulnerability_match_exclusions_db
           type: string
         style: simple
       - description: The version of the feed to query
@@ -15655,6 +15658,8 @@ components:
             exploitability_score: 6.027456183070403
           description: description
           id: id
+          source: source
+          type: Primary
         - cvss_v3:
             base_score: 5.962133916683182
             impact_score: 2.3021358869347655
@@ -15665,6 +15670,8 @@ components:
             exploitability_score: 6.027456183070403
           description: description
           id: id
+          source: source
+          type: Primary
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -15675,6 +15682,8 @@ components:
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
           id: id
+          source: source
+          type: Primary
         - cvss_v3:
             base_score: 5.962133916683182
             impact_score: 2.3021358869347655
@@ -15684,6 +15693,8 @@ components:
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
           id: id
+          source: source
+          type: Primary
         description: description
         package_type: package_type
         package_cpe: package_cpe
@@ -15722,6 +15733,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -15732,6 +15745,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -15742,6 +15757,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -15751,6 +15768,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           description: description
           package_type: package_type
           package_cpe: package_cpe
@@ -15779,6 +15798,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -15789,6 +15810,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -15799,6 +15822,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -15808,6 +15833,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           description: description
           package_type: package_type
           package_cpe: package_cpe
@@ -19078,12 +19105,25 @@ components:
           exploitability_score: 6.027456183070403
         description: description
         id: id
+        source: source
+        type: Primary
       properties:
         id:
           description: NVD Vulnerability ID
           type: string
         description:
           description: The full NVD description text for the vulnerability
+          type: string
+        type:
+          description: Indicates the classification of the CVSS
+          enum:
+          - Primary
+          - Secondary
+          - None
+          type: string
+        source:
+          description: Identifies the organization or entity that generated or provided
+            the CVSS score
           type: string
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
@@ -19363,6 +19403,8 @@ components:
                 exploitability_score: 6.027456183070403
               description: description
               id: id
+              source: source
+              type: Primary
             - cvss_v3:
                 base_score: 5.962133916683182
                 impact_score: 2.3021358869347655
@@ -19373,6 +19415,8 @@ components:
                 exploitability_score: 6.027456183070403
               description: description
               id: id
+              source: source
+              type: Primary
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -19383,6 +19427,8 @@ components:
                 impact_score: 1.4658129805029452
                 exploitability_score: 6.027456183070403
               id: id
+              source: source
+              type: Primary
             - cvss_v3:
                 base_score: 5.962133916683182
                 impact_score: 2.3021358869347655
@@ -19392,6 +19438,8 @@ components:
                 impact_score: 1.4658129805029452
                 exploitability_score: 6.027456183070403
               id: id
+              source: source
+              type: Primary
             description: description
             package_type: package_type
             package_cpe: package_cpe
@@ -19419,6 +19467,8 @@ components:
                 exploitability_score: 6.027456183070403
               description: description
               id: id
+              source: source
+              type: Primary
             - cvss_v3:
                 base_score: 5.962133916683182
                 impact_score: 2.3021358869347655
@@ -19429,6 +19479,8 @@ components:
                 exploitability_score: 6.027456183070403
               description: description
               id: id
+              source: source
+              type: Primary
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -19439,6 +19491,8 @@ components:
                 impact_score: 1.4658129805029452
                 exploitability_score: 6.027456183070403
               id: id
+              source: source
+              type: Primary
             - cvss_v3:
                 base_score: 5.962133916683182
                 impact_score: 2.3021358869347655
@@ -19448,6 +19502,8 @@ components:
                 impact_score: 1.4658129805029452
                 exploitability_score: 6.027456183070403
               id: id
+              source: source
+              type: Primary
             description: description
             package_type: package_type
             package_cpe: package_cpe
@@ -20183,6 +20239,8 @@ components:
             exploitability_score: 6.027456183070403
           description: description
           id: id
+          source: source
+          type: Primary
         - cvss_v3:
             base_score: 5.962133916683182
             impact_score: 2.3021358869347655
@@ -20193,6 +20251,8 @@ components:
             exploitability_score: 6.027456183070403
           description: description
           id: id
+          source: source
+          type: Primary
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -20203,6 +20263,8 @@ components:
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
           id: id
+          source: source
+          type: Primary
         - cvss_v3:
             base_score: 5.962133916683182
             impact_score: 2.3021358869347655
@@ -20212,6 +20274,8 @@ components:
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
           id: id
+          source: source
+          type: Primary
         description: description
         package_type: package_type
         package_cpe: package_cpe
@@ -20381,6 +20445,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -20391,6 +20457,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           references:
           - source: source
             url: url
@@ -20412,6 +20480,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -20421,6 +20491,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           namespace: namespace
           link: link
           description: description
@@ -20446,6 +20518,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -20456,6 +20530,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           references:
           - source: source
             url: url
@@ -20477,6 +20553,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -20486,6 +20564,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           namespace: namespace
           link: link
           description: description
@@ -23207,6 +23287,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23217,6 +23299,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -23227,6 +23311,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23236,6 +23322,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           description: description
           package_type: package_type
           package_cpe: package_cpe
@@ -23263,6 +23351,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23273,6 +23363,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -23283,6 +23375,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23292,6 +23386,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           description: description
           package_type: package_type
           package_cpe: package_cpe
@@ -23813,6 +23909,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23823,6 +23921,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -23833,6 +23933,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23842,6 +23944,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           description: description
           package_type: package_type
           package_cpe: package_cpe
@@ -23869,6 +23973,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23879,6 +23985,8 @@ components:
               exploitability_score: 6.027456183070403
             description: description
             id: id
+            source: source
+            type: Primary
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -23889,6 +23997,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           - cvss_v3:
               base_score: 5.962133916683182
               impact_score: 2.3021358869347655
@@ -23898,6 +24008,8 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+            source: source
+            type: Primary
           description: description
           package_type: package_type
           package_cpe: package_cpe
@@ -24334,6 +24446,8 @@ components:
             exploitability_score: 6.027456183070403
           description: description
           id: id
+          source: source
+          type: Primary
         - cvss_v3:
             base_score: 5.962133916683182
             impact_score: 2.3021358869347655
@@ -24344,6 +24458,8 @@ components:
             exploitability_score: 6.027456183070403
           description: description
           id: id
+          source: source
+          type: Primary
         references:
         - source: source
           url: url
@@ -24365,6 +24481,8 @@ components:
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
           id: id
+          source: source
+          type: Primary
         - cvss_v3:
             base_score: 5.962133916683182
             impact_score: 2.3021358869347655
@@ -24374,6 +24492,8 @@ components:
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
           id: id
+          source: source
+          type: Primary
         namespace: namespace
         link: link
         description: description
@@ -25606,9 +25726,22 @@ components:
           impact_score: 1.4658129805029452
           exploitability_score: 6.027456183070403
         id: id
+        source: source
+        type: Primary
       properties:
         id:
           description: Vendor Vulnerability ID
+          type: string
+        type:
+          description: Indicates the classification of the CVSS
+          enum:
+          - Primary
+          - Secondary
+          - None
+          type: string
+        source:
+          description: Identifies the organization or entity that generated or provided
+            the CVSS score
           type: string
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
@@ -25927,10 +26060,10 @@ components:
     put_image_stig_request:
       properties:
         stig_profile:
-          description: The name of the STIG profile that produced this result
+          description: The name of the STIG profile that produced this evaluation
           type: string
         file:
-          description: A valid STIG result file in HDF JSON format
+          description: A valid STIG evaluation file in HDF JSON format
           format: binary
           type: string
       type: object
@@ -25940,7 +26073,7 @@ components:
           description: The name of the STIG profile that produced this result
           type: string
         file:
-          description: A valid STIG result file in XML or JSON format
+          description: A valid STIG evaluation file in HDF JSON format
           format: binary
           type: string
       type: object

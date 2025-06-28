@@ -108,7 +108,7 @@ import (
 func main() {
 	id := []string{"Inner_example"} // []string | The ID of the vulnerability (e.g. CVE-1999-0001)
 	affectedPackage := "affectedPackage_example" // string | Filter results by specified package name (e.g. sed) (optional)
-	affectedPackageVersion := "affectedPackageVersion_example" // string | Filter results by specified package version (e.g. 4.4-1) (optional)
+	affectedPackageVersion := "affectedPackageVersion_example" // string | Filter results by specified package version (e.g. 4.4-1) (This options is deprecated and will be removed in a future release) (optional)
 	page := "page_example" // string | The page of results to fetch. Pages start at 1 (optional) (default to "1")
 	limit := int32(56) // int32 | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page (optional)
 	namespace := []string{"Inner_example"} // []string | Namespace(s) to filter vulnerability records by (optional)
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **[]string** | The ID of the vulnerability (e.g. CVE-1999-0001) | 
  **affectedPackage** | **string** | Filter results by specified package name (e.g. sed) | 
- **affectedPackageVersion** | **string** | Filter results by specified package version (e.g. 4.4-1) | 
+ **affectedPackageVersion** | **string** | Filter results by specified package version (e.g. 4.4-1) (This options is deprecated and will be removed in a future release) | 
  **page** | **string** | The page of results to fetch. Pages start at 1 | [default to &quot;1&quot;]
  **limit** | **int32** | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page | 
  **namespace** | **[]string** | Namespace(s) to filter vulnerability records by | 

@@ -5,6 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | Vendor Vulnerability ID | [optional] 
+**Type** | Pointer to **string** | Indicates the classification of the CVSS | [optional] 
+**Source** | Pointer to **string** | Identifies the organization or entity that generated or provided the CVSS score | [optional] 
 **CvssV2** | Pointer to [**CVSSV2Scores**](CVSSV2Scores.md) |  | [optional] 
 **CvssV3** | Pointer to [**CVSSV3Scores**](CVSSV3Scores.md) |  | [optional] 
 
@@ -51,6 +53,56 @@ SetId sets Id field to given value.
 `func (o *VendorDataObject) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *VendorDataObject) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *VendorDataObject) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *VendorDataObject) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *VendorDataObject) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *VendorDataObject) GetSource() string`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *VendorDataObject) GetSourceOk() (*string, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *VendorDataObject) SetSource(v string)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *VendorDataObject) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
 
 ### GetCvssV2
 
