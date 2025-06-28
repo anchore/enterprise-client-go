@@ -54,7 +54,7 @@ type PoliciesAPI interface {
 	/*
 	GetPolicy Get specific policy
 
-	Get the policy metadata and document for a specific policy
+	Get the policy content
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param policyId
@@ -371,7 +371,7 @@ type ApiGetPolicyRequest struct {
 	xAnchoreAccount *string
 }
 
-// Setting this to false, will return only the policy metadata. Otherwise, this call will always return both the policy metadata and document.
+// Include policy detail in the form of the full policy content for each entry
 func (r ApiGetPolicyRequest) Detail(detail bool) ApiGetPolicyRequest {
 	r.detail = &detail
 	return r
@@ -390,7 +390,7 @@ func (r ApiGetPolicyRequest) Execute() (*PolicyRecord, *http.Response, error) {
 /*
 GetPolicy Get specific policy
 
-Get the policy metadata and document for a specific policy
+Get the policy content
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param policyId

@@ -6946,7 +6946,7 @@ paths:
       tags:
       - Policies
       summary: Get specific policy
-      description: Get the policy metadata and document for a specific policy
+      description: Get the policy content
       operationId: get_policy
       parameters:
       - name: policy_id
@@ -6957,8 +6957,8 @@ paths:
           format: path
       - name: detail
         in: query
-        description: Setting this to false, will return only the policy metadata.  
-          Otherwise, this call will always return both the policy metadata and document.
+        description: Include policy detail in the form of the full policy content
+          for each entry
         schema:
           type: boolean
       - name: x-anchore-account
@@ -7148,10 +7148,9 @@ paths:
           type: string
       - name: affected_package_version
         in: query
-        description: Filter results by specified package version (e.g. 4.4-1) (This options is deprecated and will be removed in a future release)
+        description: Filter results by specified package version (e.g. 4.4-1)
         schema:
           type: string
-        deprecated: true
       - name: page
         in: query
         description: The page of results to fetch. Pages start at 1
@@ -9400,7 +9399,6 @@ paths:
               - kev_db
               - clamav_db
               - epss_db
-              - vulnerability_match_exclusions_db
         - name: version
           in: query
           description: The version of the feed to query
@@ -14838,16 +14836,6 @@ components:
         description:
           description: The full NVD description text for the vulnerability
           type: string
-        type:
-          type: string
-          description: Indicates the classification of the CVSS
-          enum:
-            - Primary
-            - Secondary
-            - None
-        source:
-            description: Identifies the organization or entity that generated or provided the CVSS score
-            type: string
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
         cvss_v3:
@@ -17526,16 +17514,6 @@ components:
         id:
           type: string
           description: Vendor Vulnerability ID
-        type:
-          type: string
-          description: Indicates the classification of the CVSS
-          enum:
-            - Primary
-            - Secondary
-            - None
-        source:
-          description: Identifies the organization or entity that generated or provided the CVSS score
-          type: string
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
         cvss_v3:

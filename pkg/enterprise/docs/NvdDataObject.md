@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | NVD Vulnerability ID | [optional] 
 **Description** | Pointer to **string** | The full NVD description text for the vulnerability | [optional] 
-**Type** | Pointer to **string** | Indicates the classification of the CVSS | [optional] 
-**Source** | Pointer to **string** | Identifies the organization or entity that generated or provided the CVSS score | [optional] 
 **CvssV2** | Pointer to [**CVSSV2Scores**](CVSSV2Scores.md) |  | [optional] 
 **CvssV3** | Pointer to [**CVSSV3Scores**](CVSSV3Scores.md) |  | [optional] 
 
@@ -79,56 +77,6 @@ SetDescription sets Description field to given value.
 `func (o *NvdDataObject) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
-
-### GetType
-
-`func (o *NvdDataObject) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *NvdDataObject) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *NvdDataObject) SetType(v string)`
-
-SetType sets Type field to given value.
-
-### HasType
-
-`func (o *NvdDataObject) HasType() bool`
-
-HasType returns a boolean if a field has been set.
-
-### GetSource
-
-`func (o *NvdDataObject) GetSource() string`
-
-GetSource returns the Source field if non-nil, zero value otherwise.
-
-### GetSourceOk
-
-`func (o *NvdDataObject) GetSourceOk() (*string, bool)`
-
-GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSource
-
-`func (o *NvdDataObject) SetSource(v string)`
-
-SetSource sets Source field to given value.
-
-### HasSource
-
-`func (o *NvdDataObject) HasSource() bool`
-
-HasSource returns a boolean if a field has been set.
 
 ### GetCvssV2
 

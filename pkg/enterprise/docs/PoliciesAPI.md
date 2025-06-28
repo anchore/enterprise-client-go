@@ -172,7 +172,7 @@ import (
 
 func main() {
 	policyId := "policyId_example" // string | 
-	detail := true // bool | Setting this to false, will return only the policy metadata. Otherwise, this call will always return both the policy metadata and document. (optional)
+	detail := true // bool | Include policy detail in the form of the full policy content for each entry (optional)
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a apiGetPolicyRequest struct vi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **detail** | **bool** | Setting this to false, will return only the policy metadata. Otherwise, this call will always return both the policy metadata and document. | 
+ **detail** | **bool** | Include policy detail in the form of the full policy content for each entry | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
