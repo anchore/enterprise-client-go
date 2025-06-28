@@ -247,7 +247,8 @@ func (r ApiQueryVulnerabilitiesRequest) AffectedPackage(affectedPackage string) 
 	return r
 }
 
-// Filter results by specified package version (e.g. 4.4-1)
+// Filter results by specified package version (e.g. 4.4-1) (This options is deprecated and will be removed in a future release)
+// Deprecated
 func (r ApiQueryVulnerabilitiesRequest) AffectedPackageVersion(affectedPackageVersion string) ApiQueryVulnerabilitiesRequest {
 	r.affectedPackageVersion = &affectedPackageVersion
 	return r

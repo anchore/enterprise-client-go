@@ -3248,11 +3248,11 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/stig/{content_uuid}/file:
+  /images/{image_digest}/stig/{evaluation_uuid}/file:
     get:
       tags:
         - Images
-      summary: Get STIG content for an image
+      summary: Get a specific STIG evaluation for an image
       operationId: get_image_stig
       parameters:
       - name: image_digest
@@ -3262,8 +3262,8 @@ paths:
           pattern: ^sha256:[a-fA-F0-9]{64}$
           type: string
           format: path
-      - name: content_uuid
-        description: The UUID of the STIG content to retrieve
+      - name: evaluation_uuid
+        description: The UUID of the STIG evaluation to retrieve
         in: path
         required: true
         schema:
@@ -3276,7 +3276,7 @@ paths:
           type: string
       responses:
         200:
-          description: STIG document retrieved
+          description: The STIG evaluation retrieved
           content:
             application/json:
               schema:
@@ -3290,11 +3290,11 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
       x-anchore-authz-action: getImage
-  /images/{image_digest}/stig/{content_uuid}:
+  /images/{image_digest}/stig/{evaluation_uuid}:
     put:
       tags:
         - Images
-      summary: Update STIG content for an image
+      summary: Update a STIG evaluation for an image
       operationId: put_image_stig
       parameters:
       - name: image_digest
@@ -3304,8 +3304,8 @@ paths:
           pattern: ^sha256:[a-fA-F0-9]{64}$
           type: string
           format: path
-      - name: content_uuid
-        description: The UUID of the STIG content to retrieve
+      - name: evaluation_uuid
+        description: The UUID of the STIG evaluation to update
         in: path
         required: true
         schema:
@@ -3324,18 +3324,18 @@ paths:
                 properties:
                   stig_profile:
                     type: string
-                    description: The name of the STIG profile that produced this result
+                    description: The name of the STIG profile that produced this evaluation
                   file:
                     type: string
                     format: binary
-                    description: A valid STIG result file in HDF JSON format
+                    description: A valid STIG evaluation file in HDF JSON format
               encoding:
                 file:
                   contentType: application/json
         required: true
       responses:
         201:
-          description: STIG document uploaded
+          description: Metadata of the STIG evaluation for the image
           content:
             application/json:
               schema:
@@ -3351,7 +3351,7 @@ paths:
     delete:
       tags:
         - Images
-      summary: Delete STIG content for an image
+      summary: Delete a specific STIG evaluation for an image
       operationId: delete_image_stig
       parameters:
       - name: image_digest
@@ -3361,8 +3361,8 @@ paths:
           pattern: ^sha256:[a-fA-F0-9]{64}$
           type: string
           format: path
-      - name: content_uuid
-        description: The UUID of the STIG content to retrieve
+      - name: evaluation_uuid
+        description: The UUID of the STIG evaluation to delete
         in: path
         required: true
         schema:
@@ -3375,7 +3375,7 @@ paths:
           type: string
       responses:
         204:
-          description: STIG document deleted
+          description: STIG evaluation deleted
         500:
           description: Internal error
           content:
@@ -3388,7 +3388,7 @@ paths:
     get:
       tags:
         - Images
-      summary: List STIG content metadata for an image
+      summary: List STIG evaluation metadata for an image
       operationId: list_image_stig
       parameters:
       - name: image_digest
@@ -3406,7 +3406,7 @@ paths:
           type: string
       responses:
         200:
-          description: Retrieved list of metadata for STIG content
+          description: List of STIG evaluation metadata for the image
           content:
             application/json:
               schema:
@@ -3422,7 +3422,7 @@ paths:
     post:
       tags:
         - Images
-      summary: Upload STIG content for an image
+      summary: Upload a STIG evaluation for an image
       operationId: post_image_stig
       parameters:
       - name: image_digest
@@ -3450,14 +3450,14 @@ paths:
                   file:
                     type: string
                     format: binary
-                    description: A valid STIG result file in XML or JSON format
+                    description: A valid STIG evaluation file in HDF JSON format
               encoding:
                 file:
                   contentType: application/json
         required: true
       responses:
         201:
-          description: STIG document uploaded
+          description: Metadata of the STIG evaluation for the image
           content:
             application/json:
               schema:
@@ -6946,7 +6946,7 @@ paths:
       tags:
       - Policies
       summary: Get specific policy
-      description: Get the policy content
+      description: Get the policy metadata and document for a specific policy
       operationId: get_policy
       parameters:
       - name: policy_id
@@ -6957,8 +6957,8 @@ paths:
           format: path
       - name: detail
         in: query
-        description: Include policy detail in the form of the full policy content
-          for each entry
+        description: Setting this to false, will return only the policy metadata.  
+          Otherwise, this call will always return both the policy metadata and document.
         schema:
           type: boolean
       - name: x-anchore-account
@@ -7148,9 +7148,10 @@ paths:
           type: string
       - name: affected_package_version
         in: query
-        description: Filter results by specified package version (e.g. 4.4-1)
+        description: Filter results by specified package version (e.g. 4.4-1) (This options is deprecated and will be removed in a future release)
         schema:
           type: string
+        deprecated: true
       - name: page
         in: query
         description: The page of results to fetch. Pages start at 1
@@ -9399,6 +9400,7 @@ paths:
               - kev_db
               - clamav_db
               - epss_db
+              - vulnerability_match_exclusions_db
         - name: version
           in: query
           description: The version of the feed to query

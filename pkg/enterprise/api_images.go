@@ -52,14 +52,14 @@ type ImagesAPI interface {
 	DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteImageResponse, *http.Response, error)
 
 	/*
-	DeleteImageStig Delete STIG content for an image
+	DeleteImageStig Delete a specific STIG evaluation for an image
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param imageDigest
-	@param contentUuid The UUID of the STIG content to retrieve
+	@param evaluationUuid The UUID of the STIG evaluation to delete
 	@return ApiDeleteImageStigRequest
 	*/
-	DeleteImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiDeleteImageStigRequest
+	DeleteImageStig(ctx context.Context, imageDigest string, evaluationUuid string) ApiDeleteImageStigRequest
 
 	// DeleteImageStigExecute executes the request
 	DeleteImageStigExecute(r ApiDeleteImageStigRequest) (*http.Response, error)
@@ -256,14 +256,14 @@ type ImagesAPI interface {
 	GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJsonRequest) (string, *http.Response, error)
 
 	/*
-	GetImageStig Get STIG content for an image
+	GetImageStig Get a specific STIG evaluation for an image
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param imageDigest
-	@param contentUuid The UUID of the STIG content to retrieve
+	@param evaluationUuid The UUID of the STIG evaluation to retrieve
 	@return ApiGetImageStigRequest
 	*/
-	GetImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiGetImageStigRequest
+	GetImageStig(ctx context.Context, imageDigest string, evaluationUuid string) ApiGetImageStigRequest
 
 	// GetImageStigExecute executes the request
 	//  @return *os.File
@@ -336,7 +336,7 @@ type ImagesAPI interface {
 	ListImageMetadataExecute(r ApiListImageMetadataRequest) ([]string, *http.Response, error)
 
 	/*
-	ListImageStig List STIG content metadata for an image
+	ListImageStig List STIG evaluation metadata for an image
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param imageDigest
@@ -389,7 +389,7 @@ type ImagesAPI interface {
 	ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error)
 
 	/*
-	PostImageStig Upload STIG content for an image
+	PostImageStig Upload a STIG evaluation for an image
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param imageDigest
@@ -402,14 +402,14 @@ type ImagesAPI interface {
 	PostImageStigExecute(r ApiPostImageStigRequest) (*STIGMetadataResponse, *http.Response, error)
 
 	/*
-	PutImageStig Update STIG content for an image
+	PutImageStig Update a STIG evaluation for an image
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param imageDigest
-	@param contentUuid The UUID of the STIG content to retrieve
+	@param evaluationUuid The UUID of the STIG evaluation to update
 	@return ApiPutImageStigRequest
 	*/
-	PutImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiPutImageStigRequest
+	PutImageStig(ctx context.Context, imageDigest string, evaluationUuid string) ApiPutImageStigRequest
 
 	// PutImageStigExecute executes the request
 	//  @return STIGMetadataResponse
@@ -753,7 +753,7 @@ type ApiDeleteImageStigRequest struct {
 	ctx context.Context
 	ApiService ImagesAPI
 	imageDigest string
-	contentUuid string
+	evaluationUuid string
 	xAnchoreAccount *string
 }
 
@@ -768,19 +768,19 @@ func (r ApiDeleteImageStigRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteImageStig Delete STIG content for an image
+DeleteImageStig Delete a specific STIG evaluation for an image
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @param contentUuid The UUID of the STIG content to retrieve
+ @param evaluationUuid The UUID of the STIG evaluation to delete
  @return ApiDeleteImageStigRequest
 */
-func (a *ImagesAPIService) DeleteImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiDeleteImageStigRequest {
+func (a *ImagesAPIService) DeleteImageStig(ctx context.Context, imageDigest string, evaluationUuid string) ApiDeleteImageStigRequest {
 	return ApiDeleteImageStigRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
-		contentUuid: contentUuid,
+		evaluationUuid: evaluationUuid,
 	}
 }
 
@@ -797,18 +797,18 @@ func (a *ImagesAPIService) DeleteImageStigExecute(r ApiDeleteImageStigRequest) (
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/stig/{content_uuid}"
+	localVarPath := localBasePath + "/images/{image_digest}/stig/{evaluation_uuid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"content_uuid"+"}", url.PathEscape(parameterValueToString(r.contentUuid, "contentUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"evaluation_uuid"+"}", url.PathEscape(parameterValueToString(r.evaluationUuid, "evaluationUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if strlen(r.contentUuid) < 36 {
-		return nil, reportError("contentUuid must have at least 36 elements")
+	if strlen(r.evaluationUuid) < 36 {
+		return nil, reportError("evaluationUuid must have at least 36 elements")
 	}
-	if strlen(r.contentUuid) > 36 {
-		return nil, reportError("contentUuid must have less than 36 elements")
+	if strlen(r.evaluationUuid) > 36 {
+		return nil, reportError("evaluationUuid must have less than 36 elements")
 	}
 
 	// to determine the Content-Type header
@@ -2654,7 +2654,7 @@ type ApiGetImageStigRequest struct {
 	ctx context.Context
 	ApiService ImagesAPI
 	imageDigest string
-	contentUuid string
+	evaluationUuid string
 	xAnchoreAccount *string
 }
 
@@ -2669,19 +2669,19 @@ func (r ApiGetImageStigRequest) Execute() (*os.File, *http.Response, error) {
 }
 
 /*
-GetImageStig Get STIG content for an image
+GetImageStig Get a specific STIG evaluation for an image
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @param contentUuid The UUID of the STIG content to retrieve
+ @param evaluationUuid The UUID of the STIG evaluation to retrieve
  @return ApiGetImageStigRequest
 */
-func (a *ImagesAPIService) GetImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiGetImageStigRequest {
+func (a *ImagesAPIService) GetImageStig(ctx context.Context, imageDigest string, evaluationUuid string) ApiGetImageStigRequest {
 	return ApiGetImageStigRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
-		contentUuid: contentUuid,
+		evaluationUuid: evaluationUuid,
 	}
 }
 
@@ -2700,18 +2700,18 @@ func (a *ImagesAPIService) GetImageStigExecute(r ApiGetImageStigRequest) (*os.Fi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/stig/{content_uuid}/file"
+	localVarPath := localBasePath + "/images/{image_digest}/stig/{evaluation_uuid}/file"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"content_uuid"+"}", url.PathEscape(parameterValueToString(r.contentUuid, "contentUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"evaluation_uuid"+"}", url.PathEscape(parameterValueToString(r.evaluationUuid, "evaluationUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if strlen(r.contentUuid) < 36 {
-		return localVarReturnValue, nil, reportError("contentUuid must have at least 36 elements")
+	if strlen(r.evaluationUuid) < 36 {
+		return localVarReturnValue, nil, reportError("evaluationUuid must have at least 36 elements")
 	}
-	if strlen(r.contentUuid) > 36 {
-		return localVarReturnValue, nil, reportError("contentUuid must have less than 36 elements")
+	if strlen(r.evaluationUuid) > 36 {
+		return localVarReturnValue, nil, reportError("evaluationUuid must have less than 36 elements")
 	}
 
 	// to determine the Content-Type header
@@ -3435,7 +3435,7 @@ func (r ApiListImageStigRequest) Execute() (*STIGMetadataResponseList, *http.Res
 }
 
 /*
-ListImageStig List STIG content metadata for an image
+ListImageStig List STIG evaluation metadata for an image
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
@@ -3943,7 +3943,7 @@ func (r ApiPostImageStigRequest) StigProfile(stigProfile string) ApiPostImageSti
 	return r
 }
 
-// A valid STIG result file in XML or JSON format
+// A valid STIG evaluation file in HDF JSON format
 func (r ApiPostImageStigRequest) File(file *os.File) ApiPostImageStigRequest {
 	r.file = file
 	return r
@@ -3954,7 +3954,7 @@ func (r ApiPostImageStigRequest) Execute() (*STIGMetadataResponse, *http.Respons
 }
 
 /*
-PostImageStig Upload STIG content for an image
+PostImageStig Upload a STIG evaluation for an image
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
@@ -4079,7 +4079,7 @@ type ApiPutImageStigRequest struct {
 	ctx context.Context
 	ApiService ImagesAPI
 	imageDigest string
-	contentUuid string
+	evaluationUuid string
 	xAnchoreAccount *string
 	stigProfile *string
 	file *os.File
@@ -4091,13 +4091,13 @@ func (r ApiPutImageStigRequest) XAnchoreAccount(xAnchoreAccount string) ApiPutIm
 	return r
 }
 
-// The name of the STIG profile that produced this result
+// The name of the STIG profile that produced this evaluation
 func (r ApiPutImageStigRequest) StigProfile(stigProfile string) ApiPutImageStigRequest {
 	r.stigProfile = &stigProfile
 	return r
 }
 
-// A valid STIG result file in HDF JSON format
+// A valid STIG evaluation file in HDF JSON format
 func (r ApiPutImageStigRequest) File(file *os.File) ApiPutImageStigRequest {
 	r.file = file
 	return r
@@ -4108,19 +4108,19 @@ func (r ApiPutImageStigRequest) Execute() (*STIGMetadataResponse, *http.Response
 }
 
 /*
-PutImageStig Update STIG content for an image
+PutImageStig Update a STIG evaluation for an image
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @param contentUuid The UUID of the STIG content to retrieve
+ @param evaluationUuid The UUID of the STIG evaluation to update
  @return ApiPutImageStigRequest
 */
-func (a *ImagesAPIService) PutImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiPutImageStigRequest {
+func (a *ImagesAPIService) PutImageStig(ctx context.Context, imageDigest string, evaluationUuid string) ApiPutImageStigRequest {
 	return ApiPutImageStigRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
-		contentUuid: contentUuid,
+		evaluationUuid: evaluationUuid,
 	}
 }
 
@@ -4139,18 +4139,18 @@ func (a *ImagesAPIService) PutImageStigExecute(r ApiPutImageStigRequest) (*STIGM
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/stig/{content_uuid}"
+	localVarPath := localBasePath + "/images/{image_digest}/stig/{evaluation_uuid}"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"content_uuid"+"}", url.PathEscape(parameterValueToString(r.contentUuid, "contentUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"evaluation_uuid"+"}", url.PathEscape(parameterValueToString(r.evaluationUuid, "evaluationUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if strlen(r.contentUuid) < 36 {
-		return localVarReturnValue, nil, reportError("contentUuid must have at least 36 elements")
+	if strlen(r.evaluationUuid) < 36 {
+		return localVarReturnValue, nil, reportError("evaluationUuid must have at least 36 elements")
 	}
-	if strlen(r.contentUuid) > 36 {
-		return localVarReturnValue, nil, reportError("contentUuid must have less than 36 elements")
+	if strlen(r.evaluationUuid) > 36 {
+		return localVarReturnValue, nil, reportError("evaluationUuid must have less than 36 elements")
 	}
 
 	// to determine the Content-Type header

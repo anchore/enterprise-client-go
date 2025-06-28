@@ -53,9 +53,9 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		var imageDigest string
-		var contentUuid string
+		var evaluationUuid string
 
-		httpRes, err := apiClient.ImagesAPI.DeleteImageStig(context.Background(), imageDigest, contentUuid).Execute()
+		httpRes, err := apiClient.ImagesAPI.DeleteImageStig(context.Background(), imageDigest, evaluationUuid).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -263,9 +263,9 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		var imageDigest string
-		var contentUuid string
+		var evaluationUuid string
 
-		resp, httpRes, err := apiClient.ImagesAPI.GetImageStig(context.Background(), imageDigest, contentUuid).Execute()
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageStig(context.Background(), imageDigest, evaluationUuid).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -417,9 +417,9 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		var imageDigest string
-		var contentUuid string
+		var evaluationUuid string
 
-		resp, httpRes, err := apiClient.ImagesAPI.PutImageStig(context.Background(), imageDigest, contentUuid).Execute()
+		resp, httpRes, err := apiClient.ImagesAPI.PutImageStig(context.Background(), imageDigest, evaluationUuid).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
