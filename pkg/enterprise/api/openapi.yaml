@@ -26004,12 +26004,12 @@ components:
       type: object
     STIGMetadataResponse:
       example:
-        content_uuid: content_uuid
         uploaded_at: 2000-01-23T04:56:07.000+00:00
+        evaluation_uuid: evaluation_uuid
         stig_profile: stig_profile
         document_type: hdfjson
       properties:
-        content_uuid:
+        evaluation_uuid:
           maxLength: 36
           minLength: 36
           pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
@@ -26029,12 +26029,12 @@ components:
     STIGMetadataResponseList:
       example:
         items:
-        - content_uuid: content_uuid
-          uploaded_at: 2000-01-23T04:56:07.000+00:00
+        - uploaded_at: 2000-01-23T04:56:07.000+00:00
+          evaluation_uuid: evaluation_uuid
           stig_profile: stig_profile
           document_type: hdfjson
-        - content_uuid: content_uuid
-          uploaded_at: 2000-01-23T04:56:07.000+00:00
+        - uploaded_at: 2000-01-23T04:56:07.000+00:00
+          evaluation_uuid: evaluation_uuid
           stig_profile: stig_profile
           document_type: hdfjson
       properties:

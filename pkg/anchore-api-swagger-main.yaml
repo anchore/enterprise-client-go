@@ -17706,7 +17706,7 @@ components:
     STIGMetadataResponse:
       type: object
       properties:
-        content_uuid:
+        evaluation_uuid:
           $ref: "#/components/schemas/UUID"
         uploaded_at:
           type: string

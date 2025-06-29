@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ContentUuid** | Pointer to **string** |  | [optional] 
+**EvaluationUuid** | Pointer to **string** |  | [optional] 
 **UploadedAt** | Pointer to **time.Time** |  | [optional] 
 **StigProfile** | Pointer to **string** | The name of the STIG profile that produced this result | [optional] 
 **DocumentType** | Pointer to **string** | The format of the STIG content | [optional] 
@@ -28,30 +28,30 @@ NewSTIGMetadataResponseWithDefaults instantiates a new STIGMetadataResponse obje
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetContentUuid
+### GetEvaluationUuid
 
-`func (o *STIGMetadataResponse) GetContentUuid() string`
+`func (o *STIGMetadataResponse) GetEvaluationUuid() string`
 
-GetContentUuid returns the ContentUuid field if non-nil, zero value otherwise.
+GetEvaluationUuid returns the EvaluationUuid field if non-nil, zero value otherwise.
 
-### GetContentUuidOk
+### GetEvaluationUuidOk
 
-`func (o *STIGMetadataResponse) GetContentUuidOk() (*string, bool)`
+`func (o *STIGMetadataResponse) GetEvaluationUuidOk() (*string, bool)`
 
-GetContentUuidOk returns a tuple with the ContentUuid field if it's non-nil, zero value otherwise
+GetEvaluationUuidOk returns a tuple with the EvaluationUuid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContentUuid
+### SetEvaluationUuid
 
-`func (o *STIGMetadataResponse) SetContentUuid(v string)`
+`func (o *STIGMetadataResponse) SetEvaluationUuid(v string)`
 
-SetContentUuid sets ContentUuid field to given value.
+SetEvaluationUuid sets EvaluationUuid field to given value.
 
-### HasContentUuid
+### HasEvaluationUuid
 
-`func (o *STIGMetadataResponse) HasContentUuid() bool`
+`func (o *STIGMetadataResponse) HasEvaluationUuid() bool`
 
-HasContentUuid returns a boolean if a field has been set.
+HasEvaluationUuid returns a boolean if a field has been set.
 
 ### GetUploadedAt
 
