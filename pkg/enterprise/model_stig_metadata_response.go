@@ -21,7 +21,7 @@ var _ MappedNullable = &STIGMetadataResponse{}
 
 // STIGMetadataResponse struct for STIGMetadataResponse
 type STIGMetadataResponse struct {
-	ContentUuid *string `json:"content_uuid,omitempty" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
+	EvaluationUuid *string `json:"evaluation_uuid,omitempty" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
 	UploadedAt *time.Time `json:"uploaded_at,omitempty"`
 	// The name of the STIG profile that produced this result
 	StigProfile *string `json:"stig_profile,omitempty"`
@@ -46,36 +46,36 @@ func NewSTIGMetadataResponseWithDefaults() *STIGMetadataResponse {
 	return &this
 }
 
-// GetContentUuid returns the ContentUuid field value if set, zero value otherwise.
-func (o *STIGMetadataResponse) GetContentUuid() string {
-	if o == nil || IsNil(o.ContentUuid) {
+// GetEvaluationUuid returns the EvaluationUuid field value if set, zero value otherwise.
+func (o *STIGMetadataResponse) GetEvaluationUuid() string {
+	if o == nil || IsNil(o.EvaluationUuid) {
 		var ret string
 		return ret
 	}
-	return *o.ContentUuid
+	return *o.EvaluationUuid
 }
 
-// GetContentUuidOk returns a tuple with the ContentUuid field value if set, nil otherwise
+// GetEvaluationUuidOk returns a tuple with the EvaluationUuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *STIGMetadataResponse) GetContentUuidOk() (*string, bool) {
-	if o == nil || IsNil(o.ContentUuid) {
+func (o *STIGMetadataResponse) GetEvaluationUuidOk() (*string, bool) {
+	if o == nil || IsNil(o.EvaluationUuid) {
 		return nil, false
 	}
-	return o.ContentUuid, true
+	return o.EvaluationUuid, true
 }
 
-// HasContentUuid returns a boolean if a field has been set.
-func (o *STIGMetadataResponse) HasContentUuid() bool {
-	if o != nil && !IsNil(o.ContentUuid) {
+// HasEvaluationUuid returns a boolean if a field has been set.
+func (o *STIGMetadataResponse) HasEvaluationUuid() bool {
+	if o != nil && !IsNil(o.EvaluationUuid) {
 		return true
 	}
 
 	return false
 }
 
-// SetContentUuid gets a reference to the given string and assigns it to the ContentUuid field.
-func (o *STIGMetadataResponse) SetContentUuid(v string) {
-	o.ContentUuid = &v
+// SetEvaluationUuid gets a reference to the given string and assigns it to the EvaluationUuid field.
+func (o *STIGMetadataResponse) SetEvaluationUuid(v string) {
+	o.EvaluationUuid = &v
 }
 
 // GetUploadedAt returns the UploadedAt field value if set, zero value otherwise.
@@ -184,8 +184,8 @@ func (o STIGMetadataResponse) MarshalJSON() ([]byte, error) {
 
 func (o STIGMetadataResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ContentUuid) {
-		toSerialize["content_uuid"] = o.ContentUuid
+	if !IsNil(o.EvaluationUuid) {
+		toSerialize["evaluation_uuid"] = o.EvaluationUuid
 	}
 	if !IsNil(o.UploadedAt) {
 		toSerialize["uploaded_at"] = o.UploadedAt
