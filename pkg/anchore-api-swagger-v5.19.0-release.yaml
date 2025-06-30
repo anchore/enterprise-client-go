@@ -17692,7 +17692,7 @@ components:
         stig_profile:
           type: string
           description: The name of the STIG profile that produced this result
-        document_type:
+        evaluation_format:
           type: string
           description: The format of the STIG content
           enum:

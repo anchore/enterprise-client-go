@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **EvaluationUuid** | Pointer to **string** |  | [optional] 
 **UploadedAt** | Pointer to **time.Time** |  | [optional] 
 **StigProfile** | Pointer to **string** | The name of the STIG profile that produced this result | [optional] 
-**DocumentType** | Pointer to **string** | The format of the STIG content | [optional] 
+**EvaluationFormat** | Pointer to **string** | The format of the STIG content | [optional] 
 
 ## Methods
 
@@ -103,30 +103,30 @@ SetStigProfile sets StigProfile field to given value.
 
 HasStigProfile returns a boolean if a field has been set.
 
-### GetDocumentType
+### GetEvaluationFormat
 
-`func (o *STIGMetadataResponse) GetDocumentType() string`
+`func (o *STIGMetadataResponse) GetEvaluationFormat() string`
 
-GetDocumentType returns the DocumentType field if non-nil, zero value otherwise.
+GetEvaluationFormat returns the EvaluationFormat field if non-nil, zero value otherwise.
 
-### GetDocumentTypeOk
+### GetEvaluationFormatOk
 
-`func (o *STIGMetadataResponse) GetDocumentTypeOk() (*string, bool)`
+`func (o *STIGMetadataResponse) GetEvaluationFormatOk() (*string, bool)`
 
-GetDocumentTypeOk returns a tuple with the DocumentType field if it's non-nil, zero value otherwise
+GetEvaluationFormatOk returns a tuple with the EvaluationFormat field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDocumentType
+### SetEvaluationFormat
 
-`func (o *STIGMetadataResponse) SetDocumentType(v string)`
+`func (o *STIGMetadataResponse) SetEvaluationFormat(v string)`
 
-SetDocumentType sets DocumentType field to given value.
+SetEvaluationFormat sets EvaluationFormat field to given value.
 
-### HasDocumentType
+### HasEvaluationFormat
 
-`func (o *STIGMetadataResponse) HasDocumentType() bool`
+`func (o *STIGMetadataResponse) HasEvaluationFormat() bool`
 
-HasDocumentType returns a boolean if a field has been set.
+HasEvaluationFormat returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

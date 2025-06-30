@@ -26,7 +26,7 @@ type STIGMetadataResponse struct {
 	// The name of the STIG profile that produced this result
 	StigProfile *string `json:"stig_profile,omitempty"`
 	// The format of the STIG content
-	DocumentType *string `json:"document_type,omitempty"`
+	EvaluationFormat *string `json:"evaluation_format,omitempty"`
 }
 
 // NewSTIGMetadataResponse instantiates a new STIGMetadataResponse object
@@ -142,36 +142,36 @@ func (o *STIGMetadataResponse) SetStigProfile(v string) {
 	o.StigProfile = &v
 }
 
-// GetDocumentType returns the DocumentType field value if set, zero value otherwise.
-func (o *STIGMetadataResponse) GetDocumentType() string {
-	if o == nil || IsNil(o.DocumentType) {
+// GetEvaluationFormat returns the EvaluationFormat field value if set, zero value otherwise.
+func (o *STIGMetadataResponse) GetEvaluationFormat() string {
+	if o == nil || IsNil(o.EvaluationFormat) {
 		var ret string
 		return ret
 	}
-	return *o.DocumentType
+	return *o.EvaluationFormat
 }
 
-// GetDocumentTypeOk returns a tuple with the DocumentType field value if set, nil otherwise
+// GetEvaluationFormatOk returns a tuple with the EvaluationFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *STIGMetadataResponse) GetDocumentTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.DocumentType) {
+func (o *STIGMetadataResponse) GetEvaluationFormatOk() (*string, bool) {
+	if o == nil || IsNil(o.EvaluationFormat) {
 		return nil, false
 	}
-	return o.DocumentType, true
+	return o.EvaluationFormat, true
 }
 
-// HasDocumentType returns a boolean if a field has been set.
-func (o *STIGMetadataResponse) HasDocumentType() bool {
-	if o != nil && !IsNil(o.DocumentType) {
+// HasEvaluationFormat returns a boolean if a field has been set.
+func (o *STIGMetadataResponse) HasEvaluationFormat() bool {
+	if o != nil && !IsNil(o.EvaluationFormat) {
 		return true
 	}
 
 	return false
 }
 
-// SetDocumentType gets a reference to the given string and assigns it to the DocumentType field.
-func (o *STIGMetadataResponse) SetDocumentType(v string) {
-	o.DocumentType = &v
+// SetEvaluationFormat gets a reference to the given string and assigns it to the EvaluationFormat field.
+func (o *STIGMetadataResponse) SetEvaluationFormat(v string) {
+	o.EvaluationFormat = &v
 }
 
 func (o STIGMetadataResponse) MarshalJSON() ([]byte, error) {
@@ -193,8 +193,8 @@ func (o STIGMetadataResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StigProfile) {
 		toSerialize["stig_profile"] = o.StigProfile
 	}
-	if !IsNil(o.DocumentType) {
-		toSerialize["document_type"] = o.DocumentType
+	if !IsNil(o.EvaluationFormat) {
+		toSerialize["evaluation_format"] = o.EvaluationFormat
 	}
 	return toSerialize, nil
 }
