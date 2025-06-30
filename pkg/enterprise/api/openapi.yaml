@@ -14452,8 +14452,8 @@ components:
     EventCategory:
       description: A collection of event subcategories
       example:
+        name: name
         description: description
-        category: category
         subcategories:
         - name: name
           description: description
@@ -14478,7 +14478,7 @@ components:
             type: type
             message: message
       properties:
-        category:
+        name:
           type: string
         description:
           type: string
@@ -26007,7 +26007,7 @@ components:
         uploaded_at: 2000-01-23T04:56:07.000+00:00
         evaluation_uuid: evaluation_uuid
         stig_profile: stig_profile
-        document_type: hdfjson
+        evaluation_format: hdfjson
       properties:
         evaluation_uuid:
           maxLength: 36
@@ -26020,7 +26020,7 @@ components:
         stig_profile:
           description: The name of the STIG profile that produced this result
           type: string
-        document_type:
+        evaluation_format:
           description: The format of the STIG content
           enum:
           - hdfjson
@@ -26032,11 +26032,11 @@ components:
         - uploaded_at: 2000-01-23T04:56:07.000+00:00
           evaluation_uuid: evaluation_uuid
           stig_profile: stig_profile
-          document_type: hdfjson
+          evaluation_format: hdfjson
         - uploaded_at: 2000-01-23T04:56:07.000+00:00
           evaluation_uuid: evaluation_uuid
           stig_profile: stig_profile
-          document_type: hdfjson
+          evaluation_format: hdfjson
       properties:
         items:
           items:
