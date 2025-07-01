@@ -14452,8 +14452,8 @@ components:
     EventCategory:
       description: A collection of event subcategories
       example:
-        name: name
         description: description
+        category: category
         subcategories:
         - name: name
           description: description
@@ -14478,7 +14478,7 @@ components:
             type: type
             message: message
       properties:
-        name:
+        category:
           type: string
         description:
           type: string
@@ -25036,7 +25036,8 @@ components:
           - sbom_imported_inventory
           - sbom_group_creation
           - sbom_group_inventory
-          - stig_document_inventory
+          - stig_evaluation_inventory
+          - stateless_sbom_evaluation
           type: string
         description:
           type: string

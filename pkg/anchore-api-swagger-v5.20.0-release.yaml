@@ -6957,7 +6957,7 @@ paths:
           format: path
       - name: detail
         in: query
-        description: Setting this to false, will return only the policy metadata.  
+        description: Setting this to false, will return only the policy metadata.
           Otherwise, this call will always return both the policy metadata and document.
         schema:
           type: boolean
@@ -12094,7 +12094,7 @@ components:
     EventCategory:
       type: object
       properties:
-        name:
+        category:
           type: string
         description:
           type: string
@@ -17075,7 +17075,8 @@ components:
             - sbom_imported_inventory
             - sbom_group_creation
             - sbom_group_inventory
-            - stig_document_inventory
+            - stig_evaluation_inventory
+            - stateless_sbom_evaluation
         description:
           type: string
         value_type:

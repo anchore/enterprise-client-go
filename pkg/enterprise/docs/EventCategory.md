@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
+**Category** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Subcategories** | Pointer to [**[]EventSubcategory**](EventSubcategory.md) |  | [optional] 
 
@@ -27,30 +27,30 @@ NewEventCategoryWithDefaults instantiates a new EventCategory object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetCategory
 
-`func (o *EventCategory) GetName() string`
+`func (o *EventCategory) GetCategory() string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetCategory returns the Category field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetCategoryOk
 
-`func (o *EventCategory) GetNameOk() (*string, bool)`
+`func (o *EventCategory) GetCategoryOk() (*string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetCategoryOk returns a tuple with the Category field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetCategory
 
-`func (o *EventCategory) SetName(v string)`
+`func (o *EventCategory) SetCategory(v string)`
 
-SetName sets Name field to given value.
+SetCategory sets Category field to given value.
 
-### HasName
+### HasCategory
 
-`func (o *EventCategory) HasName() bool`
+`func (o *EventCategory) HasCategory() bool`
 
-HasName returns a boolean if a field has been set.
+HasCategory returns a boolean if a field has been set.
 
 ### GetDescription
 
