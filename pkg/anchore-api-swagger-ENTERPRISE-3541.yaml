@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.12.0
+  version: 2.12.1
 servers:
 - url: /v2
 tags:
@@ -4273,6 +4273,29 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: contents
+  /imports/images/{operation_id}/sbom:
+    post:
+      summary: Import an AnchoreCTL generated SBOM document into the system
+      operationId: import_image_sbom
+      parameters:
+      - name: operation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageImportContentResponse'
+        "500":
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
   /imports/images/{operation_id}:
     get:
       tags:
@@ -6957,7 +6980,7 @@ paths:
           format: path
       - name: detail
         in: query
-        description: Setting this to false, will return only the policy metadata.  
+        description: Setting this to false, will return only the policy metadata.
           Otherwise, this call will always return both the policy metadata and document.
         schema:
           type: boolean
@@ -15145,6 +15168,18 @@ components:
           type: string
           description: When the fix was observed
           format: date-time
+        is_kev:
+          type: boolean
+        epss:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+            epss:
+              type: number
+            percentile:
+              type: number
     PaginatedImageList:
       description: Pagination wrapped list of images that match some filter
       allOf:
@@ -17075,7 +17110,8 @@ components:
             - sbom_imported_inventory
             - sbom_group_creation
             - sbom_group_inventory
-            - stig_document_inventory
+            - stig_evaluation_inventory
+            - stateless_sbom_evaluation
         description:
           type: string
         value_type:

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.12.0
+  version: 2.12.1
 servers:
 - url: /v2
 tags:
@@ -4841,6 +4841,31 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: contents
+  /imports/images/{operation_id}/sbom:
+    post:
+      operationId: import_image_sbom
+      parameters:
+      - explode: false
+        in: path
+        name: operation_id
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageImportContentResponse'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Import an AnchoreCTL generated SBOM document into the system
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
   /imports/images/{operation_id}:
     delete:
       operationId: invalidate_operation
@@ -15672,6 +15697,10 @@ components:
           id: id
           source: source
           type: Primary
+        epss:
+          date: 2000-01-23T04:56:07.000+00:00
+          percentile: 6.027456183070403
+          epss: 0.8008281904610115
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -15696,6 +15725,7 @@ components:
           source: source
           type: Primary
         description: description
+        is_kev: true
         package_type: package_type
         package_cpe: package_cpe
         url: url
@@ -15747,6 +15777,10 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+            date: 2000-01-23T04:56:07.000+00:00
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -15771,6 +15805,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -15812,6 +15847,10 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+            date: 2000-01-23T04:56:07.000+00:00
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -15836,6 +15875,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -19417,6 +19457,10 @@ components:
               id: id
               source: source
               type: Primary
+            epss:
+              date: 2000-01-23T04:56:07.000+00:00
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -19441,6 +19485,7 @@ components:
               source: source
               type: Primary
             description: description
+            is_kev: true
             package_type: package_type
             package_cpe: package_cpe
             url: url
@@ -19481,6 +19526,10 @@ components:
               id: id
               source: source
               type: Primary
+            epss:
+              date: 2000-01-23T04:56:07.000+00:00
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -19505,6 +19554,7 @@ components:
               source: source
               type: Primary
             description: description
+            is_kev: true
             package_type: package_type
             package_cpe: package_cpe
             url: url
@@ -20253,6 +20303,10 @@ components:
           id: id
           source: source
           type: Primary
+        epss:
+          date: 2000-01-23T04:56:07.000+00:00
+          percentile: 6.027456183070403
+          epss: 0.8008281904610115
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -20277,6 +20331,7 @@ components:
           source: source
           type: Primary
         description: description
+        is_kev: true
         package_type: package_type
         package_cpe: package_cpe
         url: url
@@ -20352,6 +20407,10 @@ components:
           description: When the fix was observed
           format: date-time
           type: string
+        is_kev:
+          type: boolean
+        epss:
+          $ref: '#/components/schemas/PackageVulnerability_epss'
       type: object
     PaginatedImageList:
       allOf:
@@ -23301,6 +23360,10 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+            date: 2000-01-23T04:56:07.000+00:00
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -23325,6 +23388,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -23365,6 +23429,10 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+            date: 2000-01-23T04:56:07.000+00:00
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -23389,6 +23457,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -23923,6 +23992,10 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+            date: 2000-01-23T04:56:07.000+00:00
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -23947,6 +24020,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -23987,6 +24061,10 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+            date: 2000-01-23T04:56:07.000+00:00
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -24011,6 +24089,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -25036,7 +25115,8 @@ components:
           - sbom_imported_inventory
           - sbom_group_creation
           - sbom_group_inventory
-          - stig_document_inventory
+          - stig_evaluation_inventory
+          - stateless_sbom_evaluation
           type: string
         description:
           type: string
@@ -26461,6 +26541,20 @@ components:
       required:
       - contents
       - location
+      type: object
+    PackageVulnerability_epss:
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        percentile: 6.027456183070403
+        epss: 0.8008281904610115
+      properties:
+        date:
+          format: date-time
+          type: string
+        epss:
+          type: number
+        percentile:
+          type: number
       type: object
     PolicyEvalNotificationPayload_allOf_curr_eval:
       description: The Current Policy Evaluation result
