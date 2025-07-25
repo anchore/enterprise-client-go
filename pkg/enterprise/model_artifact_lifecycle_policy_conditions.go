@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.0
+API version: 2.12.1
 Contact: dev@anchore.com
 */
 
@@ -30,6 +30,8 @@ type ArtifactLifecyclePolicyConditions struct {
 	DaysSinceAnalyzed int32 `json:"days_since_analyzed"`
 	// Include base images in the policy selection criteria.
 	IncludeBaseImages *bool `json:"include_base_images,omitempty"`
+	// Include images which have failed analysis in the policy selection criteria.
+	IncludeFailedAnalysis *bool `json:"include_failed_analysis,omitempty"`
 	// The type of artifact that will be processed.
 	ArtifactType string `json:"artifact_type"`
 }
@@ -168,6 +170,38 @@ func (o *ArtifactLifecyclePolicyConditions) SetIncludeBaseImages(v bool) {
 	o.IncludeBaseImages = &v
 }
 
+// GetIncludeFailedAnalysis returns the IncludeFailedAnalysis field value if set, zero value otherwise.
+func (o *ArtifactLifecyclePolicyConditions) GetIncludeFailedAnalysis() bool {
+	if o == nil || IsNil(o.IncludeFailedAnalysis) {
+		var ret bool
+		return ret
+	}
+	return *o.IncludeFailedAnalysis
+}
+
+// GetIncludeFailedAnalysisOk returns a tuple with the IncludeFailedAnalysis field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ArtifactLifecyclePolicyConditions) GetIncludeFailedAnalysisOk() (*bool, bool) {
+	if o == nil || IsNil(o.IncludeFailedAnalysis) {
+		return nil, false
+	}
+	return o.IncludeFailedAnalysis, true
+}
+
+// HasIncludeFailedAnalysis returns a boolean if a field has been set.
+func (o *ArtifactLifecyclePolicyConditions) HasIncludeFailedAnalysis() bool {
+	if o != nil && !IsNil(o.IncludeFailedAnalysis) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeFailedAnalysis gets a reference to the given bool and assigns it to the IncludeFailedAnalysis field.
+func (o *ArtifactLifecyclePolicyConditions) SetIncludeFailedAnalysis(v bool) {
+	o.IncludeFailedAnalysis = &v
+}
+
 // GetArtifactType returns the ArtifactType field value
 func (o *ArtifactLifecyclePolicyConditions) GetArtifactType() string {
 	if o == nil {
@@ -209,6 +243,9 @@ func (o ArtifactLifecyclePolicyConditions) ToMap() (map[string]interface{}, erro
 	toSerialize["days_since_analyzed"] = o.DaysSinceAnalyzed
 	if !IsNil(o.IncludeBaseImages) {
 		toSerialize["include_base_images"] = o.IncludeBaseImages
+	}
+	if !IsNil(o.IncludeFailedAnalysis) {
+		toSerialize["include_failed_analysis"] = o.IncludeFailedAnalysis
 	}
 	toSerialize["artifact_type"] = o.ArtifactType
 	return toSerialize, nil

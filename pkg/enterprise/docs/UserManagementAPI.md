@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**CreateUserCredential**](UserManagementAPI.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
 [**CreateUserGroup**](UserManagementAPI.md#CreateUserGroup) | **Post** /system/user-groups | Create a new user group
 [**DeleteAccount**](UserManagementAPI.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected. The deleted account name will not be available for reuse immediately until all resources are garbage collected async.
-[**DeleteUser**](UserManagementAPI.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+[**DeleteUser**](UserManagementAPI.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user by username.
 [**DeleteUserApiKey**](UserManagementAPI.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 [**DeleteUserCredential**](UserManagementAPI.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
 [**DeleteUserGroup**](UserManagementAPI.md#DeleteUserGroup) | **Delete** /system/user-groups/{group_uuid} | Delete a user group
@@ -595,7 +595,7 @@ No authorization required
 
 > DeleteUser(ctx, accountName, username).Execute()
 
-Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+Delete a specific user by username.
 
 ### Example
 

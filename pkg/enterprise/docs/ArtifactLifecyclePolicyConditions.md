@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **EvenIfExistsInRuntimeInventory** | **bool** | Select an image even if it exists in the runtime inventory, otherwise if false do not action anything that exists in runtime inventory | 
 **DaysSinceAnalyzed** | **int32** | An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored. | 
 **IncludeBaseImages** | Pointer to **bool** | Include base images in the policy selection criteria. | [optional] 
+**IncludeFailedAnalysis** | Pointer to **bool** | Include images which have failed analysis in the policy selection criteria. | [optional] 
 **ArtifactType** | **string** | The type of artifact that will be processed. | 
 
 ## Methods
@@ -118,6 +119,31 @@ SetIncludeBaseImages sets IncludeBaseImages field to given value.
 `func (o *ArtifactLifecyclePolicyConditions) HasIncludeBaseImages() bool`
 
 HasIncludeBaseImages returns a boolean if a field has been set.
+
+### GetIncludeFailedAnalysis
+
+`func (o *ArtifactLifecyclePolicyConditions) GetIncludeFailedAnalysis() bool`
+
+GetIncludeFailedAnalysis returns the IncludeFailedAnalysis field if non-nil, zero value otherwise.
+
+### GetIncludeFailedAnalysisOk
+
+`func (o *ArtifactLifecyclePolicyConditions) GetIncludeFailedAnalysisOk() (*bool, bool)`
+
+GetIncludeFailedAnalysisOk returns a tuple with the IncludeFailedAnalysis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIncludeFailedAnalysis
+
+`func (o *ArtifactLifecyclePolicyConditions) SetIncludeFailedAnalysis(v bool)`
+
+SetIncludeFailedAnalysis sets IncludeFailedAnalysis field to given value.
+
+### HasIncludeFailedAnalysis
+
+`func (o *ArtifactLifecyclePolicyConditions) HasIncludeFailedAnalysis() bool`
+
+HasIncludeFailedAnalysis returns a boolean if a field has been set.
 
 ### GetArtifactType
 

@@ -10,6 +10,7 @@ api_archives.go
 api_artifact_lifecycle.go
 api_catalog.go
 api_corrections.go
+api_default.go
 api_events.go
 api_identity.go
 api_images.go
@@ -113,6 +114,7 @@ docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
 docs/CorrectionsAPI.md
 docs/CustomJsonPatch.md
+docs/DefaultAPI.md
 docs/DeleteImageResponse.md
 docs/DeploymentHistory.md
 docs/DeploymentHistoryList.md
@@ -284,6 +286,7 @@ docs/NvdDataObject.md
 docs/OnetimeAPI.md
 docs/Package.md
 docs/PackageContent.md
+docs/PackageEPSS.md
 docs/PackageReference.md
 docs/PackageVulnerability.md
 docs/PaginatedImageList.md
@@ -669,6 +672,7 @@ model_null_type.go
 model_nvd_data_object.go
 model_package.go
 model_package_content.go
+model_package_epss.go
 model_package_reference.go
 model_package_vulnerability.go
 model_paginated_image_list.go
@@ -810,6 +814,7 @@ test/api_archives_test.go
 test/api_artifact_lifecycle_test.go
 test/api_catalog_test.go
 test/api_corrections_test.go
+test/api_default_test.go
 test/api_events_test.go
 test/api_identity_test.go
 test/api_images_test.go
