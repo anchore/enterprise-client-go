@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.0
+API version: 2.12.1
 Contact: dev@anchore.com
 */
 
@@ -30,6 +30,8 @@ type NvdDataObject struct {
 	Source *string `json:"source,omitempty"`
 	CvssV2 *CVSSV2Scores `json:"cvss_v2,omitempty"`
 	CvssV3 *CVSSV3Scores `json:"cvss_v3,omitempty"`
+	IsKev *bool `json:"is_kev,omitempty"`
+	Epss []PackageEPSS `json:"epss,omitempty"`
 }
 
 // NewNvdDataObject instantiates a new NvdDataObject object
@@ -241,6 +243,70 @@ func (o *NvdDataObject) SetCvssV3(v CVSSV3Scores) {
 	o.CvssV3 = &v
 }
 
+// GetIsKev returns the IsKev field value if set, zero value otherwise.
+func (o *NvdDataObject) GetIsKev() bool {
+	if o == nil || IsNil(o.IsKev) {
+		var ret bool
+		return ret
+	}
+	return *o.IsKev
+}
+
+// GetIsKevOk returns a tuple with the IsKev field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NvdDataObject) GetIsKevOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsKev) {
+		return nil, false
+	}
+	return o.IsKev, true
+}
+
+// HasIsKev returns a boolean if a field has been set.
+func (o *NvdDataObject) HasIsKev() bool {
+	if o != nil && !IsNil(o.IsKev) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsKev gets a reference to the given bool and assigns it to the IsKev field.
+func (o *NvdDataObject) SetIsKev(v bool) {
+	o.IsKev = &v
+}
+
+// GetEpss returns the Epss field value if set, zero value otherwise.
+func (o *NvdDataObject) GetEpss() []PackageEPSS {
+	if o == nil || IsNil(o.Epss) {
+		var ret []PackageEPSS
+		return ret
+	}
+	return o.Epss
+}
+
+// GetEpssOk returns a tuple with the Epss field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NvdDataObject) GetEpssOk() ([]PackageEPSS, bool) {
+	if o == nil || IsNil(o.Epss) {
+		return nil, false
+	}
+	return o.Epss, true
+}
+
+// HasEpss returns a boolean if a field has been set.
+func (o *NvdDataObject) HasEpss() bool {
+	if o != nil && !IsNil(o.Epss) {
+		return true
+	}
+
+	return false
+}
+
+// SetEpss gets a reference to the given []PackageEPSS and assigns it to the Epss field.
+func (o *NvdDataObject) SetEpss(v []PackageEPSS) {
+	o.Epss = v
+}
+
 func (o NvdDataObject) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -268,6 +334,12 @@ func (o NvdDataObject) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CvssV3) {
 		toSerialize["cvss_v3"] = o.CvssV3
+	}
+	if !IsNil(o.IsKev) {
+		toSerialize["is_kev"] = o.IsKev
+	}
+	if !IsNil(o.Epss) {
+		toSerialize["epss"] = o.Epss
 	}
 	return toSerialize, nil
 }

@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **Source** | Pointer to **string** | Identifies the organization or entity that generated or provided the CVSS score | [optional] 
 **CvssV2** | Pointer to [**CVSSV2Scores**](CVSSV2Scores.md) |  | [optional] 
 **CvssV3** | Pointer to [**CVSSV3Scores**](CVSSV3Scores.md) |  | [optional] 
+**IsKev** | Pointer to **bool** |  | [optional] 
+**Epss** | Pointer to [**[]PackageEPSS**](PackageEPSS.md) |  | [optional] 
 
 ## Methods
 
@@ -179,6 +181,56 @@ SetCvssV3 sets CvssV3 field to given value.
 `func (o *NvdDataObject) HasCvssV3() bool`
 
 HasCvssV3 returns a boolean if a field has been set.
+
+### GetIsKev
+
+`func (o *NvdDataObject) GetIsKev() bool`
+
+GetIsKev returns the IsKev field if non-nil, zero value otherwise.
+
+### GetIsKevOk
+
+`func (o *NvdDataObject) GetIsKevOk() (*bool, bool)`
+
+GetIsKevOk returns a tuple with the IsKev field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsKev
+
+`func (o *NvdDataObject) SetIsKev(v bool)`
+
+SetIsKev sets IsKev field to given value.
+
+### HasIsKev
+
+`func (o *NvdDataObject) HasIsKev() bool`
+
+HasIsKev returns a boolean if a field has been set.
+
+### GetEpss
+
+`func (o *NvdDataObject) GetEpss() []PackageEPSS`
+
+GetEpss returns the Epss field if non-nil, zero value otherwise.
+
+### GetEpssOk
+
+`func (o *NvdDataObject) GetEpssOk() (*[]PackageEPSS, bool)`
+
+GetEpssOk returns a tuple with the Epss field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEpss
+
+`func (o *NvdDataObject) SetEpss(v []PackageEPSS)`
+
+SetEpss sets Epss field to given value.
+
+### HasEpss
+
+`func (o *NvdDataObject) HasEpss() bool`
+
+HasEpss returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
