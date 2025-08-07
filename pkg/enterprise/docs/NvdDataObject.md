@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **CvssV2** | Pointer to [**CVSSV2Scores**](CVSSV2Scores.md) |  | [optional] 
 **CvssV3** | Pointer to [**CVSSV3Scores**](CVSSV3Scores.md) |  | [optional] 
 **IsKev** | Pointer to **bool** |  | [optional] 
-**Epss** | Pointer to [**[]PackageEPSS**](PackageEPSS.md) |  | [optional] 
+**Epss** | Pointer to [**PackageEPSS**](PackageEPSS.md) |  | [optional] 
 
 ## Methods
 
@@ -209,20 +209,20 @@ HasIsKev returns a boolean if a field has been set.
 
 ### GetEpss
 
-`func (o *NvdDataObject) GetEpss() []PackageEPSS`
+`func (o *NvdDataObject) GetEpss() PackageEPSS`
 
 GetEpss returns the Epss field if non-nil, zero value otherwise.
 
 ### GetEpssOk
 
-`func (o *NvdDataObject) GetEpssOk() (*[]PackageEPSS, bool)`
+`func (o *NvdDataObject) GetEpssOk() (*PackageEPSS, bool)`
 
 GetEpssOk returns a tuple with the Epss field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEpss
 
-`func (o *NvdDataObject) SetEpss(v []PackageEPSS)`
+`func (o *NvdDataObject) SetEpss(v PackageEPSS)`
 
 SetEpss sets Epss field to given value.
 

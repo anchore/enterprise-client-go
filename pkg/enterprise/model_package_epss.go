@@ -13,17 +13,16 @@ package enterprise
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the PackageEPSS type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PackageEPSS{}
 
-// PackageEPSS struct for PackageEPSS
+// PackageEPSS Exploit Prediction Scoring System data for a vulnerability
 type PackageEPSS struct {
-	Cve *string `json:"cve,omitempty"`
-	Date *time.Time `json:"date,omitempty"`
+	// The EPSS score for the vulnerability
 	Epss *float32 `json:"epss,omitempty"`
+	// The percentile of the EPSS score for the vulnerability
 	Percentile *float32 `json:"percentile,omitempty"`
 }
 
@@ -42,70 +41,6 @@ func NewPackageEPSS() *PackageEPSS {
 func NewPackageEPSSWithDefaults() *PackageEPSS {
 	this := PackageEPSS{}
 	return &this
-}
-
-// GetCve returns the Cve field value if set, zero value otherwise.
-func (o *PackageEPSS) GetCve() string {
-	if o == nil || IsNil(o.Cve) {
-		var ret string
-		return ret
-	}
-	return *o.Cve
-}
-
-// GetCveOk returns a tuple with the Cve field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PackageEPSS) GetCveOk() (*string, bool) {
-	if o == nil || IsNil(o.Cve) {
-		return nil, false
-	}
-	return o.Cve, true
-}
-
-// HasCve returns a boolean if a field has been set.
-func (o *PackageEPSS) HasCve() bool {
-	if o != nil && !IsNil(o.Cve) {
-		return true
-	}
-
-	return false
-}
-
-// SetCve gets a reference to the given string and assigns it to the Cve field.
-func (o *PackageEPSS) SetCve(v string) {
-	o.Cve = &v
-}
-
-// GetDate returns the Date field value if set, zero value otherwise.
-func (o *PackageEPSS) GetDate() time.Time {
-	if o == nil || IsNil(o.Date) {
-		var ret time.Time
-		return ret
-	}
-	return *o.Date
-}
-
-// GetDateOk returns a tuple with the Date field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PackageEPSS) GetDateOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.Date) {
-		return nil, false
-	}
-	return o.Date, true
-}
-
-// HasDate returns a boolean if a field has been set.
-func (o *PackageEPSS) HasDate() bool {
-	if o != nil && !IsNil(o.Date) {
-		return true
-	}
-
-	return false
-}
-
-// SetDate gets a reference to the given time.Time and assigns it to the Date field.
-func (o *PackageEPSS) SetDate(v time.Time) {
-	o.Date = &v
 }
 
 // GetEpss returns the Epss field value if set, zero value otherwise.
@@ -182,12 +117,6 @@ func (o PackageEPSS) MarshalJSON() ([]byte, error) {
 
 func (o PackageEPSS) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Cve) {
-		toSerialize["cve"] = o.Cve
-	}
-	if !IsNil(o.Date) {
-		toSerialize["date"] = o.Date
-	}
 	if !IsNil(o.Epss) {
 		toSerialize["epss"] = o.Epss
 	}

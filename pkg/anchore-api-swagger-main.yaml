@@ -19825,9 +19825,7 @@ components:
         is_kev:
           type: boolean
         epss:
-          type: array
-          items:
-            $ref: '#/components/schemas/PackageEPSS'
+          $ref: '#/components/schemas/PackageEPSS'
     ScanRequest:
       type: object
       properties:
@@ -20046,16 +20044,14 @@ components:
           type: string
     PackageEPSS:
       type: object
+      description: Exploit Prediction Scoring System data for a vulnerability
       properties:
-        cve:
-          type: string
-        date:
-          type: string
-          format: date-time
         epss:
           type: number
+          description: The EPSS score for the vulnerability
         percentile:
           type: number
+          description: The percentile of the EPSS score for the vulnerability
     PackageReference:
       type: object
       properties:
@@ -20133,12 +20129,6 @@ components:
           type: string
           description: When the fix was observed
           format: date-time
-        is_kev:
-          type: boolean
-        epss:
-          type: array
-          items:
-            $ref: '#/components/schemas/PackageEPSS'
     PaginatedImageList:
       description: Pagination wrapped list of images that match some filter
       allOf:
