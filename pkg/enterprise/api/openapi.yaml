@@ -17381,6 +17381,7 @@ components:
         record_version: record_version
         image_content:
           metadata:
+            extended_support: true
             distro: distro
             dockerfile_mode: Guessed
             image_size: 0
@@ -17490,6 +17491,7 @@ components:
           record_version: record_version
           image_content:
             metadata:
+              extended_support: true
               distro: distro
               dockerfile_mode: Guessed
               image_size: 0
@@ -17545,6 +17547,7 @@ components:
           record_version: record_version
           image_content:
             metadata:
+              extended_support: true
               distro: distro
               dockerfile_mode: Guessed
               image_size: 0
@@ -20264,6 +20267,7 @@ components:
         \ content type entries"
       example:
         metadata:
+          extended_support: true
           distro: distro
           dockerfile_mode: Guessed
           image_size: 0
@@ -20701,6 +20705,7 @@ components:
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
       example:
+        extended_support: true
         base_image_problems:
         - "{}"
         - "{}"
@@ -20865,6 +20870,10 @@ components:
           type: array
         vulnerability_type:
           type: string
+        extended_support:
+          description: Whether Extended Update Support (EUS) data was used for the
+            vulnerability scan
+          type: boolean
         vulnerabilities:
           description: List of Vulnerability objects
           items:
@@ -31366,6 +31375,7 @@ components:
       type: object
     ImageContent_metadata:
       example:
+        extended_support: true
         distro: distro
         dockerfile_mode: Guessed
         image_size: 0
@@ -31382,6 +31392,12 @@ components:
         distro_version:
           description: The distro version of the image
           type: string
+        extended_support:
+          description: Whether the image has been identified as being of an Extended
+            Update Support (EUS) distro version. A null value indicates that the image
+            was analyzed prior to Enterprise having the ability to detect EUS support.
+            The image may be re-analyzed if this data is required.
+          type: boolean
         dockerfile_mode:
           description: The mode of the dockerfile
           enum:
