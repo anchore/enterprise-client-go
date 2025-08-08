@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Epss** | Pointer to **float32** | The EPSS score for the vulnerability | [optional] 
-**Percentile** | Pointer to **float32** | The percentile of the EPSS score for the vulnerability | [optional] 
+**Cve** | Pointer to **string** |  | [optional] 
+**Date** | Pointer to **time.Time** |  | [optional] 
+**Epss** | Pointer to **float32** |  | [optional] 
+**Percentile** | Pointer to **float32** |  | [optional] 
 
 ## Methods
 
@@ -25,6 +27,56 @@ will change when the set of required properties is changed
 NewPackageEPSSWithDefaults instantiates a new PackageEPSS object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCve
+
+`func (o *PackageEPSS) GetCve() string`
+
+GetCve returns the Cve field if non-nil, zero value otherwise.
+
+### GetCveOk
+
+`func (o *PackageEPSS) GetCveOk() (*string, bool)`
+
+GetCveOk returns a tuple with the Cve field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCve
+
+`func (o *PackageEPSS) SetCve(v string)`
+
+SetCve sets Cve field to given value.
+
+### HasCve
+
+`func (o *PackageEPSS) HasCve() bool`
+
+HasCve returns a boolean if a field has been set.
+
+### GetDate
+
+`func (o *PackageEPSS) GetDate() time.Time`
+
+GetDate returns the Date field if non-nil, zero value otherwise.
+
+### GetDateOk
+
+`func (o *PackageEPSS) GetDateOk() (*time.Time, bool)`
+
+GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDate
+
+`func (o *PackageEPSS) SetDate(v time.Time)`
+
+SetDate sets Date field to given value.
+
+### HasDate
+
+`func (o *PackageEPSS) HasDate() bool`
+
+HasDate returns a boolean if a field has been set.
 
 ### GetEpss
 

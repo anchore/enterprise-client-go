@@ -31,7 +31,7 @@ type NvdDataObject struct {
 	CvssV2 *CVSSV2Scores `json:"cvss_v2,omitempty"`
 	CvssV3 *CVSSV3Scores `json:"cvss_v3,omitempty"`
 	IsKev *bool `json:"is_kev,omitempty"`
-	Epss *PackageEPSS `json:"epss,omitempty"`
+	Epss []PackageEPSS `json:"epss,omitempty"`
 }
 
 // NewNvdDataObject instantiates a new NvdDataObject object
@@ -276,17 +276,17 @@ func (o *NvdDataObject) SetIsKev(v bool) {
 }
 
 // GetEpss returns the Epss field value if set, zero value otherwise.
-func (o *NvdDataObject) GetEpss() PackageEPSS {
+func (o *NvdDataObject) GetEpss() []PackageEPSS {
 	if o == nil || IsNil(o.Epss) {
-		var ret PackageEPSS
+		var ret []PackageEPSS
 		return ret
 	}
-	return *o.Epss
+	return o.Epss
 }
 
 // GetEpssOk returns a tuple with the Epss field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NvdDataObject) GetEpssOk() (*PackageEPSS, bool) {
+func (o *NvdDataObject) GetEpssOk() ([]PackageEPSS, bool) {
 	if o == nil || IsNil(o.Epss) {
 		return nil, false
 	}
@@ -302,9 +302,9 @@ func (o *NvdDataObject) HasEpss() bool {
 	return false
 }
 
-// SetEpss gets a reference to the given PackageEPSS and assigns it to the Epss field.
-func (o *NvdDataObject) SetEpss(v PackageEPSS) {
-	o.Epss = &v
+// SetEpss gets a reference to the given []PackageEPSS and assigns it to the Epss field.
+func (o *NvdDataObject) SetEpss(v []PackageEPSS) {
+	o.Epss = v
 }
 
 func (o NvdDataObject) MarshalJSON() ([]byte, error) {

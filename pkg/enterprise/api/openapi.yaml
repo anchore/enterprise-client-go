@@ -17381,6 +17381,7 @@ components:
         record_version: record_version
         image_content:
           metadata:
+            extended_support: true
             distro: distro
             dockerfile_mode: Guessed
             image_size: 0
@@ -17490,6 +17491,7 @@ components:
           record_version: record_version
           image_content:
             metadata:
+              extended_support: true
               distro: distro
               dockerfile_mode: Guessed
               image_size: 0
@@ -17545,6 +17547,7 @@ components:
           record_version: record_version
           image_content:
             metadata:
+              extended_support: true
               distro: distro
               dockerfile_mode: Guessed
               image_size: 0
@@ -20264,6 +20267,7 @@ components:
         \ content type entries"
       example:
         metadata:
+          extended_support: true
           distro: distro
           dockerfile_mode: Guessed
           image_size: 0
@@ -20630,6 +20634,12 @@ components:
         package_path: package_path
         nvd_data:
         - epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
             percentile: 6.027456183070403
             epss: 0.8008281904610115
           cvss_v3:
@@ -20646,6 +20656,12 @@ components:
           source: source
           type: Primary
         - epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
             percentile: 6.027456183070403
             epss: 0.8008281904610115
           cvss_v3:
@@ -20661,6 +20677,15 @@ components:
           id: id
           source: source
           type: Primary
+        epss:
+        - date: 2000-01-23T04:56:07.000+00:00
+          cve: cve
+          percentile: 6.027456183070403
+          epss: 0.8008281904610115
+        - date: 2000-01-23T04:56:07.000+00:00
+          cve: cve
+          percentile: 6.027456183070403
+          epss: 0.8008281904610115
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -20685,6 +20710,7 @@ components:
           source: source
           type: Primary
         description: description
+        is_kev: true
         package_type: package_type
         package_cpe: package_cpe
         url: url
@@ -20701,6 +20727,7 @@ components:
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
       example:
+        extended_support: true
         base_image_problems:
         - "{}"
         - "{}"
@@ -20713,6 +20740,12 @@ components:
           package_path: package_path
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -20729,6 +20762,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -20744,6 +20783,15 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -20768,6 +20816,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -20786,6 +20835,12 @@ components:
           package_path: package_path
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -20802,6 +20857,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -20817,6 +20878,15 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -20841,6 +20911,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -20865,6 +20936,10 @@ components:
           type: array
         vulnerability_type:
           type: string
+        extended_support:
+          description: Whether Extended Update Support (EUS) data was used for the
+            vulnerability scan
+          type: boolean
         vulnerabilities:
           description: List of Vulnerability objects
           items:
@@ -24101,6 +24176,12 @@ components:
     NvdDataObject:
       example:
         epss:
+        - date: 2000-01-23T04:56:07.000+00:00
+          cve: cve
+          percentile: 6.027456183070403
+          epss: 0.8008281904610115
+        - date: 2000-01-23T04:56:07.000+00:00
+          cve: cve
           percentile: 6.027456183070403
           epss: 0.8008281904610115
         cvss_v3:
@@ -24141,7 +24222,9 @@ components:
         is_kev:
           type: boolean
         epss:
-          $ref: '#/components/schemas/PackageEPSS'
+          items:
+            $ref: '#/components/schemas/PackageEPSS'
+          type: array
       type: object
     ScanRequest:
       example:
@@ -24407,6 +24490,12 @@ components:
             package_path: package_path
             nvd_data:
             - epss:
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
+                percentile: 6.027456183070403
+                epss: 0.8008281904610115
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
                 percentile: 6.027456183070403
                 epss: 0.8008281904610115
               cvss_v3:
@@ -24423,6 +24512,12 @@ components:
               source: source
               type: Primary
             - epss:
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
+                percentile: 6.027456183070403
+                epss: 0.8008281904610115
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
                 percentile: 6.027456183070403
                 epss: 0.8008281904610115
               cvss_v3:
@@ -24438,6 +24533,15 @@ components:
               id: id
               source: source
               type: Primary
+            epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -24462,6 +24566,7 @@ components:
               source: source
               type: Primary
             description: description
+            is_kev: true
             package_type: package_type
             package_cpe: package_cpe
             url: url
@@ -24479,6 +24584,12 @@ components:
             package_path: package_path
             nvd_data:
             - epss:
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
+                percentile: 6.027456183070403
+                epss: 0.8008281904610115
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
                 percentile: 6.027456183070403
                 epss: 0.8008281904610115
               cvss_v3:
@@ -24495,6 +24606,12 @@ components:
               source: source
               type: Primary
             - epss:
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
+                percentile: 6.027456183070403
+                epss: 0.8008281904610115
+              - date: 2000-01-23T04:56:07.000+00:00
+                cve: cve
                 percentile: 6.027456183070403
                 epss: 0.8008281904610115
               cvss_v3:
@@ -24510,6 +24627,15 @@ components:
               id: id
               source: source
               type: Primary
+            epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -24534,6 +24660,7 @@ components:
               source: source
               type: Primary
             description: description
+            is_kev: true
             package_type: package_type
             package_cpe: package_cpe
             url: url
@@ -25229,16 +25356,20 @@ components:
           type: string
       type: object
     PackageEPSS:
-      description: Exploit Prediction Scoring System data for a vulnerability
       example:
+        date: 2000-01-23T04:56:07.000+00:00
+        cve: cve
         percentile: 6.027456183070403
         epss: 0.8008281904610115
       properties:
+        cve:
+          type: string
+        date:
+          format: date-time
+          type: string
         epss:
-          description: The EPSS score for the vulnerability
           type: number
         percentile:
-          description: The percentile of the EPSS score for the vulnerability
           type: number
       type: object
     PackageReference:
@@ -25272,6 +25403,12 @@ components:
         package_path: package_path
         nvd_data:
         - epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
             percentile: 6.027456183070403
             epss: 0.8008281904610115
           cvss_v3:
@@ -25288,6 +25425,12 @@ components:
           source: source
           type: Primary
         - epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
             percentile: 6.027456183070403
             epss: 0.8008281904610115
           cvss_v3:
@@ -25303,6 +25446,15 @@ components:
           id: id
           source: source
           type: Primary
+        epss:
+        - date: 2000-01-23T04:56:07.000+00:00
+          cve: cve
+          percentile: 6.027456183070403
+          epss: 0.8008281904610115
+        - date: 2000-01-23T04:56:07.000+00:00
+          cve: cve
+          percentile: 6.027456183070403
+          epss: 0.8008281904610115
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -25327,6 +25479,7 @@ components:
           source: source
           type: Primary
         description: description
+        is_kev: true
         package_type: package_type
         package_cpe: package_cpe
         url: url
@@ -25402,6 +25555,12 @@ components:
           description: When the fix was observed
           format: date-time
           type: string
+        is_kev:
+          type: boolean
+        epss:
+          items:
+            $ref: '#/components/schemas/PackageEPSS'
+          type: array
       type: object
     PaginatedImageList:
       allOf:
@@ -25486,6 +25645,12 @@ components:
         - severity: Unknown
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -25502,6 +25667,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -25567,6 +25738,12 @@ components:
         - severity: Unknown
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -25583,6 +25760,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -28344,6 +28527,12 @@ components:
           package_path: package_path
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -28360,6 +28549,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -28375,6 +28570,15 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -28399,6 +28603,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -28416,6 +28621,12 @@ components:
           package_path: package_path
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -28432,6 +28643,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -28447,6 +28664,15 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -28471,6 +28697,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -28982,6 +29209,12 @@ components:
           package_path: package_path
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -28998,6 +29231,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -29013,6 +29252,15 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -29037,6 +29285,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -29054,6 +29303,12 @@ components:
           package_path: package_path
           nvd_data:
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -29070,6 +29325,12 @@ components:
             source: source
             type: Primary
           - epss:
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
+              percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - date: 2000-01-23T04:56:07.000+00:00
+              cve: cve
               percentile: 6.027456183070403
               epss: 0.8008281904610115
             cvss_v3:
@@ -29085,6 +29346,15 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -29109,6 +29379,7 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -29535,6 +29806,12 @@ components:
         severity: Unknown
         nvd_data:
         - epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
             percentile: 6.027456183070403
             epss: 0.8008281904610115
           cvss_v3:
@@ -29551,6 +29828,12 @@ components:
           source: source
           type: Primary
         - epss:
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
+            percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - date: 2000-01-23T04:56:07.000+00:00
+            cve: cve
             percentile: 6.027456183070403
             epss: 0.8008281904610115
           cvss_v3:
@@ -31366,6 +31649,7 @@ components:
       type: object
     ImageContent_metadata:
       example:
+        extended_support: true
         distro: distro
         dockerfile_mode: Guessed
         image_size: 0
@@ -31382,6 +31666,12 @@ components:
         distro_version:
           description: The distro version of the image
           type: string
+        extended_support:
+          description: Whether the image has been identified as being of an Extended
+            Update Support (EUS) distro version. A null value indicates that the image
+            was analyzed prior to Enterprise having the ability to detect EUS support.
+            The image may be re-analyzed if this data is required.
+          type: boolean
         dockerfile_mode:
           description: The mode of the dockerfile
           enum:

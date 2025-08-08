@@ -17635,6 +17635,12 @@ components:
             distro_version:
               type: string
               description: The distro version of the image
+            extended_support:
+              type: boolean
+              description: Whether the image has been identified as being of an Extended
+                Update Support (EUS) distro version. A null value indicates that the image
+                was analyzed prior to Enterprise having the ability to detect EUS support.
+                The image may be re-analyzed if this data is required.
             dockerfile_mode:
               type: string
               description: The mode of the dockerfile
@@ -17859,6 +17865,9 @@ components:
             type: object
         vulnerability_type:
           type: string
+        extended_support:
+          type: boolean
+          description: Whether Extended Update Support (EUS) data was used for the vulnerability scan
         vulnerabilities:
           type: array
           description: List of Vulnerability objects
@@ -19825,7 +19834,9 @@ components:
         is_kev:
           type: boolean
         epss:
-          $ref: '#/components/schemas/PackageEPSS'
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageEPSS'
     ScanRequest:
       type: object
       properties:
@@ -20044,14 +20055,16 @@ components:
           type: string
     PackageEPSS:
       type: object
-      description: Exploit Prediction Scoring System data for a vulnerability
       properties:
+        cve:
+          type: string
+        date:
+          type: string
+          format: date-time
         epss:
           type: number
-          description: The EPSS score for the vulnerability
         percentile:
           type: number
-          description: The percentile of the EPSS score for the vulnerability
     PackageReference:
       type: object
       properties:
@@ -20129,6 +20142,12 @@ components:
           type: string
           description: When the fix was observed
           format: date-time
+        is_kev:
+          type: boolean
+        epss:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageEPSS'
     PaginatedImageList:
       description: Pagination wrapped list of images that match some filter
       allOf:

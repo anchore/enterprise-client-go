@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Arch** | Pointer to **string** | The CPU architecture of the image | [optional] 
 **Distro** | Pointer to **string** | The distro of the image | [optional] 
 **DistroVersion** | Pointer to **string** | The distro version of the image | [optional] 
+**ExtendedSupport** | Pointer to **bool** | Whether the image has been identified as being of an Extended Update Support (EUS) distro version. A null value indicates that the image was analyzed prior to Enterprise having the ability to detect EUS support. The image may be re-analyzed if this data is required. | [optional] 
 **DockerfileMode** | Pointer to **string** | The mode of the dockerfile | [optional] 
 **ImageSize** | Pointer to **int64** | The size of the image in bytes | [optional] 
 **LayerCount** | Pointer to **int32** | The number of layers in the image | [optional] 
@@ -104,6 +105,31 @@ SetDistroVersion sets DistroVersion field to given value.
 `func (o *ImageContentMetadata) HasDistroVersion() bool`
 
 HasDistroVersion returns a boolean if a field has been set.
+
+### GetExtendedSupport
+
+`func (o *ImageContentMetadata) GetExtendedSupport() bool`
+
+GetExtendedSupport returns the ExtendedSupport field if non-nil, zero value otherwise.
+
+### GetExtendedSupportOk
+
+`func (o *ImageContentMetadata) GetExtendedSupportOk() (*bool, bool)`
+
+GetExtendedSupportOk returns a tuple with the ExtendedSupport field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExtendedSupport
+
+`func (o *ImageContentMetadata) SetExtendedSupport(v bool)`
+
+SetExtendedSupport sets ExtendedSupport field to given value.
+
+### HasExtendedSupport
+
+`func (o *ImageContentMetadata) HasExtendedSupport() bool`
+
+HasExtendedSupport returns a boolean if a field has been set.
 
 ### GetDockerfileMode
 
