@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.12.1
+  version: 2.13.0
 servers:
 - url: /v2
 tags:
@@ -17635,6 +17635,12 @@ components:
             distro_version:
               type: string
               description: The distro version of the image
+            extended_support:
+              type: boolean
+              description: Whether the image has been identified as being of an Extended
+                Update Support (EUS) distro version. A null value indicates that the image
+                was analyzed prior to Enterprise having the ability to detect EUS support.
+                The image may be re-analyzed if this data is required.
             dockerfile_mode:
               type: string
               description: The mode of the dockerfile
@@ -17859,6 +17865,9 @@ components:
             type: object
         vulnerability_type:
           type: string
+        extended_support:
+          type: boolean
+          description: Whether Extended Update Support (EUS) data was used for the vulnerability scan
         vulnerabilities:
           type: array
           description: List of Vulnerability objects

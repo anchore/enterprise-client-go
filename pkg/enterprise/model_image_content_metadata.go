@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -26,6 +26,8 @@ type ImageContentMetadata struct {
 	Distro *string `json:"distro,omitempty"`
 	// The distro version of the image
 	DistroVersion *string `json:"distro_version,omitempty"`
+	// Whether the image has been identified as being of an Extended Update Support (EUS) distro version. A null value indicates that the image was analyzed prior to Enterprise having the ability to detect EUS support. The image may be re-analyzed if this data is required.
+	ExtendedSupport *bool `json:"extended_support,omitempty"`
 	// The mode of the dockerfile
 	DockerfileMode *string `json:"dockerfile_mode,omitempty"`
 	// The size of the image in bytes
@@ -147,6 +149,38 @@ func (o *ImageContentMetadata) SetDistroVersion(v string) {
 	o.DistroVersion = &v
 }
 
+// GetExtendedSupport returns the ExtendedSupport field value if set, zero value otherwise.
+func (o *ImageContentMetadata) GetExtendedSupport() bool {
+	if o == nil || IsNil(o.ExtendedSupport) {
+		var ret bool
+		return ret
+	}
+	return *o.ExtendedSupport
+}
+
+// GetExtendedSupportOk returns a tuple with the ExtendedSupport field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImageContentMetadata) GetExtendedSupportOk() (*bool, bool) {
+	if o == nil || IsNil(o.ExtendedSupport) {
+		return nil, false
+	}
+	return o.ExtendedSupport, true
+}
+
+// HasExtendedSupport returns a boolean if a field has been set.
+func (o *ImageContentMetadata) HasExtendedSupport() bool {
+	if o != nil && !IsNil(o.ExtendedSupport) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtendedSupport gets a reference to the given bool and assigns it to the ExtendedSupport field.
+func (o *ImageContentMetadata) SetExtendedSupport(v bool) {
+	o.ExtendedSupport = &v
+}
+
 // GetDockerfileMode returns the DockerfileMode field value if set, zero value otherwise.
 func (o *ImageContentMetadata) GetDockerfileMode() string {
 	if o == nil || IsNil(o.DockerfileMode) {
@@ -261,6 +295,9 @@ func (o ImageContentMetadata) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DistroVersion) {
 		toSerialize["distro_version"] = o.DistroVersion
+	}
+	if !IsNil(o.ExtendedSupport) {
+		toSerialize["extended_support"] = o.ExtendedSupport
 	}
 	if !IsNil(o.DockerfileMode) {
 		toSerialize["dockerfile_mode"] = o.DockerfileMode
