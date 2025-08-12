@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -13,8 +13,8 @@ package enterprise
 
 import (
 	"encoding/json"
-	"gopkg.in/validator.v2"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // SystemConfigurationValue - struct for SystemConfigurationValue
@@ -186,6 +186,28 @@ func (obj *SystemConfigurationValue) GetActualInstance() (interface{}) {
 
 	if obj.String != nil {
 		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj SystemConfigurationValue) GetActualInstanceValue() (interface{}) {
+	if obj.ArrayOfSystemConfigurationValueOneOfInner != nil {
+		return *obj.ArrayOfSystemConfigurationValueOneOfInner
+	}
+
+	if obj.Bool != nil {
+		return *obj.Bool
+	}
+
+	if obj.Float32 != nil {
+		return *obj.Float32
+	}
+
+	if obj.String != nil {
+		return *obj.String
 	}
 
 	// all schemas are nil

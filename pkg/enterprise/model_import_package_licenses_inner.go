@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -13,8 +13,8 @@ package enterprise
 
 import (
 	"encoding/json"
-	"gopkg.in/validator.v2"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // ImportPackageLicensesInner - struct for ImportPackageLicensesInner
@@ -113,6 +113,20 @@ func (obj *ImportPackageLicensesInner) GetActualInstance() (interface{}) {
 
 	if obj.String != nil {
 		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ImportPackageLicensesInner) GetActualInstanceValue() (interface{}) {
+	if obj.ImportPackageLicense != nil {
+		return *obj.ImportPackageLicense
+	}
+
+	if obj.String != nil {
+		return *obj.String
 	}
 
 	// all schemas are nil

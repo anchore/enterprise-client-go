@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -22,7 +22,7 @@ var _ MappedNullable = &SystemConfigurationSchema{}
 type SystemConfigurationSchema struct {
 	AllowInfNan NullableBool `json:"allow_inf_nan,omitempty"`
 	DecimalPlaces NullableInt32 `json:"decimal_places,omitempty"`
-	DataType *string `json:"data_type,omitempty"`
+	DataType NullableString `json:"data_type,omitempty"`
 	DefaultValue NullableSystemConfigurationValue `json:"default_value,omitempty"`
 	Enum []string `json:"enum,omitempty"`
 	Ge NullableFloat32 `json:"ge,omitempty"`
@@ -141,36 +141,46 @@ func (o *SystemConfigurationSchema) UnsetDecimalPlaces() {
 	o.DecimalPlaces.Unset()
 }
 
-// GetDataType returns the DataType field value if set, zero value otherwise.
+// GetDataType returns the DataType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SystemConfigurationSchema) GetDataType() string {
-	if o == nil || IsNil(o.DataType) {
+	if o == nil || IsNil(o.DataType.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DataType
+	return *o.DataType.Get()
 }
 
 // GetDataTypeOk returns a tuple with the DataType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SystemConfigurationSchema) GetDataTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.DataType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DataType, true
+	return o.DataType.Get(), o.DataType.IsSet()
 }
 
 // HasDataType returns a boolean if a field has been set.
 func (o *SystemConfigurationSchema) HasDataType() bool {
-	if o != nil && !IsNil(o.DataType) {
+	if o != nil && o.DataType.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDataType gets a reference to the given string and assigns it to the DataType field.
+// SetDataType gets a reference to the given NullableString and assigns it to the DataType field.
 func (o *SystemConfigurationSchema) SetDataType(v string) {
-	o.DataType = &v
+	o.DataType.Set(&v)
+}
+// SetDataTypeNil sets the value for DataType to be an explicit nil
+func (o *SystemConfigurationSchema) SetDataTypeNil() {
+	o.DataType.Set(nil)
+}
+
+// UnsetDataType ensures that no value is present for DataType, not even an explicit nil
+func (o *SystemConfigurationSchema) UnsetDataType() {
+	o.DataType.Unset()
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -810,8 +820,8 @@ func (o SystemConfigurationSchema) ToMap() (map[string]interface{}, error) {
 	if o.DecimalPlaces.IsSet() {
 		toSerialize["decimal_places"] = o.DecimalPlaces.Get()
 	}
-	if !IsNil(o.DataType) {
-		toSerialize["data_type"] = o.DataType
+	if o.DataType.IsSet() {
+		toSerialize["data_type"] = o.DataType.Get()
 	}
 	if o.DefaultValue.IsSet() {
 		toSerialize["default_value"] = o.DefaultValue.Get()

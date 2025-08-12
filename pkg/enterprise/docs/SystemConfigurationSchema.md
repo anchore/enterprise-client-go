@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowInfNan** | Pointer to **NullableBool** |  | [optional] 
 **DecimalPlaces** | Pointer to **NullableInt32** |  | [optional] 
-**DataType** | Pointer to **string** |  | [optional] 
+**DataType** | Pointer to **NullableString** |  | [optional] 
 **DefaultValue** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Enum** | Pointer to **[]string** |  | [optional] 
 **Ge** | Pointer to **NullableFloat32** |  | [optional] 
@@ -137,6 +137,16 @@ SetDataType sets DataType field to given value.
 
 HasDataType returns a boolean if a field has been set.
 
+### SetDataTypeNil
+
+`func (o *SystemConfigurationSchema) SetDataTypeNil(b bool)`
+
+ SetDataTypeNil sets the value for DataType to be an explicit nil
+
+### UnsetDataType
+`func (o *SystemConfigurationSchema) UnsetDataType()`
+
+UnsetDataType ensures that no value is present for DataType, not even an explicit nil
 ### GetDefaultValue
 
 `func (o *SystemConfigurationSchema) GetDefaultValue() SystemConfigurationValue`

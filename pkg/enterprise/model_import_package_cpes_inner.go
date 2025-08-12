@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -56,7 +56,7 @@ func (dst *ImportPackageCpesInner) UnmarshalJSON(data []byte) error {
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src *ImportPackageCpesInner) MarshalJSON() ([]byte, error) {
+func (src ImportPackageCpesInner) MarshalJSON() ([]byte, error) {
 	if src.ImportPackageCPE != nil {
 		return json.Marshal(&src.ImportPackageCPE)
 	}

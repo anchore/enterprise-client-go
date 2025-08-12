@@ -6,7 +6,7 @@ PROJECT_ROOT = pkg
 CLONE_DIR = local
 
 # OpenAPI generator version to use
-OPENAPI_GENERATOR_VERSION = v7.8.0
+OPENAPI_GENERATOR_VERSION = v7.14.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo

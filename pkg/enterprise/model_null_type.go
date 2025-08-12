@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -21,12 +21,10 @@ type NullType string
 
 // List of NullType
 const (
-	NULL NullType = "null"
 )
 
 // All allowed values of NullType enum
 var AllowedNullTypeEnumValues = []NullType{
-	"null",
 }
 
 func (v *NullType) UnmarshalJSON(src []byte) error {
