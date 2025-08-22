@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## VulnerabilityScanSbom
 
-> SBOMVulnerabilitiesResponse VulnerabilityScanSbom(ctx).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).Execute()
+> SBOMVulnerabilitiesResponse VulnerabilityScanSbom(ctx).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).ExtendedSupport(extendedSupport).Execute()
 
 Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 
@@ -32,10 +32,11 @@ func main() {
 	sbom := interface{}{ ... } // interface{} | 
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 	includeVulnDescription := true // bool |  (optional) (default to false)
+	extendedSupport := true // bool | Whether to use Extended Update Support (EUS) data during the vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VulnerabilitiesAPI.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).Execute()
+	resp, r, err := apiClient.VulnerabilitiesAPI.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).ExtendedSupport(extendedSupport).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VulnerabilitiesAPI.VulnerabilityScanSbom``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,6 +60,7 @@ Name | Type | Description  | Notes
  **sbom** | **interface{}** |  | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
  **includeVulnDescription** | **bool** |  | [default to false]
+ **extendedSupport** | **bool** | Whether to use Extended Update Support (EUS) data during the vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided. | 
 
 ### Return type
 

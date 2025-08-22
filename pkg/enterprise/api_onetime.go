@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -47,6 +47,7 @@ type ApiStatelessScanRequest struct {
 	scanRequest *ScanRequest
 	xAnchoreAccount *string
 	policyId *string
+	extendedSupport *bool
 }
 
 // A valid docker tag reference (e.g. docker.io/nginx:latest) that will be used as part of the policy evaluation.
@@ -69,6 +70,12 @@ func (r ApiStatelessScanRequest) XAnchoreAccount(xAnchoreAccount string) ApiStat
 // The ID of the policy used to evaluate the image
 func (r ApiStatelessScanRequest) PolicyId(policyId string) ApiStatelessScanRequest {
 	r.policyId = &policyId
+	return r
+}
+
+// Whether to use Extended Update Support (EUS) data during the vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided.
+func (r ApiStatelessScanRequest) ExtendedSupport(extendedSupport bool) ApiStatelessScanRequest {
+	r.extendedSupport = &extendedSupport
 	return r
 }
 
@@ -122,6 +129,9 @@ func (a *OnetimeAPIService) StatelessScanExecute(r ApiStatelessScanRequest) (*Sc
 		parameterAddToHeaderOrQuery(localVarQueryParams, "policy_id", r.policyId, "form", "")
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "tag", r.tag, "form", "")
+	if r.extendedSupport != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "extended_support", r.extendedSupport, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

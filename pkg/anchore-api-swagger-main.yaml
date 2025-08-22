@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.12.1
+  version: 2.13.0
 servers:
 - url: /v2
 tags:
@@ -2837,7 +2837,7 @@ paths:
         required: true
       responses:
         200:
-          description: Corrections retrieved successfully
+          description: Corrections saved successfully
           content:
             application/json:
               schema:
@@ -3914,6 +3914,186 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/vuln-annotations:
+    get:
+      tags:
+        - Images
+      summary: List the vuln annotations for this image
+      operationId: list_image_vuln_annotations
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            description: The image digest to retrieve vuln annotations for
+        - name: vulnerability_id
+          in: query
+          schema:
+            type: string
+            description: Filter vuln annotations that apply to a specific vulnerability ID
+        - name: package_name
+          in: query
+          schema:
+            type: string
+            description: Filter vuln annotations that apply to a specific package name
+        - name: package_version
+          in: query
+          schema:
+            type: string
+            description: Filter vuln annotations that apply to a specific package version
+        - name: package_type
+          in: query
+          schema:
+            type: string
+            description: Filter vuln annotations that apply to a specific package type
+      responses:
+        200:
+          description: Vulnerability annotation list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackageVulnerabilityAnnotationResponseList"
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: listVulnAnnotations
+    post:
+      tags:
+        - Images
+      summary: Add a vuln annotation for this image
+      operationId: create_image_vuln_annotation
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            description: The image digest to create a vuln annotation for
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PackageVulnerabilityAnnotation"
+      responses:
+        201:
+          description: Vulnerability annotation post successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackageVulnerabilityAnnotation"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: createVulnAnnotation
+  /images/{image_digest}/vuln-annotations/{vuln_annotation_uuid}:
+    get:
+      tags:
+        - Images
+      summary: Get a vuln annotation
+      operationId: get_image_vuln_annotation
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            description: The image digest of the vuln annotation to retrieve
+        - name: vuln_annotation_uuid
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        200:
+          description: Vulnerability annotation details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackageVulnerabilityAnnotationResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: getVulnAnnotation
+    put:
+      tags:
+        - Images
+      summary: Update a vuln annotation
+      operationId: update_image_vuln_annotation
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            description: The image digest of the vuln annotation to update
+        - name: vuln_annotation_uuid
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PackageVulnerabilityAnnotation"
+      responses:
+        200:
+          description: Vulnerability annotation update successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackageVulnerabilityAnnotationResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: updateVulnAnnotation
+    delete:
+      tags:
+        - Images
+      summary: Delete a vuln annotation
+      operationId: delete_image_vuln_annotation
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            description: The image digest of the vuln annotation to delete
+        - name: vuln_annotation_uuid
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        204:
+          description: Vulnerability annotation delete successful
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: deleteVulnAnnotation
   /images/{image_digest}/check:
     get:
       tags:
@@ -12117,6 +12297,13 @@ paths:
           required: true
           schema:
             type: string
+        - name: extended_support
+          in: query
+          description: Whether to use Extended Update Support (EUS) data during the
+            vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided.
+          required: false
+          schema:
+            type: boolean
       requestBody:
         content:
           application/json:
@@ -15503,6 +15690,13 @@ paths:
         schema:
           type: boolean
           default: false
+      - name: extended_support
+        in: query
+        description: Whether to use Extended Update Support (EUS) data during the
+          vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided.
+        required: false
+        schema:
+          type: boolean
       requestBody:
         content:
           application/json:
@@ -15997,7 +16191,7 @@ components:
           type: string
           format: datetime
         source:
-          $ref: '#/components/schemas/ServiceReference'
+          $ref: '#/components/schemas/ServiceAnalysisReference'
       description: The detail of an analysis status change recording which service
         initiated the state change, when, and which transition
     AnalysisUpdateEval:
@@ -16575,6 +16769,13 @@ components:
       enum:
       - source
       - image
+    VulnAnnotationStatus:
+      type: string
+      enum:
+      - not_affected
+      - affected
+      - fixed
+      - under_investigation
     AssociatedImageArtifact:
       type: object
       properties:
@@ -20079,6 +20280,24 @@ components:
           description: Whether a vendor will or will not fix a vulnerability
       description: A record of a software item which is vulnerable or carries a fix
         for a vulnerability
+    PackageIdentifier:
+      type: object
+      description: Matching details for the SBOM package scope
+      nullable: true
+      required:
+        - name
+        - version
+        - type
+      properties:
+        name:
+          type: string
+          description: The name of the package to which this scope applies
+        version:
+          description: The version of the package to which this scope applies
+          type: string
+        type:
+          description: The type of the package to which this scope applies
+          type: string
     PackageVulnerability:
       type: object
       properties:
@@ -20123,6 +20342,10 @@ components:
           type: string
           description: The location (if applicable) of the vulnerable package in the
             container filesystem
+        purl:
+          type: string
+          description: The Package URL (PURL) for the vulnerable package
+          example: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
         will_not_fix:
           type: boolean
           description: Whether a vendor will fix or not fix the vulnerability
@@ -20138,6 +20361,46 @@ components:
           type: string
           description: When the fix was observed
           format: date-time
+        is_kev:
+          type: boolean
+        epss:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageEPSS'
+        annotation_status:
+          $ref: "#/components/schemas/VulnAnnotationStatus"
+        annotation_uuid:
+          type: string
+          description: The UUID of the annotation for this vulnerability, if one exists
+          format: uuid
+    PackageVulnerabilityAnnotation:
+      type: object
+      required:
+        - annotation
+      properties:
+        annotation:
+          $ref: "#/components/schemas/VulnerabilityAnnotation"
+        package_identifier:
+          $ref: "#/components/schemas/PackageIdentifier"
+    PackageVulnerabilityAnnotationResponse:
+      type: object
+      properties:
+        annotation:
+          $ref: "#/components/schemas/VulnerabilityAnnotation"
+        package_identifier:
+          $ref: "#/components/schemas/PackageIdentifier"
+          readOnly: true
+    PackageVulnerabilityAnnotationResponseList:
+      type: object
+      description: A list of VulnerabilityAnnotation entries for an artifact
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          description: The annotations for the artifact
+          items:
+            $ref: "#/components/schemas/PackageVulnerabilityAnnotationResponse"
     PaginatedImageList:
       description: Pagination wrapped list of images that match some filter
       allOf:
@@ -21218,6 +21481,9 @@ components:
       properties:
         sbom_id:
           type: string
+        extended_support:
+          type: boolean
+          description: Whether Extended Update Support (EUS) data was used for the vulnerability scan
         vulnerabilities:
           type: array
           items:
@@ -21268,7 +21534,7 @@ components:
       description: A list of service objects
       items:
         $ref: '#/components/schemas/Service'
-    ServiceReference:
+    ServiceAnalysisReference:
       type: object
       properties:
         host_id:
@@ -21277,6 +21543,15 @@ components:
         service_name:
           type: string
           description: Registered service name
+        analysis_engine:
+          type: string
+          enum:
+          - anchore-engine-pipeline
+          - syft-native-pipeline
+          description: The generation of analysis engine that was used for the analysis
+        enterprise_version:
+          type: string
+          description: The version of the Anchore Enterprise service that performed the analysis
       description: A reference to a service in the system
     ServiceVersion:
       type: object
@@ -22640,6 +22915,60 @@ components:
           type: string
       description: Values common to vendor and nvd entries in application version
         vulnerability report
+    VulnerabilityAnnotation:
+      type: object
+      description: A single VEX annotation record
+      required:
+        - vulnerability_id
+        - status
+      properties:
+        uuid:
+          $ref: "#/components/schemas/UUID"
+          readOnly: true
+        vulnerability_id:
+          type: string
+          description: The CVE identifier that this annotation refers to
+          example: CVE-2023-1234
+        author:
+          type: string
+          description: The name of the user that created/updated this annotation
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          description: The date that the annotation was created at
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          description: The date that the annotation was last updated at
+          readOnly: true
+        version:
+          type: integer
+          description: The version number of this annotation
+          readOnly: true
+        status:
+          $ref: "#/components/schemas/VulnAnnotationStatus"
+        status_notes:
+          type: string
+          description: Notes on the status of the annotation
+        justification:
+          type: string
+          enum:
+            - component_not_present
+            - vulnerable_code_not_present
+            - vulnerable_code_not_in_execute_path
+            - vulnerable_code_cannot_be_controlled_by_adversary
+            - inline_mitigations_already_exist
+        impact_statement:
+          type: string
+          description: A statement of the impact of the vulnerability on the component or service
+        action_statement:
+          type: string
+          description: A statement of the action taken in response to the vulnerability
+        additional_details:
+          type: string
+          description: Detailed description of the impact including methods used during annotation. If a vulnerability is not exploitable, this field should include specific details on why the component or service is not impacted by this vulnerability.
     VulnDiffResult:
       type: object
       properties:
