@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -21,6 +21,8 @@ var _ MappedNullable = &SBOMVulnerabilitiesResponse{}
 // SBOMVulnerabilitiesResponse Envelope containing list of vulnerabilities for a source repo
 type SBOMVulnerabilitiesResponse struct {
 	SbomId *string `json:"sbom_id,omitempty"`
+	// Whether Extended Update Support (EUS) data was used for the vulnerability scan
+	ExtendedSupport *bool `json:"extended_support,omitempty"`
 	Vulnerabilities []PackageVulnerability `json:"vulnerabilities,omitempty"`
 }
 
@@ -73,6 +75,38 @@ func (o *SBOMVulnerabilitiesResponse) SetSbomId(v string) {
 	o.SbomId = &v
 }
 
+// GetExtendedSupport returns the ExtendedSupport field value if set, zero value otherwise.
+func (o *SBOMVulnerabilitiesResponse) GetExtendedSupport() bool {
+	if o == nil || IsNil(o.ExtendedSupport) {
+		var ret bool
+		return ret
+	}
+	return *o.ExtendedSupport
+}
+
+// GetExtendedSupportOk returns a tuple with the ExtendedSupport field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SBOMVulnerabilitiesResponse) GetExtendedSupportOk() (*bool, bool) {
+	if o == nil || IsNil(o.ExtendedSupport) {
+		return nil, false
+	}
+	return o.ExtendedSupport, true
+}
+
+// HasExtendedSupport returns a boolean if a field has been set.
+func (o *SBOMVulnerabilitiesResponse) HasExtendedSupport() bool {
+	if o != nil && !IsNil(o.ExtendedSupport) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtendedSupport gets a reference to the given bool and assigns it to the ExtendedSupport field.
+func (o *SBOMVulnerabilitiesResponse) SetExtendedSupport(v bool) {
+	o.ExtendedSupport = &v
+}
+
 // GetVulnerabilities returns the Vulnerabilities field value if set, zero value otherwise.
 func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []PackageVulnerability {
 	if o == nil || IsNil(o.Vulnerabilities) {
@@ -117,6 +151,9 @@ func (o SBOMVulnerabilitiesResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.SbomId) {
 		toSerialize["sbom_id"] = o.SbomId
+	}
+	if !IsNil(o.ExtendedSupport) {
+		toSerialize["extended_support"] = o.ExtendedSupport
 	}
 	if !IsNil(o.Vulnerabilities) {
 		toSerialize["vulnerabilities"] = o.Vulnerabilities

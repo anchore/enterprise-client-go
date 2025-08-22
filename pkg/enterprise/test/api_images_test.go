@@ -34,6 +34,20 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ImagesAPIService CreateImageVulnAnnotation", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+
+		resp, httpRes, err := apiClient.ImagesAPI.CreateImageVulnAnnotation(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ImagesAPIService DeleteImage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -56,6 +70,20 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		var evaluationUuid string
 
 		httpRes, err := apiClient.ImagesAPI.DeleteImageStig(context.Background(), imageDigest, evaluationUuid).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService DeleteImageVulnAnnotation", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var vulnAnnotationUuid string
+
+		httpRes, err := apiClient.ImagesAPI.DeleteImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -273,6 +301,21 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ImagesAPIService GetImageVulnAnnotation", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var vulnAnnotationUuid string
+
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ImagesAPIService GetImageVulnerabilitiesByDigest", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -351,6 +394,20 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		var imageDigest string
 
 		resp, httpRes, err := apiClient.ImagesAPI.ListImageStig(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService ListImageVulnAnnotations", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+
+		resp, httpRes, err := apiClient.ImagesAPI.ListImageVulnAnnotations(context.Background(), imageDigest).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -444,6 +501,21 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.ImagesAPI.SummaryImageTags(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService UpdateImageVulnAnnotation", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var vulnAnnotationUuid string
+
+		resp, httpRes, err := apiClient.ImagesAPI.UpdateImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.12.1
+  version: 2.13.0
 servers:
 - url: /v2
 tags:
@@ -3097,7 +3097,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Correction'
-          description: Corrections retrieved successfully
+          description: Corrections saved successfully
         "400":
           content:
             application/json:
@@ -4307,6 +4307,215 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/vuln-annotations:
+    get:
+      operationId: list_image_vuln_annotations
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          description: The image digest to retrieve vuln annotations for
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: vulnerability_id
+        required: false
+        schema:
+          description: Filter vuln annotations that apply to a specific vulnerability
+            ID
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: package_name
+        required: false
+        schema:
+          description: Filter vuln annotations that apply to a specific package name
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: package_version
+        required: false
+        schema:
+          description: Filter vuln annotations that apply to a specific package version
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: package_type
+        required: false
+        schema:
+          description: Filter vuln annotations that apply to a specific package type
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageVulnerabilityAnnotationResponseList'
+          description: Vulnerability annotation list
+        "500":
+          content: {}
+          description: Internal Error
+      summary: List the vuln annotations for this image
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: listVulnAnnotations
+    post:
+      operationId: create_image_vuln_annotation
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          description: The image digest to create a vuln annotation for
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageVulnerabilityAnnotation'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageVulnerabilityAnnotation'
+          description: Vulnerability annotation post successful
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Add a vuln annotation for this image
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: createVulnAnnotation
+  /images/{image_digest}/vuln-annotations/{vuln_annotation_uuid}:
+    delete:
+      operationId: delete_image_vuln_annotation
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          description: The image digest of the vuln annotation to delete
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: vuln_annotation_uuid
+        required: true
+        schema:
+          $ref: '#/components/schemas/UUID'
+        style: simple
+      responses:
+        "204":
+          description: Vulnerability annotation delete successful
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Delete a vuln annotation
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: deleteVulnAnnotation
+    get:
+      operationId: get_image_vuln_annotation
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          description: The image digest of the vuln annotation to retrieve
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: vuln_annotation_uuid
+        required: true
+        schema:
+          $ref: '#/components/schemas/UUID'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageVulnerabilityAnnotationResponse'
+          description: Vulnerability annotation details
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get a vuln annotation
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: getVulnAnnotation
+    put:
+      operationId: update_image_vuln_annotation
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          description: The image digest of the vuln annotation to update
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: vuln_annotation_uuid
+        required: true
+        schema:
+          $ref: '#/components/schemas/UUID'
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageVulnerabilityAnnotation'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageVulnerabilityAnnotationResponse'
+          description: Vulnerability annotation update successful
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Update a vuln annotation
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vuln_annotations
+      x-anchore-authz-action: updateVulnAnnotation
   /images/{image_digest}/check:
     get:
       description: Get the policy evaluation for the given image
@@ -13049,6 +13258,16 @@ paths:
         schema:
           type: string
         style: form
+      - description: Whether to use Extended Update Support (EUS) data during the
+          vulnerability scan for relevant SBOMs. Will use the system configured behaviour
+          if not provided.
+        explode: true
+        in: query
+        name: extended_support
+        required: false
+        schema:
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -16650,6 +16869,16 @@ paths:
           default: false
           type: boolean
         style: form
+      - description: Whether to use Extended Update Support (EUS) data during the
+          vulnerability scan for relevant SBOMs. Will use the system configured behaviour
+          if not provided.
+        explode: true
+        in: query
+        name: extended_support
+        required: false
+        schema:
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -17285,6 +17514,8 @@ components:
         from_status: from_status
         source:
           service_name: service_name
+          analysis_engine: anchore-engine-pipeline
+          enterprise_version: enterprise_version
           host_id: host_id
         timestamp: timestamp
       properties:
@@ -17296,7 +17527,7 @@ components:
           format: datetime
           type: string
         source:
-          $ref: '#/components/schemas/ServiceReference'
+          $ref: '#/components/schemas/ServiceAnalysisReference'
       required:
       - from_status
       - source
@@ -17364,12 +17595,16 @@ components:
           from_status: from_status
           source:
             service_name: service_name
+            analysis_engine: anchore-engine-pipeline
+            enterprise_version: enterprise_version
             host_id: host_id
           timestamp: timestamp
         - to_status: to_status
           from_status: from_status
           source:
             service_name: service_name
+            analysis_engine: anchore-engine-pipeline
+            enterprise_version: enterprise_version
             host_id: host_id
           timestamp: timestamp
         analysis_status: not_analyzed
@@ -17474,12 +17709,16 @@ components:
             from_status: from_status
             source:
               service_name: service_name
+              analysis_engine: anchore-engine-pipeline
+              enterprise_version: enterprise_version
               host_id: host_id
             timestamp: timestamp
           - to_status: to_status
             from_status: from_status
             source:
               service_name: service_name
+              analysis_engine: anchore-engine-pipeline
+              enterprise_version: enterprise_version
               host_id: host_id
             timestamp: timestamp
           analysis_status: not_analyzed
@@ -17530,12 +17769,16 @@ components:
             from_status: from_status
             source:
               service_name: service_name
+              analysis_engine: anchore-engine-pipeline
+              enterprise_version: enterprise_version
               host_id: host_id
             timestamp: timestamp
           - to_status: to_status
             from_status: from_status
             source:
               service_name: service_name
+              analysis_engine: anchore-engine-pipeline
+              enterprise_version: enterprise_version
               host_id: host_id
             timestamp: timestamp
           analysis_status: not_analyzed
@@ -18527,6 +18770,13 @@ components:
       enum:
       - source
       - image
+      type: string
+    VulnAnnotationStatus:
+      enum:
+      - not_affected
+      - affected
+      - fixed
+      - under_investigation
       type: string
     AssociatedImageArtifact:
       description: Model for an associated image artifact. Composites the artifact
@@ -20665,6 +20915,11 @@ components:
           id: id
           source: source
           type: Primary
+        epss:
+        - percentile: 6.027456183070403
+          epss: 0.8008281904610115
+        - percentile: 6.027456183070403
+          epss: 0.8008281904610115
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -20689,6 +20944,8 @@ components:
           source: source
           type: Primary
         description: description
+        is_kev: true
+        purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
         package_type: package_type
         package_cpe: package_cpe
         url: url
@@ -20697,10 +20954,12 @@ components:
         detected_at: 2000-01-23T04:56:07.000+00:00
         package_version: package_version
         fix: fix
+        annotation_status: not_affected
         vuln: vuln
         fix_observed_at: 2000-01-23T04:56:07.000+00:00
         feed_group: feed_group
         package_name: package_name
+        annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         inherited_from_base: true
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
@@ -20749,6 +21008,11 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -20773,6 +21037,8 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
+          purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -20781,10 +21047,12 @@ components:
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
+          annotation_status: not_affected
           vuln: vuln
           fix_observed_at: 2000-01-23T04:56:07.000+00:00
           feed_group: feed_group
           package_name: package_name
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           inherited_from_base: true
         - severity: severity
           package: package
@@ -20822,6 +21090,11 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -20846,6 +21119,8 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
+          purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -20854,10 +21129,12 @@ components:
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
+          annotation_status: not_affected
           vuln: vuln
           fix_observed_at: 2000-01-23T04:56:07.000+00:00
           feed_group: feed_group
           package_name: package_name
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           inherited_from_base: true
       properties:
         image_digest:
@@ -24410,6 +24687,7 @@ components:
     ScanResponse:
       example:
         vuln_scan:
+          extended_support: true
           vulnerabilities:
           - severity: severity
             package: package
@@ -24447,6 +24725,11 @@ components:
               id: id
               source: source
               type: Primary
+            epss:
+            - percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - percentile: 6.027456183070403
+              epss: 0.8008281904610115
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -24471,6 +24754,8 @@ components:
               source: source
               type: Primary
             description: description
+            is_kev: true
+            purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
             package_type: package_type
             package_cpe: package_cpe
             url: url
@@ -24479,10 +24764,12 @@ components:
             detected_at: 2000-01-23T04:56:07.000+00:00
             package_version: package_version
             fix: fix
+            annotation_status: not_affected
             vuln: vuln
             fix_observed_at: 2000-01-23T04:56:07.000+00:00
             feed_group: feed_group
             package_name: package_name
+            annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - severity: severity
             package: package
             package_path: package_path
@@ -24519,6 +24806,11 @@ components:
               id: id
               source: source
               type: Primary
+            epss:
+            - percentile: 6.027456183070403
+              epss: 0.8008281904610115
+            - percentile: 6.027456183070403
+              epss: 0.8008281904610115
             vendor_data:
             - cvss_v3:
                 base_score: 5.962133916683182
@@ -24543,6 +24835,8 @@ components:
               source: source
               type: Primary
             description: description
+            is_kev: true
+            purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
             package_type: package_type
             package_cpe: package_cpe
             url: url
@@ -24551,10 +24845,12 @@ components:
             detected_at: 2000-01-23T04:56:07.000+00:00
             package_version: package_version
             fix: fix
+            annotation_status: not_affected
             vuln: vuln
             fix_observed_at: 2000-01-23T04:56:07.000+00:00
             feed_group: feed_group
             package_name: package_name
+            annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           sbom_id: sbom_id
         policy_scan:
           evaluations:
@@ -25274,6 +25570,28 @@ components:
           description: Whether a vendor will or will not fix a vulnerability
           type: boolean
       type: object
+    PackageIdentifier:
+      description: Matching details for the SBOM package scope
+      example:
+        name: name
+        type: type
+        version: version
+      nullable: true
+      properties:
+        name:
+          description: The name of the package to which this scope applies
+          type: string
+        version:
+          description: The version of the package to which this scope applies
+          type: string
+        type:
+          description: The type of the package to which this scope applies
+          type: string
+      required:
+      - name
+      - type
+      - version
+      type: object
     PackageVulnerability:
       example:
         severity: severity
@@ -25312,6 +25630,11 @@ components:
           id: id
           source: source
           type: Primary
+        epss:
+        - percentile: 6.027456183070403
+          epss: 0.8008281904610115
+        - percentile: 6.027456183070403
+          epss: 0.8008281904610115
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -25336,6 +25659,8 @@ components:
           source: source
           type: Primary
         description: description
+        is_kev: true
+        purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
         package_type: package_type
         package_cpe: package_cpe
         url: url
@@ -25344,10 +25669,12 @@ components:
         detected_at: 2000-01-23T04:56:07.000+00:00
         package_version: package_version
         fix: fix
+        annotation_status: not_affected
         vuln: vuln
         fix_observed_at: 2000-01-23T04:56:07.000+00:00
         feed_group: feed_group
         package_name: package_name
+        annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
         vuln:
           description: "The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123"
@@ -25390,6 +25717,10 @@ components:
           description: The location (if applicable) of the vulnerable package in the
             container filesystem
           type: string
+        purl:
+          description: The Package URL (PURL) for the vulnerable package
+          example: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
+          type: string
         will_not_fix:
           description: Whether a vendor will fix or not fix the vulnerability
           type: boolean
@@ -25411,6 +25742,118 @@ components:
           description: When the fix was observed
           format: date-time
           type: string
+        is_kev:
+          type: boolean
+        epss:
+          items:
+            $ref: '#/components/schemas/PackageEPSS'
+          type: array
+        annotation_status:
+          $ref: '#/components/schemas/VulnAnnotationStatus'
+        annotation_uuid:
+          description: "The UUID of the annotation for this vulnerability, if one\
+            \ exists"
+          format: uuid
+          type: string
+      type: object
+    PackageVulnerabilityAnnotation:
+      example:
+        annotation:
+          vulnerability_id: CVE-2023-1234
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          additional_details: additional_details
+          author: author
+          created_at: 2000-01-23T04:56:07.000+00:00
+          action_statement: action_statement
+          justification: component_not_present
+          impact_statement: impact_statement
+          uuid: uuid
+          version: 0
+          status_notes: status_notes
+          status: not_affected
+        package_identifier:
+          name: name
+          type: type
+          version: version
+      properties:
+        annotation:
+          $ref: '#/components/schemas/VulnerabilityAnnotation'
+        package_identifier:
+          $ref: '#/components/schemas/PackageIdentifier'
+      required:
+      - annotation
+      type: object
+    PackageVulnerabilityAnnotationResponse:
+      example:
+        annotation:
+          vulnerability_id: CVE-2023-1234
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          additional_details: additional_details
+          author: author
+          created_at: 2000-01-23T04:56:07.000+00:00
+          action_statement: action_statement
+          justification: component_not_present
+          impact_statement: impact_statement
+          uuid: uuid
+          version: 0
+          status_notes: status_notes
+          status: not_affected
+        package_identifier:
+          name: name
+          type: type
+          version: version
+      properties:
+        annotation:
+          $ref: '#/components/schemas/VulnerabilityAnnotation'
+        package_identifier:
+          $ref: '#/components/schemas/PackageIdentifier'
+      type: object
+    PackageVulnerabilityAnnotationResponseList:
+      description: A list of VulnerabilityAnnotation entries for an artifact
+      example:
+        items:
+        - annotation:
+            vulnerability_id: CVE-2023-1234
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            additional_details: additional_details
+            author: author
+            created_at: 2000-01-23T04:56:07.000+00:00
+            action_statement: action_statement
+            justification: component_not_present
+            impact_statement: impact_statement
+            uuid: uuid
+            version: 0
+            status_notes: status_notes
+            status: not_affected
+          package_identifier:
+            name: name
+            type: type
+            version: version
+        - annotation:
+            vulnerability_id: CVE-2023-1234
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            additional_details: additional_details
+            author: author
+            created_at: 2000-01-23T04:56:07.000+00:00
+            action_statement: action_statement
+            justification: component_not_present
+            impact_statement: impact_statement
+            uuid: uuid
+            version: 0
+            status_notes: status_notes
+            status: not_affected
+          package_identifier:
+            name: name
+            type: type
+            version: version
+      properties:
+        items:
+          description: The annotations for the artifact
+          items:
+            $ref: '#/components/schemas/PackageVulnerabilityAnnotationResponse'
+          type: array
+      required:
+      - items
       type: object
     PaginatedImageList:
       allOf:
@@ -28347,6 +28790,7 @@ components:
     SBOMVulnerabilitiesResponse:
       description: Envelope containing list of vulnerabilities for a source repo
       example:
+        extended_support: true
         vulnerabilities:
         - severity: severity
           package: package
@@ -28384,6 +28828,11 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -28408,6 +28857,8 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
+          purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -28416,10 +28867,12 @@ components:
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
+          annotation_status: not_affected
           vuln: vuln
           fix_observed_at: 2000-01-23T04:56:07.000+00:00
           feed_group: feed_group
           package_name: package_name
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - severity: severity
           package: package
           package_path: package_path
@@ -28456,6 +28909,11 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -28480,6 +28938,8 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
+          purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -28488,14 +28948,20 @@ components:
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
+          annotation_status: not_affected
           vuln: vuln
           fix_observed_at: 2000-01-23T04:56:07.000+00:00
           feed_group: feed_group
           package_name: package_name
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         sbom_id: sbom_id
       properties:
         sbom_id:
           type: string
+        extended_support:
+          description: Whether Extended Update Support (EUS) data was used for the
+            vulnerability scan
+          type: boolean
         vulnerabilities:
           items:
             $ref: '#/components/schemas/PackageVulnerability'
@@ -28574,10 +29040,12 @@ components:
       items:
         $ref: '#/components/schemas/Service'
       type: array
-    ServiceReference:
+    ServiceAnalysisReference:
       description: A reference to a service in the system
       example:
         service_name: service_name
+        analysis_engine: anchore-engine-pipeline
+        enterprise_version: enterprise_version
         host_id: host_id
       properties:
         host_id:
@@ -28585,6 +29053,16 @@ components:
           type: string
         service_name:
           description: Registered service name
+          type: string
+        analysis_engine:
+          description: The generation of analysis engine that was used for the analysis
+          enum:
+          - anchore-engine-pipeline
+          - syft-native-pipeline
+          type: string
+        enterprise_version:
+          description: The version of the Anchore Enterprise service that performed
+            the analysis
           type: string
       type: object
     ServiceVersion:
@@ -29022,6 +29500,11 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -29046,6 +29529,8 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
+          purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -29054,10 +29539,12 @@ components:
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
+          annotation_status: not_affected
           vuln: vuln
           fix_observed_at: 2000-01-23T04:56:07.000+00:00
           feed_group: feed_group
           package_name: package_name
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - severity: severity
           package: package
           package_path: package_path
@@ -29094,6 +29581,11 @@ components:
             id: id
             source: source
             type: Primary
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -29118,6 +29610,8 @@ components:
             source: source
             type: Primary
           description: description
+          is_kev: true
+          purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -29126,10 +29620,12 @@ components:
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
+          annotation_status: not_affected
           vuln: vuln
           fix_observed_at: 2000-01-23T04:56:07.000+00:00
           feed_group: feed_group
           package_name: package_name
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         source_id: source_id
       properties:
         source_id:
@@ -31057,6 +31553,79 @@ components:
           type: string
         url:
           type: string
+      type: object
+    VulnerabilityAnnotation:
+      description: A single VEX annotation record
+      example:
+        vulnerability_id: CVE-2023-1234
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        additional_details: additional_details
+        author: author
+        created_at: 2000-01-23T04:56:07.000+00:00
+        action_statement: action_statement
+        justification: component_not_present
+        impact_statement: impact_statement
+        uuid: uuid
+        version: 0
+        status_notes: status_notes
+        status: not_affected
+      properties:
+        uuid:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          type: string
+        vulnerability_id:
+          description: The CVE identifier that this annotation refers to
+          example: CVE-2023-1234
+          type: string
+        author:
+          description: The name of the user that created/updated this annotation
+          readOnly: true
+          type: string
+        created_at:
+          description: The date that the annotation was created at
+          format: date-time
+          readOnly: true
+          type: string
+        updated_at:
+          description: The date that the annotation was last updated at
+          format: date-time
+          readOnly: true
+          type: string
+        version:
+          description: The version number of this annotation
+          readOnly: true
+          type: integer
+        status:
+          $ref: '#/components/schemas/VulnAnnotationStatus'
+        status_notes:
+          description: Notes on the status of the annotation
+          type: string
+        justification:
+          enum:
+          - component_not_present
+          - vulnerable_code_not_present
+          - vulnerable_code_not_in_execute_path
+          - vulnerable_code_cannot_be_controlled_by_adversary
+          - inline_mitigations_already_exist
+          type: string
+        impact_statement:
+          description: A statement of the impact of the vulnerability on the component
+            or service
+          type: string
+        action_statement:
+          description: A statement of the action taken in response to the vulnerability
+          type: string
+        additional_details:
+          description: "Detailed description of the impact including methods used\
+            \ during annotation. If a vulnerability is not exploitable, this field\
+            \ should include specific details on why the component or service is not\
+            \ impacted by this vulnerability."
+          type: string
+      required:
+      - status
+      - vulnerability_id
       type: object
     VulnDiffResult:
       description: The results of the comparing two vulnerability records during an

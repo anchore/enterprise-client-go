@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SbomId** | Pointer to **string** |  | [optional] 
+**ExtendedSupport** | Pointer to **bool** | Whether Extended Update Support (EUS) data was used for the vulnerability scan | [optional] 
 **Vulnerabilities** | Pointer to [**[]PackageVulnerability**](PackageVulnerability.md) |  | [optional] 
 
 ## Methods
@@ -50,6 +51,31 @@ SetSbomId sets SbomId field to given value.
 `func (o *SBOMVulnerabilitiesResponse) HasSbomId() bool`
 
 HasSbomId returns a boolean if a field has been set.
+
+### GetExtendedSupport
+
+`func (o *SBOMVulnerabilitiesResponse) GetExtendedSupport() bool`
+
+GetExtendedSupport returns the ExtendedSupport field if non-nil, zero value otherwise.
+
+### GetExtendedSupportOk
+
+`func (o *SBOMVulnerabilitiesResponse) GetExtendedSupportOk() (*bool, bool)`
+
+GetExtendedSupportOk returns a tuple with the ExtendedSupport field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExtendedSupport
+
+`func (o *SBOMVulnerabilitiesResponse) SetExtendedSupport(v bool)`
+
+SetExtendedSupport sets ExtendedSupport field to given value.
+
+### HasExtendedSupport
+
+`func (o *SBOMVulnerabilitiesResponse) HasExtendedSupport() bool`
+
+HasExtendedSupport returns a boolean if a field has been set.
 
 ### GetVulnerabilities
 

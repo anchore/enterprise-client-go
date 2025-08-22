@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -25,7 +25,7 @@ type AnalysisStatusDetail struct {
 	FromStatus string `json:"from_status"`
 	ToStatus string `json:"to_status"`
 	Timestamp string `json:"timestamp"`
-	Source ServiceReference `json:"source"`
+	Source ServiceAnalysisReference `json:"source"`
 }
 
 type _AnalysisStatusDetail AnalysisStatusDetail
@@ -34,7 +34,7 @@ type _AnalysisStatusDetail AnalysisStatusDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAnalysisStatusDetail(fromStatus string, toStatus string, timestamp string, source ServiceReference) *AnalysisStatusDetail {
+func NewAnalysisStatusDetail(fromStatus string, toStatus string, timestamp string, source ServiceAnalysisReference) *AnalysisStatusDetail {
 	this := AnalysisStatusDetail{}
 	this.FromStatus = fromStatus
 	this.ToStatus = toStatus
@@ -124,9 +124,9 @@ func (o *AnalysisStatusDetail) SetTimestamp(v string) {
 }
 
 // GetSource returns the Source field value
-func (o *AnalysisStatusDetail) GetSource() ServiceReference {
+func (o *AnalysisStatusDetail) GetSource() ServiceAnalysisReference {
 	if o == nil {
-		var ret ServiceReference
+		var ret ServiceAnalysisReference
 		return ret
 	}
 
@@ -135,7 +135,7 @@ func (o *AnalysisStatusDetail) GetSource() ServiceReference {
 
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
-func (o *AnalysisStatusDetail) GetSourceOk() (*ServiceReference, bool) {
+func (o *AnalysisStatusDetail) GetSourceOk() (*ServiceAnalysisReference, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -143,7 +143,7 @@ func (o *AnalysisStatusDetail) GetSourceOk() (*ServiceReference, bool) {
 }
 
 // SetSource sets field value
-func (o *AnalysisStatusDetail) SetSource(v ServiceReference) {
+func (o *AnalysisStatusDetail) SetSource(v ServiceAnalysisReference) {
 	o.Source = v
 }
 

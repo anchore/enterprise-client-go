@@ -5,8 +5,10 @@ All URIs are relative to */v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddImage**](ImagesAPI.md#AddImage) | **Post** /images | Submit a new image for analysis by the engine
+[**CreateImageVulnAnnotation**](ImagesAPI.md#CreateImageVulnAnnotation) | **Post** /images/{image_digest}/vuln-annotations | Add a vuln annotation for this image
 [**DeleteImage**](ImagesAPI.md#DeleteImage) | **Delete** /images/{image_digest} | Delete an image analysis
 [**DeleteImageStig**](ImagesAPI.md#DeleteImageStig) | **Delete** /images/{image_digest}/stig/{evaluation_uuid} | Delete a specific STIG evaluation for an image
+[**DeleteImageVulnAnnotation**](ImagesAPI.md#DeleteImageVulnAnnotation) | **Delete** /images/{image_digest}/vuln-annotations/{vuln_annotation_uuid} | Delete a vuln annotation
 [**DeleteImagesAsync**](ImagesAPI.md#DeleteImagesAsync) | **Delete** /images | Bulk mark images for deletion
 [**GetImage**](ImagesAPI.md#GetImage) | **Get** /images/{image_digest} | Get image metadata
 [**GetImageAncestors**](ImagesAPI.md#GetImageAncestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
@@ -22,12 +24,14 @@ Method | HTTP request | Description
 [**GetImageSbomNativeJson**](ImagesAPI.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
 [**GetImageSbomSpdxJson**](ImagesAPI.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
 [**GetImageStig**](ImagesAPI.md#GetImageStig) | **Get** /images/{image_digest}/stig/{evaluation_uuid}/file | Get a specific STIG evaluation for an image
+[**GetImageVulnAnnotation**](ImagesAPI.md#GetImageVulnAnnotation) | **Get** /images/{image_digest}/vuln-annotations/{vuln_annotation_uuid} | Get a vuln annotation
 [**GetImageVulnerabilitiesByDigest**](ImagesAPI.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
 [**GetImageVulnerabilityTypes**](ImagesAPI.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
 [**ListFileContentSearchResults**](ImagesAPI.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 [**ListImageContent**](ImagesAPI.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
 [**ListImageMetadata**](ImagesAPI.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
 [**ListImageStig**](ImagesAPI.md#ListImageStig) | **Get** /images/{image_digest}/stig | List STIG evaluation metadata for an image
+[**ListImageVulnAnnotations**](ImagesAPI.md#ListImageVulnAnnotations) | **Get** /images/{image_digest}/vuln-annotations | List the vuln annotations for this image
 [**ListImages**](ImagesAPI.md#ListImages) | **Get** /images | List all visible images
 [**ListRetrievedFiles**](ImagesAPI.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
 [**ListSecretSearchResults**](ImagesAPI.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
@@ -35,6 +39,7 @@ Method | HTTP request | Description
 [**PutImageStig**](ImagesAPI.md#PutImageStig) | **Put** /images/{image_digest}/stig/{evaluation_uuid} | Update a STIG evaluation for an image
 [**SummaryImageCounts**](ImagesAPI.md#SummaryImageCounts) | **Get** /summaries/image-counts | Image summary counts
 [**SummaryImageTags**](ImagesAPI.md#SummaryImageTags) | **Get** /summaries/image-tags | Summarize image tags
+[**UpdateImageVulnAnnotation**](ImagesAPI.md#UpdateImageVulnAnnotation) | **Put** /images/{image_digest}/vuln-annotations/{vuln_annotation_uuid} | Update a vuln annotation
 
 
 
@@ -95,6 +100,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AnchoreImage**](AnchoreImage.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateImageVulnAnnotation
+
+> PackageVulnerabilityAnnotation CreateImageVulnAnnotation(ctx, imageDigest).PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation).Execute()
+
+Add a vuln annotation for this image
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	packageVulnerabilityAnnotation := *openapiclient.NewPackageVulnerabilityAnnotation(*openapiclient.NewVulnerabilityAnnotation("CVE-2023-1234", openapiclient.VulnAnnotationStatus("not_affected"))) // PackageVulnerabilityAnnotation |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.CreateImageVulnAnnotation(context.Background(), imageDigest).PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.CreateImageVulnAnnotation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateImageVulnAnnotation`: PackageVulnerabilityAnnotation
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.CreateImageVulnAnnotation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateImageVulnAnnotationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **packageVulnerabilityAnnotation** | [**PackageVulnerabilityAnnotation**](PackageVulnerabilityAnnotation.md) |  | 
+
+### Return type
+
+[**PackageVulnerabilityAnnotation**](PackageVulnerabilityAnnotation.md)
 
 ### Authorization
 
@@ -234,6 +309,75 @@ Name | Type | Description  | Notes
 
 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteImageVulnAnnotation
+
+> DeleteImageVulnAnnotation(ctx, imageDigest, vulnAnnotationUuid).Execute()
+
+Delete a vuln annotation
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	vulnAnnotationUuid := "vulnAnnotationUuid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ImagesAPI.DeleteImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.DeleteImageVulnAnnotation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**vulnAnnotationUuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteImageVulnAnnotationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -1330,6 +1474,77 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetImageVulnAnnotation
+
+> PackageVulnerabilityAnnotationResponse GetImageVulnAnnotation(ctx, imageDigest, vulnAnnotationUuid).Execute()
+
+Get a vuln annotation
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	vulnAnnotationUuid := "vulnAnnotationUuid_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageVulnAnnotation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageVulnAnnotation`: PackageVulnerabilityAnnotationResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageVulnAnnotation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**vulnAnnotationUuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageVulnAnnotationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**PackageVulnerabilityAnnotationResponse**](PackageVulnerabilityAnnotationResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetImageVulnerabilitiesByDigest
 
 > ImagePackageVulnerabilityResponse GetImageVulnerabilitiesByDigest(ctx, imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1744,6 +1959,82 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**STIGMetadataResponseList**](STIGMetadataResponseList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListImageVulnAnnotations
+
+> PackageVulnerabilityAnnotationResponseList ListImageVulnAnnotations(ctx, imageDigest).VulnerabilityId(vulnerabilityId).PackageName(packageName).PackageVersion(packageVersion).PackageType(packageType).Execute()
+
+List the vuln annotations for this image
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	vulnerabilityId := "vulnerabilityId_example" // string |  (optional)
+	packageName := "packageName_example" // string |  (optional)
+	packageVersion := "packageVersion_example" // string |  (optional)
+	packageType := "packageType_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListImageVulnAnnotations(context.Background(), imageDigest).VulnerabilityId(vulnerabilityId).PackageName(packageName).PackageVersion(packageVersion).PackageType(packageType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListImageVulnAnnotations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListImageVulnAnnotations`: PackageVulnerabilityAnnotationResponseList
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListImageVulnAnnotations`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListImageVulnAnnotationsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **vulnerabilityId** | **string** |  | 
+ **packageName** | **string** |  | 
+ **packageVersion** | **string** |  | 
+ **packageType** | **string** |  | 
+
+### Return type
+
+[**PackageVulnerabilityAnnotationResponseList**](PackageVulnerabilityAnnotationResponseList.md)
 
 ### Authorization
 
@@ -2279,6 +2570,79 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateImageVulnAnnotation
+
+> PackageVulnerabilityAnnotationResponse UpdateImageVulnAnnotation(ctx, imageDigest, vulnAnnotationUuid).PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation).Execute()
+
+Update a vuln annotation
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	vulnAnnotationUuid := "vulnAnnotationUuid_example" // string | 
+	packageVulnerabilityAnnotation := *openapiclient.NewPackageVulnerabilityAnnotation(*openapiclient.NewVulnerabilityAnnotation("CVE-2023-1234", openapiclient.VulnAnnotationStatus("not_affected"))) // PackageVulnerabilityAnnotation |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.UpdateImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.UpdateImageVulnAnnotation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateImageVulnAnnotation`: PackageVulnerabilityAnnotationResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.UpdateImageVulnAnnotation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**vulnAnnotationUuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateImageVulnAnnotationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **packageVulnerabilityAnnotation** | [**PackageVulnerabilityAnnotation**](PackageVulnerabilityAnnotation.md) |  | 
+
+### Return type
+
+[**PackageVulnerabilityAnnotationResponse**](PackageVulnerabilityAnnotationResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

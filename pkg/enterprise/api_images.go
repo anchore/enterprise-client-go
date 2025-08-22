@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -39,6 +39,19 @@ type ImagesAPI interface {
 	AddImageExecute(r ApiAddImageRequest) (*AnchoreImage, *http.Response, error)
 
 	/*
+	CreateImageVulnAnnotation Add a vuln annotation for this image
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiCreateImageVulnAnnotationRequest
+	*/
+	CreateImageVulnAnnotation(ctx context.Context, imageDigest string) ApiCreateImageVulnAnnotationRequest
+
+	// CreateImageVulnAnnotationExecute executes the request
+	//  @return PackageVulnerabilityAnnotation
+	CreateImageVulnAnnotationExecute(r ApiCreateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotation, *http.Response, error)
+
+	/*
 	DeleteImage Delete an image analysis
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -63,6 +76,19 @@ type ImagesAPI interface {
 
 	// DeleteImageStigExecute executes the request
 	DeleteImageStigExecute(r ApiDeleteImageStigRequest) (*http.Response, error)
+
+	/*
+	DeleteImageVulnAnnotation Delete a vuln annotation
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param vulnAnnotationUuid
+	@return ApiDeleteImageVulnAnnotationRequest
+	*/
+	DeleteImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiDeleteImageVulnAnnotationRequest
+
+	// DeleteImageVulnAnnotationExecute executes the request
+	DeleteImageVulnAnnotationExecute(r ApiDeleteImageVulnAnnotationRequest) (*http.Response, error)
 
 	/*
 	DeleteImagesAsync Bulk mark images for deletion
@@ -270,6 +296,20 @@ type ImagesAPI interface {
 	GetImageStigExecute(r ApiGetImageStigRequest) (*os.File, *http.Response, error)
 
 	/*
+	GetImageVulnAnnotation Get a vuln annotation
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param vulnAnnotationUuid
+	@return ApiGetImageVulnAnnotationRequest
+	*/
+	GetImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiGetImageVulnAnnotationRequest
+
+	// GetImageVulnAnnotationExecute executes the request
+	//  @return PackageVulnerabilityAnnotationResponse
+	GetImageVulnAnnotationExecute(r ApiGetImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error)
+
+	/*
 	GetImageVulnerabilitiesByDigest Get vulnerabilities by type
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -347,6 +387,19 @@ type ImagesAPI interface {
 	// ListImageStigExecute executes the request
 	//  @return STIGMetadataResponseList
 	ListImageStigExecute(r ApiListImageStigRequest) (*STIGMetadataResponseList, *http.Response, error)
+
+	/*
+	ListImageVulnAnnotations List the vuln annotations for this image
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListImageVulnAnnotationsRequest
+	*/
+	ListImageVulnAnnotations(ctx context.Context, imageDigest string) ApiListImageVulnAnnotationsRequest
+
+	// ListImageVulnAnnotationsExecute executes the request
+	//  @return PackageVulnerabilityAnnotationResponseList
+	ListImageVulnAnnotationsExecute(r ApiListImageVulnAnnotationsRequest) (*PackageVulnerabilityAnnotationResponseList, *http.Response, error)
 
 	/*
 	ListImages List all visible images
@@ -442,6 +495,20 @@ type ImagesAPI interface {
 	// SummaryImageTagsExecute executes the request
 	//  @return AnchoreImageTagSummaryList
 	SummaryImageTagsExecute(r ApiSummaryImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error)
+
+	/*
+	UpdateImageVulnAnnotation Update a vuln annotation
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param vulnAnnotationUuid
+	@return ApiUpdateImageVulnAnnotationRequest
+	*/
+	UpdateImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiUpdateImageVulnAnnotationRequest
+
+	// UpdateImageVulnAnnotationExecute executes the request
+	//  @return PackageVulnerabilityAnnotationResponse
+	UpdateImageVulnAnnotationExecute(r ApiUpdateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error)
 }
 
 // ImagesAPIService ImagesAPI service
@@ -593,6 +660,125 @@ func (a *ImagesAPIService) AddImageExecute(r ApiAddImageRequest) (*AnchoreImage,
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateImageVulnAnnotationRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	packageVulnerabilityAnnotation *PackageVulnerabilityAnnotation
+}
+
+func (r ApiCreateImageVulnAnnotationRequest) PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation PackageVulnerabilityAnnotation) ApiCreateImageVulnAnnotationRequest {
+	r.packageVulnerabilityAnnotation = &packageVulnerabilityAnnotation
+	return r
+}
+
+func (r ApiCreateImageVulnAnnotationRequest) Execute() (*PackageVulnerabilityAnnotation, *http.Response, error) {
+	return r.ApiService.CreateImageVulnAnnotationExecute(r)
+}
+
+/*
+CreateImageVulnAnnotation Add a vuln annotation for this image
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiCreateImageVulnAnnotationRequest
+*/
+func (a *ImagesAPIService) CreateImageVulnAnnotation(ctx context.Context, imageDigest string) ApiCreateImageVulnAnnotationRequest {
+	return ApiCreateImageVulnAnnotationRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return PackageVulnerabilityAnnotation
+func (a *ImagesAPIService) CreateImageVulnAnnotationExecute(r ApiCreateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotation, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PackageVulnerabilityAnnotation
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.CreateImageVulnAnnotation")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vuln-annotations"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.packageVulnerabilityAnnotation
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiErrorResponse
@@ -918,6 +1104,116 @@ func (a *ImagesAPIService) DeleteImageStigExecute(r ApiDeleteImageStigRequest) (
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeleteImageVulnAnnotationRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	vulnAnnotationUuid string
+}
+
+func (r ApiDeleteImageVulnAnnotationRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteImageVulnAnnotationExecute(r)
+}
+
+/*
+DeleteImageVulnAnnotation Delete a vuln annotation
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param vulnAnnotationUuid
+ @return ApiDeleteImageVulnAnnotationRequest
+*/
+func (a *ImagesAPIService) DeleteImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiDeleteImageVulnAnnotationRequest {
+	return ApiDeleteImageVulnAnnotationRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		vulnAnnotationUuid: vulnAnnotationUuid,
+	}
+}
+
+// Execute executes the request
+func (a *ImagesAPIService) DeleteImageVulnAnnotationExecute(r ApiDeleteImageVulnAnnotationRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.DeleteImageVulnAnnotation")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vuln-annotations/{vuln_annotation_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_annotation_uuid"+"}", url.PathEscape(parameterValueToString(r.vulnAnnotationUuid, "vulnAnnotationUuid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.vulnAnnotationUuid) < 36 {
+		return nil, reportError("vulnAnnotationUuid must have at least 36 elements")
+	}
+	if strlen(r.vulnAnnotationUuid) > 36 {
+		return nil, reportError("vulnAnnotationUuid must have less than 36 elements")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiErrorResponse
@@ -3340,6 +3636,127 @@ func (a *ImagesAPIService) GetImageStigExecute(r ApiGetImageStigRequest) (*os.Fi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetImageVulnAnnotationRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	vulnAnnotationUuid string
+}
+
+func (r ApiGetImageVulnAnnotationRequest) Execute() (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+	return r.ApiService.GetImageVulnAnnotationExecute(r)
+}
+
+/*
+GetImageVulnAnnotation Get a vuln annotation
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param vulnAnnotationUuid
+ @return ApiGetImageVulnAnnotationRequest
+*/
+func (a *ImagesAPIService) GetImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiGetImageVulnAnnotationRequest {
+	return ApiGetImageVulnAnnotationRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		vulnAnnotationUuid: vulnAnnotationUuid,
+	}
+}
+
+// Execute executes the request
+//  @return PackageVulnerabilityAnnotationResponse
+func (a *ImagesAPIService) GetImageVulnAnnotationExecute(r ApiGetImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PackageVulnerabilityAnnotationResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.GetImageVulnAnnotation")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vuln-annotations/{vuln_annotation_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_annotation_uuid"+"}", url.PathEscape(parameterValueToString(r.vulnAnnotationUuid, "vulnAnnotationUuid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.vulnAnnotationUuid) < 36 {
+		return localVarReturnValue, nil, reportError("vulnAnnotationUuid must have at least 36 elements")
+	}
+	if strlen(r.vulnAnnotationUuid) > 36 {
+		return localVarReturnValue, nil, reportError("vulnAnnotationUuid must have less than 36 elements")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetImageVulnerabilitiesByDigestRequest struct {
 	ctx context.Context
 	ApiService ImagesAPI
@@ -4256,6 +4673,143 @@ func (a *ImagesAPIService) ListImageStigExecute(r ApiListImageStigRequest) (*STI
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListImageVulnAnnotationsRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	vulnerabilityId *string
+	packageName *string
+	packageVersion *string
+	packageType *string
+}
+
+func (r ApiListImageVulnAnnotationsRequest) VulnerabilityId(vulnerabilityId string) ApiListImageVulnAnnotationsRequest {
+	r.vulnerabilityId = &vulnerabilityId
+	return r
+}
+
+func (r ApiListImageVulnAnnotationsRequest) PackageName(packageName string) ApiListImageVulnAnnotationsRequest {
+	r.packageName = &packageName
+	return r
+}
+
+func (r ApiListImageVulnAnnotationsRequest) PackageVersion(packageVersion string) ApiListImageVulnAnnotationsRequest {
+	r.packageVersion = &packageVersion
+	return r
+}
+
+func (r ApiListImageVulnAnnotationsRequest) PackageType(packageType string) ApiListImageVulnAnnotationsRequest {
+	r.packageType = &packageType
+	return r
+}
+
+func (r ApiListImageVulnAnnotationsRequest) Execute() (*PackageVulnerabilityAnnotationResponseList, *http.Response, error) {
+	return r.ApiService.ListImageVulnAnnotationsExecute(r)
+}
+
+/*
+ListImageVulnAnnotations List the vuln annotations for this image
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiListImageVulnAnnotationsRequest
+*/
+func (a *ImagesAPIService) ListImageVulnAnnotations(ctx context.Context, imageDigest string) ApiListImageVulnAnnotationsRequest {
+	return ApiListImageVulnAnnotationsRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return PackageVulnerabilityAnnotationResponseList
+func (a *ImagesAPIService) ListImageVulnAnnotationsExecute(r ApiListImageVulnAnnotationsRequest) (*PackageVulnerabilityAnnotationResponseList, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PackageVulnerabilityAnnotationResponseList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.ListImageVulnAnnotations")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vuln-annotations"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.vulnerabilityId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "vulnerability_id", r.vulnerabilityId, "form", "")
+	}
+	if r.packageName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "package_name", r.packageName, "form", "")
+	}
+	if r.packageVersion != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "package_version", r.packageVersion, "form", "")
+	}
+	if r.packageType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "package_type", r.packageType, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -5597,6 +6151,135 @@ func (a *ImagesAPIService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateImageVulnAnnotationRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	vulnAnnotationUuid string
+	packageVulnerabilityAnnotation *PackageVulnerabilityAnnotation
+}
+
+func (r ApiUpdateImageVulnAnnotationRequest) PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation PackageVulnerabilityAnnotation) ApiUpdateImageVulnAnnotationRequest {
+	r.packageVulnerabilityAnnotation = &packageVulnerabilityAnnotation
+	return r
+}
+
+func (r ApiUpdateImageVulnAnnotationRequest) Execute() (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+	return r.ApiService.UpdateImageVulnAnnotationExecute(r)
+}
+
+/*
+UpdateImageVulnAnnotation Update a vuln annotation
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param vulnAnnotationUuid
+ @return ApiUpdateImageVulnAnnotationRequest
+*/
+func (a *ImagesAPIService) UpdateImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiUpdateImageVulnAnnotationRequest {
+	return ApiUpdateImageVulnAnnotationRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		vulnAnnotationUuid: vulnAnnotationUuid,
+	}
+}
+
+// Execute executes the request
+//  @return PackageVulnerabilityAnnotationResponse
+func (a *ImagesAPIService) UpdateImageVulnAnnotationExecute(r ApiUpdateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *PackageVulnerabilityAnnotationResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.UpdateImageVulnAnnotation")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vuln-annotations/{vuln_annotation_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_annotation_uuid"+"}", url.PathEscape(parameterValueToString(r.vulnAnnotationUuid, "vulnAnnotationUuid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.vulnAnnotationUuid) < 36 {
+		return localVarReturnValue, nil, reportError("vulnAnnotationUuid must have at least 36 elements")
+	}
+	if strlen(r.vulnAnnotationUuid) > 36 {
+		return localVarReturnValue, nil, reportError("vulnAnnotationUuid must have less than 36 elements")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.packageVulnerabilityAnnotation
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiErrorResponse

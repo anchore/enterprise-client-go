@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.12.1
+API version: 2.13.0
 Contact: dev@anchore.com
 */
 
@@ -46,6 +46,7 @@ type ApiVulnerabilityScanSbomRequest struct {
 	sbom *interface{}
 	xAnchoreAccount *string
 	includeVulnDescription *bool
+	extendedSupport *bool
 }
 
 func (r ApiVulnerabilityScanSbomRequest) Sbom(sbom interface{}) ApiVulnerabilityScanSbomRequest {
@@ -61,6 +62,12 @@ func (r ApiVulnerabilityScanSbomRequest) XAnchoreAccount(xAnchoreAccount string)
 
 func (r ApiVulnerabilityScanSbomRequest) IncludeVulnDescription(includeVulnDescription bool) ApiVulnerabilityScanSbomRequest {
 	r.includeVulnDescription = &includeVulnDescription
+	return r
+}
+
+// Whether to use Extended Update Support (EUS) data during the vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided.
+func (r ApiVulnerabilityScanSbomRequest) ExtendedSupport(extendedSupport bool) ApiVulnerabilityScanSbomRequest {
+	r.extendedSupport = &extendedSupport
 	return r
 }
 
@@ -112,6 +119,9 @@ func (a *VulnerabilitiesAPIService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 	} else {
 		var defaultValue bool = false
 		r.includeVulnDescription = &defaultValue
+	}
+	if r.extendedSupport != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "extended_support", r.extendedSupport, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## StatelessScan
 
-> ScanResponse StatelessScan(ctx).Tag(tag).ScanRequest(scanRequest).XAnchoreAccount(xAnchoreAccount).PolicyId(policyId).Execute()
+> ScanResponse StatelessScan(ctx).Tag(tag).ScanRequest(scanRequest).XAnchoreAccount(xAnchoreAccount).PolicyId(policyId).ExtendedSupport(extendedSupport).Execute()
 
 Return a onetime evaluation of the provided data.
 
@@ -33,10 +33,11 @@ func main() {
 	scanRequest := *openapiclient.NewScanRequest() // ScanRequest | 
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 	policyId := "policyId_example" // string | The ID of the policy used to evaluate the image (optional)
+	extendedSupport := true // bool | Whether to use Extended Update Support (EUS) data during the vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OnetimeAPI.StatelessScan(context.Background()).Tag(tag).ScanRequest(scanRequest).XAnchoreAccount(xAnchoreAccount).PolicyId(policyId).Execute()
+	resp, r, err := apiClient.OnetimeAPI.StatelessScan(context.Background()).Tag(tag).ScanRequest(scanRequest).XAnchoreAccount(xAnchoreAccount).PolicyId(policyId).ExtendedSupport(extendedSupport).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OnetimeAPI.StatelessScan``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -61,6 +62,7 @@ Name | Type | Description  | Notes
  **scanRequest** | [**ScanRequest**](ScanRequest.md) |  | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
  **policyId** | **string** | The ID of the policy used to evaluate the image | 
+ **extendedSupport** | **bool** | Whether to use Extended Update Support (EUS) data during the vulnerability scan for relevant SBOMs. Will use the system configured behaviour if not provided. | 
 
 ### Return type
 

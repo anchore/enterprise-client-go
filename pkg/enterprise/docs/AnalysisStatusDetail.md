@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 **FromStatus** | **string** |  | 
 **ToStatus** | **string** |  | 
 **Timestamp** | **string** |  | 
-**Source** | [**ServiceReference**](ServiceReference.md) |  | 
+**Source** | [**ServiceAnalysisReference**](ServiceAnalysisReference.md) |  | 
 
 ## Methods
 
 ### NewAnalysisStatusDetail
 
-`func NewAnalysisStatusDetail(fromStatus string, toStatus string, timestamp string, source ServiceReference, ) *AnalysisStatusDetail`
+`func NewAnalysisStatusDetail(fromStatus string, toStatus string, timestamp string, source ServiceAnalysisReference, ) *AnalysisStatusDetail`
 
 NewAnalysisStatusDetail instantiates a new AnalysisStatusDetail object
 This constructor will assign default values to properties that have it defined,
@@ -90,20 +90,20 @@ SetTimestamp sets Timestamp field to given value.
 
 ### GetSource
 
-`func (o *AnalysisStatusDetail) GetSource() ServiceReference`
+`func (o *AnalysisStatusDetail) GetSource() ServiceAnalysisReference`
 
 GetSource returns the Source field if non-nil, zero value otherwise.
 
 ### GetSourceOk
 
-`func (o *AnalysisStatusDetail) GetSourceOk() (*ServiceReference, bool)`
+`func (o *AnalysisStatusDetail) GetSourceOk() (*ServiceAnalysisReference, bool)`
 
 GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSource
 
-`func (o *AnalysisStatusDetail) SetSource(v ServiceReference)`
+`func (o *AnalysisStatusDetail) SetSource(v ServiceAnalysisReference)`
 
 SetSource sets Source field to given value.
 
