@@ -149,6 +149,18 @@ func Test_enterprise_SystemAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test SystemAPIService GetStigEntitlement", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.SystemAPI.GetStigEntitlement(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test SystemAPIService GetSystemFeed", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

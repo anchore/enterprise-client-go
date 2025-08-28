@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetServicesByName**](SystemAPI.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
 [**GetServicesByNameAndHost**](SystemAPI.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
 [**GetStatus**](SystemAPI.md#GetStatus) | **Get** /status | Service status
+[**GetStigEntitlement**](SystemAPI.md#GetStigEntitlement) | **Get** /system/stig-entitlement | Check STIG entitlement status
 [**GetSystemFeed**](SystemAPI.md#GetSystemFeed) | **Get** /system/feeds/{feed} | 
 [**GetSystemFeeds**](SystemAPI.md#GetSystemFeeds) | **Get** /system/feeds | list feeds operations and information
 [**HealthCheck**](SystemAPI.md#HealthCheck) | **Get** /health | 
@@ -656,6 +657,65 @@ Other parameters are passed through a pointer to a apiGetStatusRequest struct vi
 ### Return type
 
 [**StatusResponse**](StatusResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetStigEntitlement
+
+> FeatureList GetStigEntitlement(ctx).Execute()
+
+Check STIG entitlement status
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetStigEntitlement(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetStigEntitlement``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStigEntitlement`: FeatureList
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetStigEntitlement`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetStigEntitlementRequest struct via the builder pattern
+
+
+### Return type
+
+[**FeatureList**](FeatureList.md)
 
 ### Authorization
 

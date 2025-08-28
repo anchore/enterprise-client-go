@@ -15930,6 +15930,27 @@ paths:
       - Statistics
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /system/stig-entitlement:
+    get:
+      operationId: get_stig_entitlement
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureList'
+          description: STIG entitlement status
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Check STIG entitlement status
+      tags:
+      - System
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
   /system/user-groups:
     get:
       operationId: list_user_groups
@@ -31726,6 +31747,34 @@ components:
         items:
           items:
             $ref: '#/components/schemas/STIGMetadataResponse'
+          type: array
+      type: object
+    Feature:
+      example:
+        name: static_stig
+        enabled: true
+      properties:
+        name:
+          description: The name of the feature
+          enum:
+          - static_stig
+          - runtime_stig
+          type: string
+        enabled:
+          description: If the feature is enabled
+          type: boolean
+      type: object
+    FeatureList:
+      example:
+        items:
+        - name: static_stig
+          enabled: true
+        - name: static_stig
+          enabled: true
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Feature'
           type: array
       type: object
     patch_user_api_key_request:
