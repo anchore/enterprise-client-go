@@ -361,6 +361,7 @@ Class | Method | HTTP request | Description
 *SystemAPI* | [**GetServicesByName**](docs/SystemAPI.md#getservicesbyname) | **Get** /system/services/{service_name} | Get a service configuration and state
 *SystemAPI* | [**GetServicesByNameAndHost**](docs/SystemAPI.md#getservicesbynameandhost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
 *SystemAPI* | [**GetStatus**](docs/SystemAPI.md#getstatus) | **Get** /status | Service status
+*SystemAPI* | [**GetStigEntitlement**](docs/SystemAPI.md#getstigentitlement) | **Get** /system/stig-entitlement | Check STIG entitlement status
 *SystemAPI* | [**GetSystemFeed**](docs/SystemAPI.md#getsystemfeed) | **Get** /system/feeds/{feed} | 
 *SystemAPI* | [**GetSystemFeeds**](docs/SystemAPI.md#getsystemfeeds) | **Get** /system/feeds | list feeds operations and information
 *SystemAPI* | [**HealthCheck**](docs/SystemAPI.md#healthcheck) | **Get** /health | 
@@ -509,6 +510,8 @@ Class | Method | HTTP request | Description
  - [EventResponseEventSource](docs/EventResponseEventSource.md)
  - [EventSubcategory](docs/EventSubcategory.md)
  - [EventsList](docs/EventsList.md)
+ - [Feature](docs/Feature.md)
+ - [FeatureList](docs/FeatureList.md)
  - [FeedDataRecord](docs/FeedDataRecord.md)
  - [FeedDataRecords](docs/FeedDataRecords.md)
  - [FeedGroupMetadata](docs/FeedGroupMetadata.md)
