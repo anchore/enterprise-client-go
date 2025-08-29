@@ -125,7 +125,7 @@ func (o *IntegrationStatus) GetDetails() interface{} {
 // and a boolean to check if the value has been set.
 func (o *IntegrationStatus) GetDetailsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Details) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Details, true
 }

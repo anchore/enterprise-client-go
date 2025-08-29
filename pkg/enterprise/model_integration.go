@@ -708,7 +708,7 @@ func (o *Integration) GetConfiguration() interface{} {
 // and a boolean to check if the value has been set.
 func (o *Integration) GetConfigurationOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Configuration) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Configuration, true
 }

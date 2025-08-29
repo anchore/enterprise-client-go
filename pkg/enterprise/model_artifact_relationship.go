@@ -223,7 +223,7 @@ func (o *ArtifactRelationship) GetUserMetadata() interface{} {
 // and a boolean to check if the value has been set.
 func (o *ArtifactRelationship) GetUserMetadataOk() (interface{}, bool) {
 	if o == nil || IsNil(o.UserMetadata) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.UserMetadata, true
 }

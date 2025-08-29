@@ -87,7 +87,7 @@ func (o *ArtifactAssociationRequest) GetArtifactKeys() interface{} {
 // and a boolean to check if the value has been set.
 func (o *ArtifactAssociationRequest) GetArtifactKeysOk() (interface{}, bool) {
 	if o == nil {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.ArtifactKeys, true
 }

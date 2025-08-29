@@ -147,7 +147,7 @@ func (o *JsonPatchTest) GetValue() interface{} {
 // and a boolean to check if the value has been set.
 func (o *JsonPatchTest) GetValueOk() (interface{}, bool) {
 	if o == nil {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Value, true
 }

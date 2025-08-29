@@ -193,7 +193,7 @@ func (o *PolicyEvalNotificationPayload) GetCurrEval() interface{} {
 // and a boolean to check if the value has been set.
 func (o *PolicyEvalNotificationPayload) GetCurrEvalOk() (interface{}, bool) {
 	if o == nil || IsNil(o.CurrEval) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.CurrEval, true
 }
@@ -225,7 +225,7 @@ func (o *PolicyEvalNotificationPayload) GetLastEval() interface{} {
 // and a boolean to check if the value has been set.
 func (o *PolicyEvalNotificationPayload) GetLastEvalOk() (interface{}, bool) {
 	if o == nil || IsNil(o.LastEval) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.LastEval, true
 }
@@ -258,7 +258,7 @@ func (o *PolicyEvalNotificationPayload) GetAnnotations() interface{} {
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvalNotificationPayload) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Annotations) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Annotations, true
 }

@@ -364,7 +364,7 @@ func (o *Package) GetMetadata() interface{} {
 // and a boolean to check if the value has been set.
 func (o *Package) GetMetadataOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Metadata, true
 }

@@ -156,7 +156,7 @@ func (o *ReportingApiErrorResponse) GetDetail() interface{} {
 // and a boolean to check if the value has been set.
 func (o *ReportingApiErrorResponse) GetDetailOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Detail) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Detail, true
 }

@@ -256,7 +256,7 @@ func (o *EventResponseEvent) GetDetails() interface{} {
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetDetailsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Details) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Details, true
 }

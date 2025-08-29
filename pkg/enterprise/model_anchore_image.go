@@ -296,7 +296,7 @@ func (o *AnchoreImage) GetAnnotations() interface{} {
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Annotations) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Annotations, true
 }

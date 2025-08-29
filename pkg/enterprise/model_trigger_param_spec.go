@@ -280,7 +280,7 @@ func (o *TriggerParamSpec) GetValidator() interface{} {
 // and a boolean to check if the value has been set.
 func (o *TriggerParamSpec) GetValidatorOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Validator) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Validator, true
 }

@@ -256,7 +256,7 @@ func (o *AnalysisUpdateNotificationPayload) GetAnnotations() interface{} {
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AnalysisUpdateNotificationPayload) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Annotations) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.Annotations, true
 }

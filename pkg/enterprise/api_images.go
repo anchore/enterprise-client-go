@@ -5255,7 +5255,7 @@ func (a *ImagesAPIService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
 	if r.imageStatus != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
 	} else {
-		var defaultValue []string = ["active"]
+		var defaultValue = []string{"active"}
 		r.imageStatus = &defaultValue
 	}
 	if r.registry != nil {
@@ -5492,13 +5492,13 @@ func (a *ImagesAPIService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	if r.imageStatus != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
 	} else {
-		var defaultValue []string = ["active"]
+		var defaultValue = []string{"active"}
 		r.imageStatus = &defaultValue
 	}
 	if r.analysisStatus != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "analysis_status", r.analysisStatus, "form", "csv")
 	} else {
-		var defaultValue []string = ["all"]
+		var defaultValue = []string{"all"}
 		r.analysisStatus = &defaultValue
 	}
 	if r.analyzedSince != nil {

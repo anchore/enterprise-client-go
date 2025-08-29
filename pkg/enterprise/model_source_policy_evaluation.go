@@ -295,7 +295,7 @@ func (o *SourcePolicyEvaluation) GetMatchedMappingRule() interface{} {
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetMatchedMappingRuleOk() (interface{}, bool) {
 	if o == nil || IsNil(o.MatchedMappingRule) {
-		return interface{}{}, false
+		return nil, false
 	}
 	return o.MatchedMappingRule, true
 }
