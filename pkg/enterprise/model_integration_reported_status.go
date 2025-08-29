@@ -23,7 +23,10 @@ type IntegrationReportedStatus struct {
 	State *IntegrationHealthState `json:"state,omitempty"`
 	Reason *string `json:"reason,omitempty"`
 	Details interface{} `json:"details,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IntegrationReportedStatus IntegrationReportedStatus
 
 // NewIntegrationReportedStatus instantiates a new IntegrationReportedStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -119,7 +122,7 @@ func (o *IntegrationReportedStatus) GetDetails() interface{} {
 // and a boolean to check if the value has been set.
 func (o *IntegrationReportedStatus) GetDetailsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Details) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Details, true
 }
@@ -157,7 +160,35 @@ func (o IntegrationReportedStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IntegrationReportedStatus) UnmarshalJSON(data []byte) (err error) {
+	varIntegrationReportedStatus := _IntegrationReportedStatus{}
+
+	err = json.Unmarshal(data, &varIntegrationReportedStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IntegrationReportedStatus(varIntegrationReportedStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "reason")
+		delete(additionalProperties, "details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIntegrationReportedStatus struct {

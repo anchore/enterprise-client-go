@@ -29,7 +29,10 @@ type IntegrationAdditionalProperties struct {
 	Namespaces []string `json:"namespaces,omitempty"`
 	// Configuration of the integration instance
 	Configuration interface{} `json:"configuration,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IntegrationAdditionalProperties IntegrationAdditionalProperties
 
 // NewIntegrationAdditionalProperties instantiates a new IntegrationAdditionalProperties object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,7 @@ func (o *IntegrationAdditionalProperties) GetConfiguration() interface{} {
 // and a boolean to check if the value has been set.
 func (o *IntegrationAdditionalProperties) GetConfigurationOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Configuration) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Configuration, true
 }
@@ -198,7 +201,36 @@ func (o IntegrationAdditionalProperties) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Configuration) {
 		toSerialize["configuration"] = o.Configuration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IntegrationAdditionalProperties) UnmarshalJSON(data []byte) (err error) {
+	varIntegrationAdditionalProperties := _IntegrationAdditionalProperties{}
+
+	err = json.Unmarshal(data, &varIntegrationAdditionalProperties)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IntegrationAdditionalProperties(varIntegrationAdditionalProperties)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "started_at")
+		delete(additionalProperties, "namespaces")
+		delete(additionalProperties, "configuration")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIntegrationAdditionalProperties struct {

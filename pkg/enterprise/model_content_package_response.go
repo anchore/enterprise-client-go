@@ -23,7 +23,10 @@ type ContentPackageResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
 	Content []PackageContent `json:"content,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ContentPackageResponse ContentPackageResponse
 
 // NewContentPackageResponse instantiates a new ContentPackageResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o ContentPackageResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Content) {
 		toSerialize["content"] = o.Content
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ContentPackageResponse) UnmarshalJSON(data []byte) (err error) {
+	varContentPackageResponse := _ContentPackageResponse{}
+
+	err = json.Unmarshal(data, &varContentPackageResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ContentPackageResponse(varContentPackageResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "content_type")
+		delete(additionalProperties, "content")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableContentPackageResponse struct {

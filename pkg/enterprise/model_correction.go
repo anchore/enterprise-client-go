@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -34,6 +33,7 @@ type Correction struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the correction was last modified
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Correction Correction
@@ -283,6 +283,11 @@ func (o Correction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -312,15 +317,26 @@ func (o *Correction) UnmarshalJSON(data []byte) (err error) {
 
 	varCorrection := _Correction{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCorrection)
+	err = json.Unmarshal(data, &varCorrection)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Correction(varCorrection)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "match")
+		delete(additionalProperties, "replace")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -32,7 +32,10 @@ type NvdDataObject struct {
 	CvssV3 *CVSSV3Scores `json:"cvss_v3,omitempty"`
 	IsKev *bool `json:"is_kev,omitempty"`
 	Epss *PackageEPSS `json:"epss,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NvdDataObject NvdDataObject
 
 // NewNvdDataObject instantiates a new NvdDataObject object
 // This constructor will assign default values to properties that have it defined,
@@ -341,7 +344,40 @@ func (o NvdDataObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Epss) {
 		toSerialize["epss"] = o.Epss
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NvdDataObject) UnmarshalJSON(data []byte) (err error) {
+	varNvdDataObject := _NvdDataObject{}
+
+	err = json.Unmarshal(data, &varNvdDataObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NvdDataObject(varNvdDataObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "cvss_v2")
+		delete(additionalProperties, "cvss_v3")
+		delete(additionalProperties, "is_kev")
+		delete(additionalProperties, "epss")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNvdDataObject struct {

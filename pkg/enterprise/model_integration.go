@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -62,6 +61,7 @@ type Integration struct {
 	Namespaces []string `json:"namespaces,omitempty"`
 	// Configuration of the integration instance
 	Configuration interface{} `json:"configuration,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Integration Integration
@@ -708,7 +708,7 @@ func (o *Integration) GetConfiguration() interface{} {
 // and a boolean to check if the value has been set.
 func (o *Integration) GetConfigurationOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Configuration) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Configuration, true
 }
@@ -792,6 +792,11 @@ func (o Integration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Configuration) {
 		toSerialize["configuration"] = o.Configuration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -822,15 +827,40 @@ func (o *Integration) UnmarshalJSON(data []byte) (err error) {
 
 	varIntegration := _Integration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIntegration)
+	err = json.Unmarshal(data, &varIntegration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Integration(varIntegration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "reported_status")
+		delete(additionalProperties, "integration_status")
+		delete(additionalProperties, "last_seen")
+		delete(additionalProperties, "uptime")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "explicitly_account_bound")
+		delete(additionalProperties, "accounts")
+		delete(additionalProperties, "cluster_name")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "health_report_interval")
+		delete(additionalProperties, "registration_id")
+		delete(additionalProperties, "registration_instance_id")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "started_at")
+		delete(additionalProperties, "namespaces")
+		delete(additionalProperties, "configuration")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

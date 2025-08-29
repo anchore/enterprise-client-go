@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &ContentSearchFindingsInner{}
 type ContentSearchFindingsInner struct {
 	Location ContentSearchFindingsInnerLocation `json:"location"`
 	ContentSearches []ContentSearchFindingsInnerContentSearchesInner `json:"content_searches"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ContentSearchFindingsInner ContentSearchFindingsInner
@@ -107,6 +107,11 @@ func (o ContentSearchFindingsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["location"] = o.Location
 	toSerialize["content_searches"] = o.ContentSearches
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *ContentSearchFindingsInner) UnmarshalJSON(data []byte) (err error) {
 
 	varContentSearchFindingsInner := _ContentSearchFindingsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varContentSearchFindingsInner)
+	err = json.Unmarshal(data, &varContentSearchFindingsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ContentSearchFindingsInner(varContentSearchFindingsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "content_searches")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type PolicyEvaluationRemediationSuggestion struct {
 	Message string `json:"message"`
 	// Indicates whether this suggestion is recommended
 	Preferred bool `json:"preferred"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PolicyEvaluationRemediationSuggestion PolicyEvaluationRemediationSuggestion
@@ -109,6 +109,11 @@ func (o PolicyEvaluationRemediationSuggestion) ToMap() (map[string]interface{}, 
 	toSerialize := map[string]interface{}{}
 	toSerialize["message"] = o.Message
 	toSerialize["preferred"] = o.Preferred
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *PolicyEvaluationRemediationSuggestion) UnmarshalJSON(data []byte) (err 
 
 	varPolicyEvaluationRemediationSuggestion := _PolicyEvaluationRemediationSuggestion{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPolicyEvaluationRemediationSuggestion)
+	err = json.Unmarshal(data, &varPolicyEvaluationRemediationSuggestion)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PolicyEvaluationRemediationSuggestion(varPolicyEvaluationRemediationSuggestion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "preferred")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -25,7 +25,10 @@ type RbacManagerSamlConfigurationGetAllOfUserGroups struct {
 	UserGroup *string `json:"user_group,omitempty"`
 	// The date and time the user group was associated with the IDP
 	AddedOn *time.Time `json:"added_on,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerSamlConfigurationGetAllOfUserGroups RbacManagerSamlConfigurationGetAllOfUserGroups
 
 // NewRbacManagerSamlConfigurationGetAllOfUserGroups instantiates a new RbacManagerSamlConfigurationGetAllOfUserGroups object
 // This constructor will assign default values to properties that have it defined,
@@ -124,7 +127,34 @@ func (o RbacManagerSamlConfigurationGetAllOfUserGroups) ToMap() (map[string]inte
 	if !IsNil(o.AddedOn) {
 		toSerialize["added_on"] = o.AddedOn
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerSamlConfigurationGetAllOfUserGroups := _RbacManagerSamlConfigurationGetAllOfUserGroups{}
+
+	err = json.Unmarshal(data, &varRbacManagerSamlConfigurationGetAllOfUserGroups)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerSamlConfigurationGetAllOfUserGroups(varRbacManagerSamlConfigurationGetAllOfUserGroups)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "user_group")
+		delete(additionalProperties, "added_on")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerSamlConfigurationGetAllOfUserGroups struct {

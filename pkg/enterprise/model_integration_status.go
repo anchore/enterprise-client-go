@@ -26,7 +26,10 @@ type IntegrationStatus struct {
 	Details interface{} `json:"details,omitempty"`
 	// Timestamp when status was updated
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IntegrationStatus IntegrationStatus
 
 // NewIntegrationStatus instantiates a new IntegrationStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,7 @@ func (o *IntegrationStatus) GetDetails() interface{} {
 // and a boolean to check if the value has been set.
 func (o *IntegrationStatus) GetDetailsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Details) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Details, true
 }
@@ -195,7 +198,36 @@ func (o IntegrationStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IntegrationStatus) UnmarshalJSON(data []byte) (err error) {
+	varIntegrationStatus := _IntegrationStatus{}
+
+	err = json.Unmarshal(data, &varIntegrationStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IntegrationStatus(varIntegrationStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "reason")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIntegrationStatus struct {

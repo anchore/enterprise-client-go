@@ -21,7 +21,10 @@ var _ MappedNullable = &ECSContainers{}
 // ECSContainers Containers defined in ECS
 type ECSContainers struct {
 	Containers []ECSContainer `json:"containers,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ECSContainers ECSContainers
 
 // NewECSContainers instantiates a new ECSContainers object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ECSContainers) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Containers) {
 		toSerialize["containers"] = o.Containers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ECSContainers) UnmarshalJSON(data []byte) (err error) {
+	varECSContainers := _ECSContainers{}
+
+	err = json.Unmarshal(data, &varECSContainers)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSContainers(varECSContainers)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "containers")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableECSContainers struct {

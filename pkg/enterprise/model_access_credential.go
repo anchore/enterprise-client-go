@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type AccessCredential struct {
 	Value string `json:"value"`
 	// The timestamp of creation of the credential
 	CreatedAt *string `json:"created_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AccessCredential AccessCredential
@@ -146,6 +146,11 @@ func (o AccessCredential) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *AccessCredential) UnmarshalJSON(data []byte) (err error) {
 
 	varAccessCredential := _AccessCredential{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAccessCredential)
+	err = json.Unmarshal(data, &varAccessCredential)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AccessCredential(varAccessCredential)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -26,7 +26,10 @@ type SourceImportOperation struct {
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourceImportOperation SourceImportOperation
 
 // NewSourceImportOperation instantiates a new SourceImportOperation object
 // This constructor will assign default values to properties that have it defined,
@@ -230,7 +233,37 @@ func (o SourceImportOperation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourceImportOperation) UnmarshalJSON(data []byte) (err error) {
+	varSourceImportOperation := _SourceImportOperation{}
+
+	err = json.Unmarshal(data, &varSourceImportOperation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceImportOperation(varSourceImportOperation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourceImportOperation struct {

@@ -22,7 +22,10 @@ var _ MappedNullable = &NotificationServiceVersionApi{}
 type NotificationServiceVersionApi struct {
 	// Semantic version of the api
 	Version *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationServiceVersionApi NotificationServiceVersionApi
 
 // NewNotificationServiceVersionApi instantiates a new NotificationServiceVersionApi object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o NotificationServiceVersionApi) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationServiceVersionApi) UnmarshalJSON(data []byte) (err error) {
+	varNotificationServiceVersionApi := _NotificationServiceVersionApi{}
+
+	err = json.Unmarshal(data, &varNotificationServiceVersionApi)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationServiceVersionApi(varNotificationServiceVersionApi)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationServiceVersionApi struct {

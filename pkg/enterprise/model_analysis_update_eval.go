@@ -23,7 +23,10 @@ type AnalysisUpdateEval struct {
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
 	Annotations interface{} `json:"annotations,omitempty"`
 	ImageDigest *string `json:"image_digest,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnalysisUpdateEval AnalysisUpdateEval
 
 // NewAnalysisUpdateEval instantiates a new AnalysisUpdateEval object
 // This constructor will assign default values to properties that have it defined,
@@ -87,7 +90,7 @@ func (o *AnalysisUpdateEval) GetAnnotations() interface{} {
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateEval) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Annotations) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Annotations, true
 }
@@ -157,7 +160,35 @@ func (o AnalysisUpdateEval) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ImageDigest) {
 		toSerialize["image_digest"] = o.ImageDigest
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnalysisUpdateEval) UnmarshalJSON(data []byte) (err error) {
+	varAnalysisUpdateEval := _AnalysisUpdateEval{}
+
+	err = json.Unmarshal(data, &varAnalysisUpdateEval)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisUpdateEval(varAnalysisUpdateEval)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "analysis_status")
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "image_digest")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnalysisUpdateEval struct {

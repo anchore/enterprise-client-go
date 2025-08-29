@@ -29,7 +29,10 @@ type EventResponseEvent struct {
 	Message *string `json:"message,omitempty"`
 	Details interface{} `json:"details,omitempty"`
 	Timestamp *time.Time `json:"timestamp,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EventResponseEvent EventResponseEvent
 
 // NewEventResponseEvent instantiates a new EventResponseEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -253,7 +256,7 @@ func (o *EventResponseEvent) GetDetails() interface{} {
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetDetailsOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Details) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Details, true
 }
@@ -338,7 +341,40 @@ func (o EventResponseEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Timestamp) {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EventResponseEvent) UnmarshalJSON(data []byte) (err error) {
+	varEventResponseEvent := _EventResponseEvent{}
+
+	err = json.Unmarshal(data, &varEventResponseEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventResponseEvent(varEventResponseEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "timestamp")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEventResponseEvent struct {

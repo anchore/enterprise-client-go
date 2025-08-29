@@ -31,7 +31,10 @@ type ImportPackageLicense struct {
 	Locations []ImportPackageLocation `json:"locations,omitempty"`
 	// The contents of the license file
 	Contents *string `json:"contents,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImportPackageLicense ImportPackageLicense
 
 // NewImportPackageLicense instantiates a new ImportPackageLicense object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o ImportPackageLicense) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Contents) {
 		toSerialize["contents"] = o.Contents
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImportPackageLicense) UnmarshalJSON(data []byte) (err error) {
+	varImportPackageLicense := _ImportPackageLicense{}
+
+	err = json.Unmarshal(data, &varImportPackageLicense)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImportPackageLicense(varImportPackageLicense)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "spdxExpression")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "urls")
+		delete(additionalProperties, "locations")
+		delete(additionalProperties, "contents")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImportPackageLicense struct {

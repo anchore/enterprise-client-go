@@ -28,7 +28,10 @@ type ArtifactRelationship struct {
 	Comment *string `json:"comment,omitempty"`
 	// User-provided metadata about the relationship
 	UserMetadata interface{} `json:"user_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArtifactRelationship ArtifactRelationship
 
 // NewArtifactRelationship instantiates a new ArtifactRelationship object
 // This constructor will assign default values to properties that have it defined,
@@ -220,7 +223,7 @@ func (o *ArtifactRelationship) GetUserMetadata() interface{} {
 // and a boolean to check if the value has been set.
 func (o *ArtifactRelationship) GetUserMetadataOk() (interface{}, bool) {
 	if o == nil || IsNil(o.UserMetadata) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.UserMetadata, true
 }
@@ -267,7 +270,38 @@ func (o ArtifactRelationship) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserMetadata) {
 		toSerialize["user_metadata"] = o.UserMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArtifactRelationship) UnmarshalJSON(data []byte) (err error) {
+	varArtifactRelationship := _ArtifactRelationship{}
+
+	err = json.Unmarshal(data, &varArtifactRelationship)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactRelationship(varArtifactRelationship)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "target")
+		delete(additionalProperties, "relationship_type")
+		delete(additionalProperties, "comment")
+		delete(additionalProperties, "user_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArtifactRelationship struct {

@@ -382,7 +382,7 @@ func (o *ImportPackage) GetMetadata() interface{} {
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImportPackage) GetMetadataOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Metadata, true
 }

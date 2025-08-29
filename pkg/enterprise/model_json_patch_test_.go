@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type JsonPatchTest struct {
 	Path string `json:"path" validate:"regexp=^(\\/[^\\/~]*(~[01][^\\/~]*)*)*$"`
 	// Expected value for test
 	Value interface{} `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _JsonPatchTest JsonPatchTest
@@ -147,7 +147,7 @@ func (o *JsonPatchTest) GetValue() interface{} {
 // and a boolean to check if the value has been set.
 func (o *JsonPatchTest) GetValueOk() (interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Value, true
 }
@@ -173,6 +173,11 @@ func (o JsonPatchTest) ToMap() (map[string]interface{}, error) {
 	toSerialize["op"] = o.Op
 	toSerialize["path"] = o.Path
 	toSerialize["value"] = o.Value
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -202,15 +207,23 @@ func (o *JsonPatchTest) UnmarshalJSON(data []byte) (err error) {
 
 	varJsonPatchTest := _JsonPatchTest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varJsonPatchTest)
+	err = json.Unmarshal(data, &varJsonPatchTest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = JsonPatchTest(varJsonPatchTest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "op")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

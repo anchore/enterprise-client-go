@@ -25,7 +25,10 @@ type RbacManagerApiErrorResponse struct {
 	Message *string `json:"message,omitempty"`
 	// Details structure for additional information about the error if available. Content and structure will be error specific.
 	Detail interface{} `json:"detail,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerApiErrorResponse RbacManagerApiErrorResponse
 
 // NewRbacManagerApiErrorResponse instantiates a new RbacManagerApiErrorResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -153,7 +156,7 @@ func (o *RbacManagerApiErrorResponse) GetDetail() interface{} {
 // and a boolean to check if the value has been set.
 func (o *RbacManagerApiErrorResponse) GetDetailOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Detail) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Detail, true
 }
@@ -194,7 +197,36 @@ func (o RbacManagerApiErrorResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Detail) {
 		toSerialize["detail"] = o.Detail
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerApiErrorResponse) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerApiErrorResponse := _RbacManagerApiErrorResponse{}
+
+	err = json.Unmarshal(data, &varRbacManagerApiErrorResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerApiErrorResponse(varRbacManagerApiErrorResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "error_type")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "detail")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerApiErrorResponse struct {

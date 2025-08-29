@@ -24,7 +24,10 @@ type SubscriptionUpdate struct {
 	SubscriptionValue NullableString `json:"subscription_value,omitempty"`
 	// Toggle the subscription processing on or off
 	Active *bool `json:"active,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SubscriptionUpdate SubscriptionUpdate
 
 // NewSubscriptionUpdate instantiates a new SubscriptionUpdate object
 // This constructor will assign default values to properties that have it defined,
@@ -133,7 +136,34 @@ func (o SubscriptionUpdate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SubscriptionUpdate) UnmarshalJSON(data []byte) (err error) {
+	varSubscriptionUpdate := _SubscriptionUpdate{}
+
+	err = json.Unmarshal(data, &varSubscriptionUpdate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubscriptionUpdate(varSubscriptionUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "subscription_value")
+		delete(additionalProperties, "active")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSubscriptionUpdate struct {

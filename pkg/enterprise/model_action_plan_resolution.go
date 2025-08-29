@@ -22,7 +22,10 @@ var _ MappedNullable = &ActionPlanResolution{}
 type ActionPlanResolution struct {
 	TriggerIds []string `json:"trigger_ids,omitempty"`
 	Content *string `json:"content,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ActionPlanResolution ActionPlanResolution
 
 // NewActionPlanResolution instantiates a new ActionPlanResolution object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ActionPlanResolution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Content) {
 		toSerialize["content"] = o.Content
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ActionPlanResolution) UnmarshalJSON(data []byte) (err error) {
+	varActionPlanResolution := _ActionPlanResolution{}
+
+	err = json.Unmarshal(data, &varActionPlanResolution)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ActionPlanResolution(varActionPlanResolution)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "trigger_ids")
+		delete(additionalProperties, "content")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableActionPlanResolution struct {

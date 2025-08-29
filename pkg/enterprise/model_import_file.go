@@ -112,7 +112,7 @@ func (o *ImportFile) GetMetadata() interface{} {
 // and a boolean to check if the value has been set.
 func (o *ImportFile) GetMetadataOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Metadata, true
 }

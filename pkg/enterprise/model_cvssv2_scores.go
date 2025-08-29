@@ -23,7 +23,10 @@ type CVSSV2Scores struct {
 	BaseScore NullableFloat32 `json:"base_score,omitempty"`
 	ExploitabilityScore NullableFloat32 `json:"exploitability_score,omitempty"`
 	ImpactScore NullableFloat32 `json:"impact_score,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CVSSV2Scores CVSSV2Scores
 
 // NewCVSSV2Scores instantiates a new CVSSV2Scores object
 // This constructor will assign default values to properties that have it defined,
@@ -187,7 +190,35 @@ func (o CVSSV2Scores) ToMap() (map[string]interface{}, error) {
 	if o.ImpactScore.IsSet() {
 		toSerialize["impact_score"] = o.ImpactScore.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CVSSV2Scores) UnmarshalJSON(data []byte) (err error) {
+	varCVSSV2Scores := _CVSSV2Scores{}
+
+	err = json.Unmarshal(data, &varCVSSV2Scores)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CVSSV2Scores(varCVSSV2Scores)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "base_score")
+		delete(additionalProperties, "exploitability_score")
+		delete(additionalProperties, "impact_score")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCVSSV2Scores struct {

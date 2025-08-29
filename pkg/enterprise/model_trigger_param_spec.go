@@ -33,7 +33,10 @@ type TriggerParamSpec struct {
 	Required *bool `json:"required,omitempty"`
 	// If present, a definition for validation of input. Typically a jsonschema object that can be used to validate an input against.
 	Validator interface{} `json:"validator,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TriggerParamSpec TriggerParamSpec
 
 // NewTriggerParamSpec instantiates a new TriggerParamSpec object
 // This constructor will assign default values to properties that have it defined,
@@ -277,7 +280,7 @@ func (o *TriggerParamSpec) GetValidator() interface{} {
 // and a boolean to check if the value has been set.
 func (o *TriggerParamSpec) GetValidatorOk() (interface{}, bool) {
 	if o == nil || IsNil(o.Validator) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.Validator, true
 }
@@ -327,7 +330,39 @@ func (o TriggerParamSpec) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Validator) {
 		toSerialize["validator"] = o.Validator
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TriggerParamSpec) UnmarshalJSON(data []byte) (err error) {
+	varTriggerParamSpec := _TriggerParamSpec{}
+
+	err = json.Unmarshal(data, &varTriggerParamSpec)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TriggerParamSpec(varTriggerParamSpec)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "example")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "superseded_by")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "validator")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTriggerParamSpec struct {

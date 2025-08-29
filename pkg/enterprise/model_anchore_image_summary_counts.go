@@ -26,7 +26,10 @@ type AnchoreImageSummaryCounts struct {
 	Analyzing *int32 `json:"analyzing,omitempty"`
 	Pending *int32 `json:"pending,omitempty"`
 	Failed *int32 `json:"failed,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnchoreImageSummaryCounts AnchoreImageSummaryCounts
 
 // NewAnchoreImageSummaryCounts instantiates a new AnchoreImageSummaryCounts object
 // This constructor will assign default values to properties that have it defined,
@@ -265,7 +268,38 @@ func (o AnchoreImageSummaryCounts) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Failed) {
 		toSerialize["failed"] = o.Failed
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnchoreImageSummaryCounts) UnmarshalJSON(data []byte) (err error) {
+	varAnchoreImageSummaryCounts := _AnchoreImageSummaryCounts{}
+
+	err = json.Unmarshal(data, &varAnchoreImageSummaryCounts)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnchoreImageSummaryCounts(varAnchoreImageSummaryCounts)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "images")
+		delete(additionalProperties, "analyzed")
+		delete(additionalProperties, "analyzing")
+		delete(additionalProperties, "pending")
+		delete(additionalProperties, "failed")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnchoreImageSummaryCounts struct {

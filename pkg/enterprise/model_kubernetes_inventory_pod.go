@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type KubernetesInventoryPod struct {
 	NodeUid *string `json:"node_uid,omitempty" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
 	Labels *map[string]string `json:"labels,omitempty"`
 	Annotations *map[string]string `json:"annotations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesInventoryPod KubernetesInventoryPod
@@ -242,6 +242,11 @@ func (o KubernetesInventoryPod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Annotations) {
 		toSerialize["annotations"] = o.Annotations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -271,15 +276,25 @@ func (o *KubernetesInventoryPod) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesInventoryPod := _KubernetesInventoryPod{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesInventoryPod)
+	err = json.Unmarshal(data, &varKubernetesInventoryPod)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesInventoryPod(varKubernetesInventoryPod)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "namespace_uid")
+		delete(additionalProperties, "node_uid")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "annotations")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -54,6 +53,7 @@ type SourcePolicyEvaluation struct {
 	EvaluationProblems []PolicyEvaluationProblem `json:"evaluation_problems"`
 	// The overall status of the policy evaluation
 	Status string `json:"status"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SourcePolicyEvaluation SourcePolicyEvaluation
@@ -295,7 +295,7 @@ func (o *SourcePolicyEvaluation) GetMatchedMappingRule() interface{} {
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetMatchedMappingRuleOk() (interface{}, bool) {
 	if o == nil || IsNil(o.MatchedMappingRule) {
-		return nil, false
+		return interface{}{}, false
 	}
 	return o.MatchedMappingRule, true
 }
@@ -510,6 +510,11 @@ func (o SourcePolicyEvaluation) ToMap() (map[string]interface{}, error) {
 	toSerialize["final_action_reason"] = o.FinalActionReason
 	toSerialize["evaluation_problems"] = o.EvaluationProblems
 	toSerialize["status"] = o.Status
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -551,15 +556,35 @@ func (o *SourcePolicyEvaluation) UnmarshalJSON(data []byte) (err error) {
 
 	varSourcePolicyEvaluation := _SourcePolicyEvaluation{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSourcePolicyEvaluation)
+	err = json.Unmarshal(data, &varSourcePolicyEvaluation)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SourcePolicyEvaluation(varSourcePolicyEvaluation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "evaluation_id")
+		delete(additionalProperties, "source_id")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "repository_name")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "policy")
+		delete(additionalProperties, "source_mapped_to_rule")
+		delete(additionalProperties, "matched_mapping_rule")
+		delete(additionalProperties, "findings")
+		delete(additionalProperties, "number_of_findings")
+		delete(additionalProperties, "evaluation_time")
+		delete(additionalProperties, "final_action")
+		delete(additionalProperties, "final_action_reason")
+		delete(additionalProperties, "evaluation_problems")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

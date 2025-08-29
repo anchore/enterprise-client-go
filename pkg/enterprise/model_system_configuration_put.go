@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &SystemConfigurationPut{}
 type SystemConfigurationPut struct {
 	Key string `json:"key"`
 	Value NullableSystemConfigurationValue `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SystemConfigurationPut SystemConfigurationPut
@@ -109,6 +109,11 @@ func (o SystemConfigurationPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
 	toSerialize["value"] = o.Value.Get()
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *SystemConfigurationPut) UnmarshalJSON(data []byte) (err error) {
 
 	varSystemConfigurationPut := _SystemConfigurationPut{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSystemConfigurationPut)
+	err = json.Unmarshal(data, &varSystemConfigurationPut)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SystemConfigurationPut(varSystemConfigurationPut)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

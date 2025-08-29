@@ -21,7 +21,10 @@ var _ MappedNullable = &SystemResourceLimitsList{}
 // SystemResourceLimitsList struct for SystemResourceLimitsList
 type SystemResourceLimitsList struct {
 	Items []SystemResourceLimit `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SystemResourceLimitsList SystemResourceLimitsList
 
 // NewSystemResourceLimitsList instantiates a new SystemResourceLimitsList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o SystemResourceLimitsList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SystemResourceLimitsList) UnmarshalJSON(data []byte) (err error) {
+	varSystemResourceLimitsList := _SystemResourceLimitsList{}
+
+	err = json.Unmarshal(data, &varSystemResourceLimitsList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemResourceLimitsList(varSystemResourceLimitsList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSystemResourceLimitsList struct {

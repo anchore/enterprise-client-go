@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -33,6 +32,7 @@ type KubernetesInventoryNode struct {
 	KubeProxyVersion *string `json:"kube_proxy_version,omitempty"`
 	KubeletVersion *string `json:"kubelet_version,omitempty"`
 	OperatingSystem *string `json:"operating_system,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesInventoryNode KubernetesInventoryNode
@@ -431,6 +431,11 @@ func (o KubernetesInventoryNode) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OperatingSystem) {
 		toSerialize["operating_system"] = o.OperatingSystem
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -459,15 +464,30 @@ func (o *KubernetesInventoryNode) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesInventoryNode := _KubernetesInventoryNode{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesInventoryNode)
+	err = json.Unmarshal(data, &varKubernetesInventoryNode)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesInventoryNode(varKubernetesInventoryNode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "kernel_version")
+		delete(additionalProperties, "kubernetes_version")
+		delete(additionalProperties, "arch")
+		delete(additionalProperties, "container_runtime_version")
+		delete(additionalProperties, "kube_proxy_version")
+		delete(additionalProperties, "kubelet_version")
+		delete(additionalProperties, "operating_system")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
