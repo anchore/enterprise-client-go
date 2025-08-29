@@ -1,0 +1,12 @@
+diff --git a/pkg/enterprise/model_rbac_manager_role_member.go b/pkg/enterprise/model_rbac_manager_role_member.go
+index 74b7ea1..e7608d6 100644
+--- a/pkg/enterprise/model_rbac_manager_role_member.go
++++ b/pkg/enterprise/model_rbac_manager_role_member.go
+@@ -14,6 +14,7 @@ package enterprise
+ import (
+ 	"encoding/json"
+ 	"fmt"
++	"time"
+ )
+ 
+ // checks if the RbacManagerRoleMember type satisfies the MappedNullable interface at compile time
