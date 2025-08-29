@@ -18081,6 +18081,9 @@ components:
           type: string
           nullable: true
         idLike: {}
+        extendedSupport:
+          type: boolean
+          nullable: true
     ImportFile:
       required:
       - id

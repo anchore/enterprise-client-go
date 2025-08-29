@@ -20529,6 +20529,7 @@ components:
         distro:
           idLike: ""
           versionID: versionID
+          extendedSupport: true
           name: name
           id: id
           version: version
@@ -21177,6 +21178,7 @@ components:
       example:
         idLike: ""
         versionID: versionID
+        extendedSupport: true
         name: name
         id: id
         version: version
@@ -21194,6 +21196,9 @@ components:
           nullable: true
           type: string
         idLike: {}
+        extendedSupport:
+          nullable: true
+          type: boolean
       type: object
     ImportFile:
       additionalProperties: true

@@ -25,6 +25,7 @@ type ImportDistribution struct {
 	Version NullableString `json:"version,omitempty"`
 	VersionID NullableString `json:"versionID,omitempty"`
 	IdLike interface{} `json:"idLike,omitempty"`
+	ExtendedSupport NullableBool `json:"extendedSupport,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -248,6 +249,48 @@ func (o *ImportDistribution) SetIdLike(v interface{}) {
 	o.IdLike = v
 }
 
+// GetExtendedSupport returns the ExtendedSupport field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ImportDistribution) GetExtendedSupport() bool {
+	if o == nil || IsNil(o.ExtendedSupport.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.ExtendedSupport.Get()
+}
+
+// GetExtendedSupportOk returns a tuple with the ExtendedSupport field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ImportDistribution) GetExtendedSupportOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ExtendedSupport.Get(), o.ExtendedSupport.IsSet()
+}
+
+// HasExtendedSupport returns a boolean if a field has been set.
+func (o *ImportDistribution) HasExtendedSupport() bool {
+	if o != nil && o.ExtendedSupport.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetExtendedSupport gets a reference to the given NullableBool and assigns it to the ExtendedSupport field.
+func (o *ImportDistribution) SetExtendedSupport(v bool) {
+	o.ExtendedSupport.Set(&v)
+}
+// SetExtendedSupportNil sets the value for ExtendedSupport to be an explicit nil
+func (o *ImportDistribution) SetExtendedSupportNil() {
+	o.ExtendedSupport.Set(nil)
+}
+
+// UnsetExtendedSupport ensures that no value is present for ExtendedSupport, not even an explicit nil
+func (o *ImportDistribution) UnsetExtendedSupport() {
+	o.ExtendedSupport.Unset()
+}
+
 func (o ImportDistribution) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -272,6 +315,9 @@ func (o ImportDistribution) ToMap() (map[string]interface{}, error) {
 	}
 	if o.IdLike != nil {
 		toSerialize["idLike"] = o.IdLike
+	}
+	if o.ExtendedSupport.IsSet() {
+		toSerialize["extendedSupport"] = o.ExtendedSupport.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -300,6 +346,7 @@ func (o *ImportDistribution) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "versionID")
 		delete(additionalProperties, "idLike")
+		delete(additionalProperties, "extendedSupport")
 		o.AdditionalProperties = additionalProperties
 	}
 
