@@ -4018,7 +4018,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PackageVulnerabilityAnnotationResponse"
+                $ref: "#/components/schemas/PackageVulnerabilityAnnotation"
         500:
           description: Internal Error
           content:
@@ -4049,14 +4049,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PackageVulnerabilityAnnotation"
+              $ref: "#/components/schemas/VulnerabilityAnnotation"
       responses:
         200:
           description: Vulnerability annotation update successful
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PackageVulnerabilityAnnotationResponse"
+                $ref: "#/components/schemas/PackageVulnerabilityAnnotation"
         500:
           description: Internal Error
           content:
@@ -20406,14 +20406,6 @@ components:
           $ref: "#/components/schemas/VulnerabilityAnnotation"
         package_identifier:
           $ref: "#/components/schemas/PackageIdentifier"
-    PackageVulnerabilityAnnotationResponse:
-      type: object
-      properties:
-        annotation:
-          $ref: "#/components/schemas/VulnerabilityAnnotation"
-        package_identifier:
-          $ref: "#/components/schemas/PackageIdentifier"
-          readOnly: true
     PackageVulnerabilityAnnotationResponseList:
       type: object
       description: A list of VulnerabilityAnnotation entries for an artifact
@@ -20424,7 +20416,7 @@ components:
           type: array
           description: The annotations for the artifact
           items:
-            $ref: "#/components/schemas/PackageVulnerabilityAnnotationResponse"
+            $ref: "#/components/schemas/PackageVulnerabilityAnnotation"
     PaginatedImageList:
       description: Pagination wrapped list of images that match some filter
       allOf:

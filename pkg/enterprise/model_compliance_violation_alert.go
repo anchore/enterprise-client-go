@@ -40,7 +40,10 @@ type ComplianceViolationAlert struct {
 	ComplianceStatusReason *string `json:"compliance_status_reason,omitempty"`
 	// Number of STOP action results in the compliance check report
 	ViolationsCount *int32 `json:"violations_count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ComplianceViolationAlert ComplianceViolationAlert
 
 // NewComplianceViolationAlert instantiates a new ComplianceViolationAlert object
 // This constructor will assign default values to properties that have it defined,
@@ -419,7 +422,42 @@ func (o ComplianceViolationAlert) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ViolationsCount) {
 		toSerialize["violations_count"] = o.ViolationsCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ComplianceViolationAlert) UnmarshalJSON(data []byte) (err error) {
+	varComplianceViolationAlert := _ComplianceViolationAlert{}
+
+	err = json.Unmarshal(data, &varComplianceViolationAlert)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ComplianceViolationAlert(varComplianceViolationAlert)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "resource")
+		delete(additionalProperties, "closed_by")
+		delete(additionalProperties, "closed_reason")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "compliance_status_reason")
+		delete(additionalProperties, "violations_count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableComplianceViolationAlert struct {

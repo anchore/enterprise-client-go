@@ -1476,7 +1476,7 @@ No authorization required
 
 ## GetImageVulnAnnotation
 
-> PackageVulnerabilityAnnotationResponse GetImageVulnAnnotation(ctx, imageDigest, vulnAnnotationUuid).Execute()
+> PackageVulnerabilityAnnotation GetImageVulnAnnotation(ctx, imageDigest, vulnAnnotationUuid).Execute()
 
 Get a vuln annotation
 
@@ -1503,7 +1503,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageVulnAnnotation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetImageVulnAnnotation`: PackageVulnerabilityAnnotationResponse
+	// response from `GetImageVulnAnnotation`: PackageVulnerabilityAnnotation
 	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageVulnAnnotation`: %v\n", resp)
 }
 ```
@@ -1529,7 +1529,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PackageVulnerabilityAnnotationResponse**](PackageVulnerabilityAnnotationResponse.md)
+[**PackageVulnerabilityAnnotation**](PackageVulnerabilityAnnotation.md)
 
 ### Authorization
 
@@ -2579,7 +2579,7 @@ No authorization required
 
 ## UpdateImageVulnAnnotation
 
-> PackageVulnerabilityAnnotationResponse UpdateImageVulnAnnotation(ctx, imageDigest, vulnAnnotationUuid).PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation).Execute()
+> PackageVulnerabilityAnnotation UpdateImageVulnAnnotation(ctx, imageDigest, vulnAnnotationUuid).VulnerabilityAnnotation(vulnerabilityAnnotation).Execute()
 
 Update a vuln annotation
 
@@ -2598,16 +2598,16 @@ import (
 func main() {
 	imageDigest := "imageDigest_example" // string | 
 	vulnAnnotationUuid := "vulnAnnotationUuid_example" // string | 
-	packageVulnerabilityAnnotation := *openapiclient.NewPackageVulnerabilityAnnotation(*openapiclient.NewVulnerabilityAnnotation("CVE-2023-1234", openapiclient.VulnAnnotationStatus("not_affected"))) // PackageVulnerabilityAnnotation |  (optional)
+	vulnerabilityAnnotation := *openapiclient.NewVulnerabilityAnnotation("CVE-2023-1234", openapiclient.VulnAnnotationStatus("not_affected")) // VulnerabilityAnnotation |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ImagesAPI.UpdateImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation).Execute()
+	resp, r, err := apiClient.ImagesAPI.UpdateImageVulnAnnotation(context.Background(), imageDigest, vulnAnnotationUuid).VulnerabilityAnnotation(vulnerabilityAnnotation).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.UpdateImageVulnAnnotation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateImageVulnAnnotation`: PackageVulnerabilityAnnotationResponse
+	// response from `UpdateImageVulnAnnotation`: PackageVulnerabilityAnnotation
 	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.UpdateImageVulnAnnotation`: %v\n", resp)
 }
 ```
@@ -2630,11 +2630,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **packageVulnerabilityAnnotation** | [**PackageVulnerabilityAnnotation**](PackageVulnerabilityAnnotation.md) |  | 
+ **vulnerabilityAnnotation** | [**VulnerabilityAnnotation**](VulnerabilityAnnotation.md) |  | 
 
 ### Return type
 
-[**PackageVulnerabilityAnnotationResponse**](PackageVulnerabilityAnnotationResponse.md)
+[**PackageVulnerabilityAnnotation**](PackageVulnerabilityAnnotation.md)
 
 ### Authorization
 

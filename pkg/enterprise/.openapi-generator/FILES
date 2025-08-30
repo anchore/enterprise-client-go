@@ -293,7 +293,6 @@ docs/PackageIdentifier.md
 docs/PackageReference.md
 docs/PackageVulnerability.md
 docs/PackageVulnerabilityAnnotation.md
-docs/PackageVulnerabilityAnnotationResponse.md
 docs/PackageVulnerabilityAnnotationResponseList.md
 docs/PaginatedImageList.md
 docs/PaginatedVulnerabilityList.md
@@ -687,7 +686,6 @@ model_package_identifier.go
 model_package_reference.go
 model_package_vulnerability.go
 model_package_vulnerability_annotation.go
-model_package_vulnerability_annotation_response.go
 model_package_vulnerability_annotation_response_list.go
 model_paginated_image_list.go
 model_paginated_vulnerability_list.go

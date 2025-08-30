@@ -46,7 +46,10 @@ type FeedMetadata struct {
 	DatasetName *string `json:"dataset_name,omitempty"`
 	// The checksum of the dataset that provides this feed
 	DatasetChecksum *string `json:"dataset_checksum,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FeedMetadata FeedMetadata
 
 // NewFeedMetadata instantiates a new FeedMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -472,7 +475,43 @@ func (o FeedMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DatasetChecksum) {
 		toSerialize["dataset_checksum"] = o.DatasetChecksum
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FeedMetadata) UnmarshalJSON(data []byte) (err error) {
+	varFeedMetadata := _FeedMetadata{}
+
+	err = json.Unmarshal(data, &varFeedMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FeedMetadata(varFeedMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "data_service_built_at")
+		delete(additionalProperties, "enterprise_received_at")
+		delete(additionalProperties, "groups")
+		delete(additionalProperties, "last_full_sync")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "dataset_name")
+		delete(additionalProperties, "dataset_checksum")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFeedMetadata struct {

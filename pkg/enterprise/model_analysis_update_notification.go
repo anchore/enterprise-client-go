@@ -30,7 +30,10 @@ type AnalysisUpdateNotification struct {
 	Tries *int32 `json:"tries,omitempty"`
 	MaxTries *int32 `json:"max_tries,omitempty"`
 	Data *AnalysisUpdateNotificationData `json:"data,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnalysisUpdateNotification AnalysisUpdateNotification
 
 // NewAnalysisUpdateNotification instantiates a new AnalysisUpdateNotification object
 // This constructor will assign default values to properties that have it defined,
@@ -423,7 +426,42 @@ func (o AnalysisUpdateNotification) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnalysisUpdateNotification) UnmarshalJSON(data []byte) (err error) {
+	varAnalysisUpdateNotification := _AnalysisUpdateNotification{}
+
+	err = json.Unmarshal(data, &varAnalysisUpdateNotification)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisUpdateNotification(varAnalysisUpdateNotification)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "queue_id")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "data_id")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "record_state_key")
+		delete(additionalProperties, "record_state_val")
+		delete(additionalProperties, "tries")
+		delete(additionalProperties, "max_tries")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnalysisUpdateNotification struct {

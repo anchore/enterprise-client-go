@@ -22,7 +22,10 @@ var _ MappedNullable = &ArtifactReference{}
 type ArtifactReference struct {
 	ArtifactId *string `json:"artifact_id,omitempty"`
 	ArtifactType *ArtifactType `json:"artifact_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArtifactReference ArtifactReference
 
 // NewArtifactReference instantiates a new ArtifactReference object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ArtifactReference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ArtifactType) {
 		toSerialize["artifact_type"] = o.ArtifactType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArtifactReference) UnmarshalJSON(data []byte) (err error) {
+	varArtifactReference := _ArtifactReference{}
+
+	err = json.Unmarshal(data, &varArtifactReference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactReference(varArtifactReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "artifact_id")
+		delete(additionalProperties, "artifact_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArtifactReference struct {

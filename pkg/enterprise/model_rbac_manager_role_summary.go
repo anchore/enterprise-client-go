@@ -24,7 +24,10 @@ type RbacManagerRoleSummary struct {
 	Name *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerRoleSummary RbacManagerRoleSummary
 
 // NewRbacManagerRoleSummary instantiates a new RbacManagerRoleSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o RbacManagerRoleSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerRoleSummary) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerRoleSummary := _RbacManagerRoleSummary{}
+
+	err = json.Unmarshal(data, &varRbacManagerRoleSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerRoleSummary(varRbacManagerRoleSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerRoleSummary struct {

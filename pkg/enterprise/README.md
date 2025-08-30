@@ -664,7 +664,6 @@ Class | Method | HTTP request | Description
  - [PackageReference](docs/PackageReference.md)
  - [PackageVulnerability](docs/PackageVulnerability.md)
  - [PackageVulnerabilityAnnotation](docs/PackageVulnerabilityAnnotation.md)
- - [PackageVulnerabilityAnnotationResponse](docs/PackageVulnerabilityAnnotationResponse.md)
  - [PackageVulnerabilityAnnotationResponseList](docs/PackageVulnerabilityAnnotationResponseList.md)
  - [PaginatedImageList](docs/PaginatedImageList.md)
  - [PaginatedVulnerabilityList](docs/PaginatedVulnerabilityList.md)

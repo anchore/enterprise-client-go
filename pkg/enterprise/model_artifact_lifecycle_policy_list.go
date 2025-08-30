@@ -21,7 +21,10 @@ var _ MappedNullable = &ArtifactLifecyclePolicyList{}
 // ArtifactLifecyclePolicyList struct for ArtifactLifecyclePolicyList
 type ArtifactLifecyclePolicyList struct {
 	Items []ArtifactLifecyclePolicyResponse `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArtifactLifecyclePolicyList ArtifactLifecyclePolicyList
 
 // NewArtifactLifecyclePolicyList instantiates a new ArtifactLifecyclePolicyList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ArtifactLifecyclePolicyList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArtifactLifecyclePolicyList) UnmarshalJSON(data []byte) (err error) {
+	varArtifactLifecyclePolicyList := _ArtifactLifecyclePolicyList{}
+
+	err = json.Unmarshal(data, &varArtifactLifecyclePolicyList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactLifecyclePolicyList(varArtifactLifecyclePolicyList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArtifactLifecyclePolicyList struct {

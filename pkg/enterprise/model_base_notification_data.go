@@ -23,7 +23,10 @@ type BaseNotificationData struct {
 	NotificationUser *string `json:"notification_user,omitempty"`
 	NotificationUserEmail *string `json:"notification_user_email,omitempty"`
 	NotificationType *string `json:"notification_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BaseNotificationData BaseNotificationData
 
 // NewBaseNotificationData instantiates a new BaseNotificationData object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o BaseNotificationData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NotificationType) {
 		toSerialize["notification_type"] = o.NotificationType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BaseNotificationData) UnmarshalJSON(data []byte) (err error) {
+	varBaseNotificationData := _BaseNotificationData{}
+
+	err = json.Unmarshal(data, &varBaseNotificationData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BaseNotificationData(varBaseNotificationData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "notification_user")
+		delete(additionalProperties, "notification_user_email")
+		delete(additionalProperties, "notification_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBaseNotificationData struct {

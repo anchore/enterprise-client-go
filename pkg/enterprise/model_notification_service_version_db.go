@@ -22,7 +22,10 @@ var _ MappedNullable = &NotificationServiceVersionDb{}
 type NotificationServiceVersionDb struct {
 	// Semantic version of the db schema
 	SchemaVersion *string `json:"schema_version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationServiceVersionDb NotificationServiceVersionDb
 
 // NewNotificationServiceVersionDb instantiates a new NotificationServiceVersionDb object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o NotificationServiceVersionDb) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SchemaVersion) {
 		toSerialize["schema_version"] = o.SchemaVersion
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationServiceVersionDb) UnmarshalJSON(data []byte) (err error) {
+	varNotificationServiceVersionDb := _NotificationServiceVersionDb{}
+
+	err = json.Unmarshal(data, &varNotificationServiceVersionDb)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationServiceVersionDb(varNotificationServiceVersionDb)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "schema_version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationServiceVersionDb struct {

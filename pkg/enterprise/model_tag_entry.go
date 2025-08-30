@@ -31,7 +31,10 @@ type TagEntry struct {
 	Tag *string `json:"tag,omitempty"`
 	// The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
 	TagDetectedAt *time.Time `json:"tag_detected_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TagEntry TagEntry
 
 // NewTagEntry instantiates a new TagEntry object
 // This constructor will assign default values to properties that have it defined,
@@ -235,7 +238,37 @@ func (o TagEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TagDetectedAt) {
 		toSerialize["tag_detected_at"] = o.TagDetectedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TagEntry) UnmarshalJSON(data []byte) (err error) {
+	varTagEntry := _TagEntry{}
+
+	err = json.Unmarshal(data, &varTagEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TagEntry(varTagEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "full_tag")
+		delete(additionalProperties, "registry")
+		delete(additionalProperties, "repo")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "tag_detected_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTagEntry struct {

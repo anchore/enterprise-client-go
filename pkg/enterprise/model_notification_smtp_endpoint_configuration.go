@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -43,6 +42,7 @@ type NotificationSMTPEndpointConfiguration struct {
 	From string `json:"from"`
 	// The address to which the emails are sent
 	To string `json:"to"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NotificationSMTPEndpointConfiguration NotificationSMTPEndpointConfiguration
@@ -458,6 +458,11 @@ func (o NotificationSMTPEndpointConfiguration) ToMap() (map[string]interface{}, 
 	}
 	toSerialize["from"] = o.From
 	toSerialize["to"] = o.To
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -488,15 +493,31 @@ func (o *NotificationSMTPEndpointConfiguration) UnmarshalJSON(data []byte) (err 
 
 	varNotificationSMTPEndpointConfiguration := _NotificationSMTPEndpointConfiguration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotificationSMTPEndpointConfiguration)
+	err = json.Unmarshal(data, &varNotificationSMTPEndpointConfiguration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NotificationSMTPEndpointConfiguration(varNotificationSMTPEndpointConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "verify_tls")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "port")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "use_tls")
+		delete(additionalProperties, "from")
+		delete(additionalProperties, "to")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -30,7 +30,10 @@ type DeploymentHistory struct {
 	Outcome *string `json:"outcome,omitempty"`
 	DbUpgradeDuration *float32 `json:"db_upgrade_duration,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeploymentHistory DeploymentHistory
 
 // NewDeploymentHistory instantiates a new DeploymentHistory object
 // This constructor will assign default values to properties that have it defined,
@@ -374,7 +377,41 @@ func (o DeploymentHistory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeploymentHistory) UnmarshalJSON(data []byte) (err error) {
+	varDeploymentHistory := _DeploymentHistory{}
+
+	err = json.Unmarshal(data, &varDeploymentHistory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeploymentHistory(varDeploymentHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deployment_id")
+		delete(additionalProperties, "upgrade_id")
+		delete(additionalProperties, "to_system_version")
+		delete(additionalProperties, "from_system_version")
+		delete(additionalProperties, "to_database_version")
+		delete(additionalProperties, "from_database_version")
+		delete(additionalProperties, "outcome")
+		delete(additionalProperties, "db_upgrade_duration")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeploymentHistory struct {

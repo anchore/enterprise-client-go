@@ -22,7 +22,10 @@ var _ MappedNullable = &SystemStatusResponse{}
 type SystemStatusResponse struct {
 	// A list of service objects
 	ServiceStates []Service `json:"service_states,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SystemStatusResponse SystemStatusResponse
 
 // NewSystemStatusResponse instantiates a new SystemStatusResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o SystemStatusResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServiceStates) {
 		toSerialize["service_states"] = o.ServiceStates
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SystemStatusResponse) UnmarshalJSON(data []byte) (err error) {
+	varSystemStatusResponse := _SystemStatusResponse{}
+
+	err = json.Unmarshal(data, &varSystemStatusResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemStatusResponse(varSystemStatusResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "service_states")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSystemStatusResponse struct {

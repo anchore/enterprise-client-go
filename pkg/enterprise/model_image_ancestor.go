@@ -31,7 +31,10 @@ type ImageAncestor struct {
 	UserMarkedBase *bool `json:"user_marked_base,omitempty"`
 	// True for the specific ancestor that has been identified as the base image by the system. This image will be used internally for comparisons.
 	ChosenBaseImage *bool `json:"chosen_base_image,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageAncestor ImageAncestor
 
 // NewImageAncestor instantiates a new ImageAncestor object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,38 @@ func (o ImageAncestor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ChosenBaseImage) {
 		toSerialize["chosen_base_image"] = o.ChosenBaseImage
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageAncestor) UnmarshalJSON(data []byte) (err error) {
+	varImageAncestor := _ImageAncestor{}
+
+	err = json.Unmarshal(data, &varImageAncestor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageAncestor(varImageAncestor)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "parent_digest")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "layers")
+		delete(additionalProperties, "user_marked_base")
+		delete(additionalProperties, "chosen_base_image")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageAncestor struct {

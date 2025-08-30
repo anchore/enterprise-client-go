@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type PackageIdentifier struct {
 	Version string `json:"version"`
 	// The type of the package to which this scope applies
 	Type string `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PackageIdentifier PackageIdentifier
@@ -137,6 +137,11 @@ func (o PackageIdentifier) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["version"] = o.Version
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *PackageIdentifier) UnmarshalJSON(data []byte) (err error) {
 
 	varPackageIdentifier := _PackageIdentifier{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPackageIdentifier)
+	err = json.Unmarshal(data, &varPackageIdentifier)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PackageIdentifier(varPackageIdentifier)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

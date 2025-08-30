@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -27,6 +26,7 @@ type KubernetesNamespace struct {
 	Labels map[string]string `json:"labels"`
 	Annotations map[string]string `json:"annotations"`
 	LastSeen *string `json:"last_seen,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesNamespace KubernetesNamespace
@@ -197,6 +197,11 @@ func (o KubernetesNamespace) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastSeen) {
 		toSerialize["last_seen"] = o.LastSeen
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -227,15 +232,24 @@ func (o *KubernetesNamespace) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesNamespace := _KubernetesNamespace{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesNamespace)
+	err = json.Unmarshal(data, &varKubernetesNamespace)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesNamespace(varKubernetesNamespace)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "last_seen")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

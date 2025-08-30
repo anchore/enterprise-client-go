@@ -24,7 +24,10 @@ type ScanRequest struct {
 	SecretScan *ContentSearch `json:"secret_scan,omitempty"`
 	ContentSearch *ContentSearch `json:"content_search,omitempty"`
 	RetrievedFiles *FileContents `json:"retrieved_files,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ScanRequest ScanRequest
 
 // NewScanRequest instantiates a new ScanRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o ScanRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RetrievedFiles) {
 		toSerialize["retrieved_files"] = o.RetrievedFiles
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ScanRequest) UnmarshalJSON(data []byte) (err error) {
+	varScanRequest := _ScanRequest{}
+
+	err = json.Unmarshal(data, &varScanRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ScanRequest(varScanRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sbom")
+		delete(additionalProperties, "secret_scan")
+		delete(additionalProperties, "content_search")
+		delete(additionalProperties, "retrieved_files")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableScanRequest struct {
