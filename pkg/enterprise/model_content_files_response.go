@@ -23,7 +23,10 @@ type ContentFilesResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
 	Content []FilesContent `json:"content,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ContentFilesResponse ContentFilesResponse
 
 // NewContentFilesResponse instantiates a new ContentFilesResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o ContentFilesResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Content) {
 		toSerialize["content"] = o.Content
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ContentFilesResponse) UnmarshalJSON(data []byte) (err error) {
+	varContentFilesResponse := _ContentFilesResponse{}
+
+	err = json.Unmarshal(data, &varContentFilesResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ContentFilesResponse(varContentFilesResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "content_type")
+		delete(additionalProperties, "content")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableContentFilesResponse struct {

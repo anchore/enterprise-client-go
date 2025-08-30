@@ -26,7 +26,10 @@ type ImageSelector struct {
 	Repository *string `json:"repository,omitempty"`
 	// The tag-only section of a pull string. e.g. with \"docker.io/anchore/anchore-engine:latest\", this is \"latest\"
 	Tag *string `json:"tag,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageSelector ImageSelector
 
 // NewImageSelector instantiates a new ImageSelector object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o ImageSelector) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tag) {
 		toSerialize["tag"] = o.Tag
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageSelector) UnmarshalJSON(data []byte) (err error) {
+	varImageSelector := _ImageSelector{}
+
+	err = json.Unmarshal(data, &varImageSelector)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageSelector(varImageSelector)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "registry")
+		delete(additionalProperties, "repository")
+		delete(additionalProperties, "tag")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageSelector struct {

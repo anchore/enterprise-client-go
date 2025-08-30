@@ -22,7 +22,10 @@ var _ MappedNullable = &ArtifactListResponse{}
 type ArtifactListResponse struct {
 	AssociatedSourceArtifacts []AssociatedSourceArtifact `json:"associated_source_artifacts,omitempty"`
 	AssociatedImageArtifacts []AssociatedImageArtifact `json:"associated_image_artifacts,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArtifactListResponse ArtifactListResponse
 
 // NewArtifactListResponse instantiates a new ArtifactListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ArtifactListResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AssociatedImageArtifacts) {
 		toSerialize["associated_image_artifacts"] = o.AssociatedImageArtifacts
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArtifactListResponse) UnmarshalJSON(data []byte) (err error) {
+	varArtifactListResponse := _ArtifactListResponse{}
+
+	err = json.Unmarshal(data, &varArtifactListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactListResponse(varArtifactListResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "associated_source_artifacts")
+		delete(additionalProperties, "associated_image_artifacts")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArtifactListResponse struct {

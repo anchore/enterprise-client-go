@@ -21,7 +21,10 @@ var _ MappedNullable = &ECSTasks{}
 // ECSTasks Tasks defined in ECS
 type ECSTasks struct {
 	Tasks []ECSTask `json:"tasks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ECSTasks ECSTasks
 
 // NewECSTasks instantiates a new ECSTasks object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ECSTasks) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tasks) {
 		toSerialize["tasks"] = o.Tasks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ECSTasks) UnmarshalJSON(data []byte) (err error) {
+	varECSTasks := _ECSTasks{}
+
+	err = json.Unmarshal(data, &varECSTasks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSTasks(varECSTasks)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tasks")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableECSTasks struct {

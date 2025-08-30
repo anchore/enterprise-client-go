@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -31,6 +30,7 @@ type RegistryDigestSource struct {
 	CreationTimestampOverride *time.Time `json:"creation_timestamp_override,omitempty"`
 	// Base64 encoded content of the dockerfile used to build the image, if available.
 	Dockerfile *string `json:"dockerfile,omitempty" validate:"regexp=^[a-zA-Z0-9+\\/=]+$"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RegistryDigestSource RegistryDigestSource
@@ -184,6 +184,11 @@ func (o RegistryDigestSource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Dockerfile) {
 		toSerialize["dockerfile"] = o.Dockerfile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -212,15 +217,23 @@ func (o *RegistryDigestSource) UnmarshalJSON(data []byte) (err error) {
 
 	varRegistryDigestSource := _RegistryDigestSource{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRegistryDigestSource)
+	err = json.Unmarshal(data, &varRegistryDigestSource)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RegistryDigestSource(varRegistryDigestSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "pull_string")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "creation_timestamp_override")
+		delete(additionalProperties, "dockerfile")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

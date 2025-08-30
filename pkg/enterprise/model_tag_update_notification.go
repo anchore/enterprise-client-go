@@ -30,7 +30,10 @@ type TagUpdateNotification struct {
 	Tries *int32 `json:"tries,omitempty"`
 	MaxTries *int32 `json:"max_tries,omitempty"`
 	Data *TagUpdateNotificationData `json:"data,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TagUpdateNotification TagUpdateNotification
 
 // NewTagUpdateNotification instantiates a new TagUpdateNotification object
 // This constructor will assign default values to properties that have it defined,
@@ -423,7 +426,42 @@ func (o TagUpdateNotification) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TagUpdateNotification) UnmarshalJSON(data []byte) (err error) {
+	varTagUpdateNotification := _TagUpdateNotification{}
+
+	err = json.Unmarshal(data, &varTagUpdateNotification)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TagUpdateNotification(varTagUpdateNotification)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "queue_id")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "data_id")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "record_state_key")
+		delete(additionalProperties, "record_state_val")
+		delete(additionalProperties, "tries")
+		delete(additionalProperties, "max_tries")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTagUpdateNotification struct {

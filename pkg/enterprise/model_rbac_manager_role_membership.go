@@ -29,7 +29,10 @@ type RbacManagerRoleMembership struct {
 	// The domain scope that applies for this roles. This will be the account name if the domain scope is an account.
 	DomainName *string `json:"domain_name,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerRoleMembership RbacManagerRoleMembership
 
 // NewRbacManagerRoleMembership instantiates a new RbacManagerRoleMembership object
 // This constructor will assign default values to properties that have it defined,
@@ -201,7 +204,36 @@ func (o RbacManagerRoleMembership) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerRoleMembership) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerRoleMembership := _RbacManagerRoleMembership{}
+
+	err = json.Unmarshal(data, &varRbacManagerRoleMembership)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerRoleMembership(varRbacManagerRoleMembership)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "for_account")
+		delete(additionalProperties, "domain_name")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerRoleMembership struct {

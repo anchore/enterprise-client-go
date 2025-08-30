@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -37,6 +36,7 @@ type ArtifactLifecyclePolicy struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ArtifactLifecyclePolicy ArtifactLifecyclePolicy
@@ -356,6 +356,11 @@ func (o ArtifactLifecyclePolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DeletedAt) {
 		toSerialize["deleted_at"] = o.DeletedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -385,15 +390,28 @@ func (o *ArtifactLifecyclePolicy) UnmarshalJSON(data []byte) (err error) {
 
 	varArtifactLifecyclePolicy := _ArtifactLifecyclePolicy{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varArtifactLifecyclePolicy)
+	err = json.Unmarshal(data, &varArtifactLifecyclePolicy)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ArtifactLifecyclePolicy(varArtifactLifecyclePolicy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "policy_conditions")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "deleted_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

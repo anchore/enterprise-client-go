@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type RegistryTagSource struct {
 	PullString string `json:"pull_string"`
 	// Base64 encoded content of the dockerfile used to build the image, if available.
 	Dockerfile *string `json:"dockerfile,omitempty" validate:"regexp=^[a-zA-Z0-9+\\/=]+$"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RegistryTagSource RegistryTagSource
@@ -118,6 +118,11 @@ func (o RegistryTagSource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Dockerfile) {
 		toSerialize["dockerfile"] = o.Dockerfile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *RegistryTagSource) UnmarshalJSON(data []byte) (err error) {
 
 	varRegistryTagSource := _RegistryTagSource{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRegistryTagSource)
+	err = json.Unmarshal(data, &varRegistryTagSource)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RegistryTagSource(varRegistryTagSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "pull_string")
+		delete(additionalProperties, "dockerfile")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

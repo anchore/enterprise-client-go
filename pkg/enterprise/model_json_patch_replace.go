@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type JsonPatchReplace struct {
 	Path string `json:"path" validate:"regexp=^(\\/[^\\/~]*(~[01][^\\/~]*)*)*$"`
 	// A valid json value, can be any valid json type
 	Value interface{} `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _JsonPatchReplace JsonPatchReplace
@@ -173,6 +173,11 @@ func (o JsonPatchReplace) ToMap() (map[string]interface{}, error) {
 	toSerialize["op"] = o.Op
 	toSerialize["path"] = o.Path
 	toSerialize["value"] = o.Value
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -202,15 +207,23 @@ func (o *JsonPatchReplace) UnmarshalJSON(data []byte) (err error) {
 
 	varJsonPatchReplace := _JsonPatchReplace{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varJsonPatchReplace)
+	err = json.Unmarshal(data, &varJsonPatchReplace)
 
 	if err != nil {
 		return err
 	}
 
 	*o = JsonPatchReplace(varJsonPatchReplace)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "op")
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

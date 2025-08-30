@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -39,6 +38,7 @@ type AnalysisArchiveTransitionRule struct {
 	Exclude *AnalysisArchiveTransitionRuleExclude `json:"exclude,omitempty"`
 	// This is the maximum number of image analyses an account can have. Can only be set on system_global rules
 	MaxImagesPerAccount *int32 `json:"max_images_per_account,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AnalysisArchiveTransitionRule AnalysisArchiveTransitionRule
@@ -411,6 +411,11 @@ func (o AnalysisArchiveTransitionRule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MaxImagesPerAccount) {
 		toSerialize["max_images_per_account"] = o.MaxImagesPerAccount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -438,15 +443,29 @@ func (o *AnalysisArchiveTransitionRule) UnmarshalJSON(data []byte) (err error) {
 
 	varAnalysisArchiveTransitionRule := _AnalysisArchiveTransitionRule{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAnalysisArchiveTransitionRule)
+	err = json.Unmarshal(data, &varAnalysisArchiveTransitionRule)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AnalysisArchiveTransitionRule(varAnalysisArchiveTransitionRule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "selector")
+		delete(additionalProperties, "rule_id")
+		delete(additionalProperties, "tag_versions_newer")
+		delete(additionalProperties, "analysis_age_days")
+		delete(additionalProperties, "transition")
+		delete(additionalProperties, "system_global")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "exclude")
+		delete(additionalProperties, "max_images_per_account")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

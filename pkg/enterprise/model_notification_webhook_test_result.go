@@ -22,7 +22,10 @@ var _ MappedNullable = &NotificationWebhookTestResult{}
 type NotificationWebhookTestResult struct {
 	Status *string `json:"status,omitempty"`
 	Response *string `json:"response,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationWebhookTestResult NotificationWebhookTestResult
 
 // NewNotificationWebhookTestResult instantiates a new NotificationWebhookTestResult object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o NotificationWebhookTestResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Response) {
 		toSerialize["response"] = o.Response
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationWebhookTestResult) UnmarshalJSON(data []byte) (err error) {
+	varNotificationWebhookTestResult := _NotificationWebhookTestResult{}
+
+	err = json.Unmarshal(data, &varNotificationWebhookTestResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationWebhookTestResult(varNotificationWebhookTestResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "response")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationWebhookTestResult struct {

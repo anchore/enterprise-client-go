@@ -22,7 +22,10 @@ var _ MappedNullable = &LicenseReviewResponse{}
 type LicenseReviewResponse struct {
 	// List of packages and their licenses
 	Items []LicenseReviewItem `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicenseReviewResponse LicenseReviewResponse
 
 // NewLicenseReviewResponse instantiates a new LicenseReviewResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o LicenseReviewResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicenseReviewResponse) UnmarshalJSON(data []byte) (err error) {
+	varLicenseReviewResponse := _LicenseReviewResponse{}
+
+	err = json.Unmarshal(data, &varLicenseReviewResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicenseReviewResponse(varLicenseReviewResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicenseReviewResponse struct {

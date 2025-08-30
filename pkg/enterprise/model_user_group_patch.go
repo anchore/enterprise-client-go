@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &UserGroupPatch{}
 type UserGroupPatch struct {
 	// The description of the user group
 	Description string `json:"description"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserGroupPatch UserGroupPatch
@@ -81,6 +81,11 @@ func (o UserGroupPatch) MarshalJSON() ([]byte, error) {
 func (o UserGroupPatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["description"] = o.Description
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *UserGroupPatch) UnmarshalJSON(data []byte) (err error) {
 
 	varUserGroupPatch := _UserGroupPatch{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserGroupPatch)
+	err = json.Unmarshal(data, &varUserGroupPatch)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserGroupPatch(varUserGroupPatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

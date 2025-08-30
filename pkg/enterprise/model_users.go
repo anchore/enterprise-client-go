@@ -22,7 +22,10 @@ var _ MappedNullable = &Users{}
 type Users struct {
 	Items []User `json:"items,omitempty"`
 	TotalRows *int32 `json:"total_rows,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Users Users
 
 // NewUsers instantiates a new Users object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o Users) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalRows) {
 		toSerialize["total_rows"] = o.TotalRows
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Users) UnmarshalJSON(data []byte) (err error) {
+	varUsers := _Users{}
+
+	err = json.Unmarshal(data, &varUsers)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Users(varUsers)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "total_rows")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUsers struct {

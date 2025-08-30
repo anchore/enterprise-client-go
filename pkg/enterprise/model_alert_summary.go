@@ -36,7 +36,10 @@ type AlertSummary struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the alert was last modified
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AlertSummary AlertSummary
 
 // NewAlertSummary instantiates a new AlertSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -345,7 +348,40 @@ func (o AlertSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AlertSummary) UnmarshalJSON(data []byte) (err error) {
+	varAlertSummary := _AlertSummary{}
+
+	err = json.Unmarshal(data, &varAlertSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AlertSummary(varAlertSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "resource_labels")
+		delete(additionalProperties, "closed_by")
+		delete(additionalProperties, "closed_reason")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAlertSummary struct {

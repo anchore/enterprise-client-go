@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -43,6 +42,7 @@ type PolicyEvaluationFinding struct {
 	AllowlistMatch NullablePolicyFindingAllowlistMatch `json:"allowlist_match,omitempty"`
 	// Indicates if this finding was found in the base image
 	InheritedFromBase NullableBool `json:"inherited_from_base,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PolicyEvaluationFinding PolicyEvaluationFinding
@@ -398,6 +398,11 @@ func (o PolicyEvaluationFinding) ToMap() (map[string]interface{}, error) {
 	if o.InheritedFromBase.IsSet() {
 		toSerialize["inherited_from_base"] = o.InheritedFromBase.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -433,15 +438,30 @@ func (o *PolicyEvaluationFinding) UnmarshalJSON(data []byte) (err error) {
 
 	varPolicyEvaluationFinding := _PolicyEvaluationFinding{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPolicyEvaluationFinding)
+	err = json.Unmarshal(data, &varPolicyEvaluationFinding)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PolicyEvaluationFinding(varPolicyEvaluationFinding)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "trigger_id")
+		delete(additionalProperties, "gate")
+		delete(additionalProperties, "trigger")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "policy_id")
+		delete(additionalProperties, "recommendation")
+		delete(additionalProperties, "rule_id")
+		delete(additionalProperties, "allowlisted")
+		delete(additionalProperties, "allowlist_match")
+		delete(additionalProperties, "inherited_from_base")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

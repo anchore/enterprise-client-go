@@ -21,7 +21,10 @@ var _ MappedNullable = &LocalAnalysisSource{}
 // LocalAnalysisSource struct for LocalAnalysisSource
 type LocalAnalysisSource struct {
 	Digest *string `json:"digest,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LocalAnalysisSource LocalAnalysisSource
 
 // NewLocalAnalysisSource instantiates a new LocalAnalysisSource object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o LocalAnalysisSource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Digest) {
 		toSerialize["digest"] = o.Digest
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LocalAnalysisSource) UnmarshalJSON(data []byte) (err error) {
+	varLocalAnalysisSource := _LocalAnalysisSource{}
+
+	err = json.Unmarshal(data, &varLocalAnalysisSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LocalAnalysisSource(varLocalAnalysisSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "digest")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLocalAnalysisSource struct {

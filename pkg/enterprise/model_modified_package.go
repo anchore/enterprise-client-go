@@ -23,7 +23,10 @@ type ModifiedPackage struct {
 	Source *Package `json:"source,omitempty"`
 	Target *Package `json:"target,omitempty"`
 	Patch *CustomJsonPatch `json:"patch,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ModifiedPackage ModifiedPackage
 
 // NewModifiedPackage instantiates a new ModifiedPackage object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o ModifiedPackage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Patch) {
 		toSerialize["patch"] = o.Patch
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ModifiedPackage) UnmarshalJSON(data []byte) (err error) {
+	varModifiedPackage := _ModifiedPackage{}
+
+	err = json.Unmarshal(data, &varModifiedPackage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ModifiedPackage(varModifiedPackage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "target")
+		delete(additionalProperties, "patch")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableModifiedPackage struct {

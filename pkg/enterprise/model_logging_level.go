@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &LoggingLevel{}
 type LoggingLevel struct {
 	ServiceName string `json:"service_name"`
 	LoggingLevel string `json:"logging_level"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LoggingLevel LoggingLevel
@@ -107,6 +107,11 @@ func (o LoggingLevel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["service_name"] = o.ServiceName
 	toSerialize["logging_level"] = o.LoggingLevel
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *LoggingLevel) UnmarshalJSON(data []byte) (err error) {
 
 	varLoggingLevel := _LoggingLevel{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLoggingLevel)
+	err = json.Unmarshal(data, &varLoggingLevel)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LoggingLevel(varLoggingLevel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "service_name")
+		delete(additionalProperties, "logging_level")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

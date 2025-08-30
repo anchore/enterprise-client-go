@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -41,6 +40,7 @@ type SystemConfiguration struct {
 	IsSystemInternal *bool `json:"is_system_internal,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SystemConfiguration SystemConfiguration
@@ -696,6 +696,11 @@ func (o SystemConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -724,15 +729,37 @@ func (o *SystemConfiguration) UnmarshalJSON(data []byte) (err error) {
 
 	varSystemConfiguration := _SystemConfiguration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSystemConfiguration)
+	err = json.Unmarshal(data, &varSystemConfiguration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SystemConfiguration(varSystemConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "requires_system_restart")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "config_schema")
+		delete(additionalProperties, "title")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "default_value")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "is_editable")
+		delete(additionalProperties, "editable_reason")
+		delete(additionalProperties, "is_secret")
+		delete(additionalProperties, "is_deprecated")
+		delete(additionalProperties, "deprecated_reason")
+		delete(additionalProperties, "is_system_internal")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

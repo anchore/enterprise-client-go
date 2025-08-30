@@ -26,7 +26,10 @@ type PolicyFindingAllowlistMatch struct {
 	Name *string `json:"name,omitempty"`
 	// ID of the rule within the allowlist that matched this finding
 	MatchedRuleId *string `json:"matched_rule_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PolicyFindingAllowlistMatch PolicyFindingAllowlistMatch
 
 // NewPolicyFindingAllowlistMatch instantiates a new PolicyFindingAllowlistMatch object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o PolicyFindingAllowlistMatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MatchedRuleId) {
 		toSerialize["matched_rule_id"] = o.MatchedRuleId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PolicyFindingAllowlistMatch) UnmarshalJSON(data []byte) (err error) {
+	varPolicyFindingAllowlistMatch := _PolicyFindingAllowlistMatch{}
+
+	err = json.Unmarshal(data, &varPolicyFindingAllowlistMatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyFindingAllowlistMatch(varPolicyFindingAllowlistMatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "matched_rule_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePolicyFindingAllowlistMatch struct {

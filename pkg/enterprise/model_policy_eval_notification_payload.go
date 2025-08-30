@@ -30,7 +30,10 @@ type PolicyEvalNotificationPayload struct {
 	LastEval interface{} `json:"last_eval,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PolicyEvalNotificationPayload PolicyEvalNotificationPayload
 
 // NewPolicyEvalNotificationPayload instantiates a new PolicyEvalNotificationPayload object
 // This constructor will assign default values to properties that have it defined,
@@ -305,7 +308,39 @@ func (o PolicyEvalNotificationPayload) ToMap() (map[string]interface{}, error) {
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PolicyEvalNotificationPayload) UnmarshalJSON(data []byte) (err error) {
+	varPolicyEvalNotificationPayload := _PolicyEvalNotificationPayload{}
+
+	err = json.Unmarshal(data, &varPolicyEvalNotificationPayload)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyEvalNotificationPayload(varPolicyEvalNotificationPayload)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "subscription_key")
+		delete(additionalProperties, "subscription_type")
+		delete(additionalProperties, "notification_id")
+		delete(additionalProperties, "curr_eval")
+		delete(additionalProperties, "last_eval")
+		delete(additionalProperties, "annotations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePolicyEvalNotificationPayload struct {

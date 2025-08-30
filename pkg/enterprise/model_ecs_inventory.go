@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type ECSInventory struct {
 	Tasks []ECSInventoryTask `json:"tasks,omitempty"`
 	Containers []ECSInventoryContainer `json:"containers,omitempty"`
 	Services []ECSInventoryService `json:"services,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ECSInventory ECSInventory
@@ -218,6 +218,11 @@ func (o ECSInventory) ToMap() (map[string]interface{}, error) {
 	if o.Services != nil {
 		toSerialize["services"] = o.Services
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -246,15 +251,24 @@ func (o *ECSInventory) UnmarshalJSON(data []byte) (err error) {
 
 	varECSInventory := _ECSInventory{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varECSInventory)
+	err = json.Unmarshal(data, &varECSInventory)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ECSInventory(varECSInventory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cluster_arn")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "tasks")
+		delete(additionalProperties, "containers")
+		delete(additionalProperties, "services")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

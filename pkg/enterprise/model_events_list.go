@@ -28,7 +28,10 @@ type EventsList struct {
 	ItemCount *int32 `json:"item_count,omitempty"`
 	// Page number of this result set
 	Page *int32 `json:"page,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EventsList EventsList
 
 // NewEventsList instantiates a new EventsList object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o EventsList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Page) {
 		toSerialize["page"] = o.Page
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EventsList) UnmarshalJSON(data []byte) (err error) {
+	varEventsList := _EventsList{}
+
+	err = json.Unmarshal(data, &varEventsList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventsList(varEventsList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "results")
+		delete(additionalProperties, "next_page")
+		delete(additionalProperties, "item_count")
+		delete(additionalProperties, "page")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEventsList struct {

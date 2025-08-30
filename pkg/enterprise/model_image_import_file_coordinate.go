@@ -24,7 +24,10 @@ type ImageImportFileCoordinate struct {
 	Path *string `json:"path,omitempty"`
 	// The image layer in which the file was found
 	LayerID *string `json:"layerID,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageImportFileCoordinate ImageImportFileCoordinate
 
 // NewImageImportFileCoordinate instantiates a new ImageImportFileCoordinate object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o ImageImportFileCoordinate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LayerID) {
 		toSerialize["layerID"] = o.LayerID
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageImportFileCoordinate) UnmarshalJSON(data []byte) (err error) {
+	varImageImportFileCoordinate := _ImageImportFileCoordinate{}
+
+	err = json.Unmarshal(data, &varImageImportFileCoordinate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageImportFileCoordinate(varImageImportFileCoordinate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "layerID")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageImportFileCoordinate struct {

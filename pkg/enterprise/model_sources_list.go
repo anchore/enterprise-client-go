@@ -21,7 +21,10 @@ var _ MappedNullable = &SourcesList{}
 // SourcesList struct for SourcesList
 type SourcesList struct {
 	Items []Source `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourcesList SourcesList
 
 // NewSourcesList instantiates a new SourcesList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o SourcesList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourcesList) UnmarshalJSON(data []byte) (err error) {
+	varSourcesList := _SourcesList{}
+
+	err = json.Unmarshal(data, &varSourcesList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourcesList(varSourcesList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourcesList struct {

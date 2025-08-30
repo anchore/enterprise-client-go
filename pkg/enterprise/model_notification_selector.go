@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type NotificationSelector struct {
 	// The scope to filter events. 'global' scope encompasses all the events in the system, only the admin account can request this selector scope. 'account' covers events scoped to a specific account.
 	Scope string `json:"scope"`
 	Event NotificationEventSelector `json:"event"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NotificationSelector NotificationSelector
@@ -181,6 +181,11 @@ func (o NotificationSelector) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["scope"] = o.Scope
 	toSerialize["event"] = o.Event
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -209,15 +214,23 @@ func (o *NotificationSelector) UnmarshalJSON(data []byte) (err error) {
 
 	varNotificationSelector := _NotificationSelector{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotificationSelector)
+	err = json.Unmarshal(data, &varNotificationSelector)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NotificationSelector(varNotificationSelector)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "configuration_uuid")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "event")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

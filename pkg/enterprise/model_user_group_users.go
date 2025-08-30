@@ -21,7 +21,10 @@ var _ MappedNullable = &UserGroupUsers{}
 // UserGroupUsers struct for UserGroupUsers
 type UserGroupUsers struct {
 	Items []UserGroupUser `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserGroupUsers UserGroupUsers
 
 // NewUserGroupUsers instantiates a new UserGroupUsers object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o UserGroupUsers) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserGroupUsers) UnmarshalJSON(data []byte) (err error) {
+	varUserGroupUsers := _UserGroupUsers{}
+
+	err = json.Unmarshal(data, &varUserGroupUsers)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupUsers(varUserGroupUsers)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserGroupUsers struct {

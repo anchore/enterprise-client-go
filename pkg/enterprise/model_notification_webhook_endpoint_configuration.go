@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -39,6 +38,7 @@ type NotificationWebhookEndpointConfiguration struct {
 	Password *string `json:"password,omitempty"`
 	// Verify SSL certificates for HTTPS requests, disabled by default
 	VerifySsl *bool `json:"verify_ssl,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NotificationWebhookEndpointConfiguration NotificationWebhookEndpointConfiguration
@@ -376,6 +376,11 @@ func (o NotificationWebhookEndpointConfiguration) ToMap() (map[string]interface{
 	if !IsNil(o.VerifySsl) {
 		toSerialize["verify_ssl"] = o.VerifySsl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -403,15 +408,28 @@ func (o *NotificationWebhookEndpointConfiguration) UnmarshalJSON(data []byte) (e
 
 	varNotificationWebhookEndpointConfiguration := _NotificationWebhookEndpointConfiguration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotificationWebhookEndpointConfiguration)
+	err = json.Unmarshal(data, &varNotificationWebhookEndpointConfiguration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NotificationWebhookEndpointConfiguration(varNotificationWebhookEndpointConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "verify_tls")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "verify_ssl")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

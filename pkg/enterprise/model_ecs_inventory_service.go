@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &ECSInventoryService{}
 type ECSInventoryService struct {
 	Arn string `json:"arn"`
 	Tags *map[string]string `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ECSInventoryService ECSInventoryService
@@ -116,6 +116,11 @@ func (o ECSInventoryService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -143,15 +148,21 @@ func (o *ECSInventoryService) UnmarshalJSON(data []byte) (err error) {
 
 	varECSInventoryService := _ECSInventoryService{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varECSInventoryService)
+	err = json.Unmarshal(data, &varECSInventoryService)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ECSInventoryService(varECSInventoryService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arn")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

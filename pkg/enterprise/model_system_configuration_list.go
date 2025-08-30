@@ -21,7 +21,10 @@ var _ MappedNullable = &SystemConfigurationList{}
 // SystemConfigurationList struct for SystemConfigurationList
 type SystemConfigurationList struct {
 	Items []SystemConfiguration `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SystemConfigurationList SystemConfigurationList
 
 // NewSystemConfigurationList instantiates a new SystemConfigurationList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o SystemConfigurationList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SystemConfigurationList) UnmarshalJSON(data []byte) (err error) {
+	varSystemConfigurationList := _SystemConfigurationList{}
+
+	err = json.Unmarshal(data, &varSystemConfigurationList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemConfigurationList(varSystemConfigurationList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSystemConfigurationList struct {

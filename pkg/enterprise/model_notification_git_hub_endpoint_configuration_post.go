@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -49,6 +48,7 @@ type NotificationGitHubEndpointConfigurationPost struct {
 	Labels []string `json:"labels,omitempty"`
 	// List of user logins to assign to the issue.
 	Assignees []string `json:"assignees,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NotificationGitHubEndpointConfigurationPost NotificationGitHubEndpointConfigurationPost
@@ -499,6 +499,11 @@ func (o NotificationGitHubEndpointConfigurationPost) ToMap() (map[string]interfa
 	if !IsNil(o.Assignees) {
 		toSerialize["assignees"] = o.Assignees
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -529,15 +534,32 @@ func (o *NotificationGitHubEndpointConfigurationPost) UnmarshalJSON(data []byte)
 
 	varNotificationGitHubEndpointConfigurationPost := _NotificationGitHubEndpointConfigurationPost{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotificationGitHubEndpointConfigurationPost)
+	err = json.Unmarshal(data, &varNotificationGitHubEndpointConfigurationPost)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NotificationGitHubEndpointConfigurationPost(varNotificationGitHubEndpointConfigurationPost)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "verify_tls")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "owner")
+		delete(additionalProperties, "repository")
+		delete(additionalProperties, "milestone")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "assignees")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

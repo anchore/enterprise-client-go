@@ -28,7 +28,10 @@ type FeedSyncResult struct {
 	TotalTimeSeconds *float32 `json:"total_time_seconds,omitempty"`
 	// Array of group sync results
 	Groups []GroupSyncResult `json:"groups,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FeedSyncResult FeedSyncResult
 
 // NewFeedSyncResult instantiates a new FeedSyncResult object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o FeedSyncResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FeedSyncResult) UnmarshalJSON(data []byte) (err error) {
+	varFeedSyncResult := _FeedSyncResult{}
+
+	err = json.Unmarshal(data, &varFeedSyncResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FeedSyncResult(varFeedSyncResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "feed")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "total_time_seconds")
+		delete(additionalProperties, "groups")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFeedSyncResult struct {

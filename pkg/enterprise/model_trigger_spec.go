@@ -30,7 +30,10 @@ type TriggerSpec struct {
 	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// The list of parameters that are valid for this trigger
 	Parameters []TriggerParamSpec `json:"parameters,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TriggerSpec TriggerSpec
 
 // NewTriggerSpec instantiates a new TriggerSpec object
 // This constructor will assign default values to properties that have it defined,
@@ -244,7 +247,37 @@ func (o TriggerSpec) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Parameters) {
 		toSerialize["parameters"] = o.Parameters
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TriggerSpec) UnmarshalJSON(data []byte) (err error) {
+	varTriggerSpec := _TriggerSpec{}
+
+	err = json.Unmarshal(data, &varTriggerSpec)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TriggerSpec(varTriggerSpec)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "superseded_by")
+		delete(additionalProperties, "parameters")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTriggerSpec struct {

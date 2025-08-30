@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &ImportPackageCPE{}
 type ImportPackageCPE struct {
 	Cpe string `json:"cpe"`
 	Source string `json:"source"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ImportPackageCPE ImportPackageCPE
@@ -107,6 +107,11 @@ func (o ImportPackageCPE) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["cpe"] = o.Cpe
 	toSerialize["source"] = o.Source
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *ImportPackageCPE) UnmarshalJSON(data []byte) (err error) {
 
 	varImportPackageCPE := _ImportPackageCPE{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImportPackageCPE)
+	err = json.Unmarshal(data, &varImportPackageCPE)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ImportPackageCPE(varImportPackageCPE)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cpe")
+		delete(additionalProperties, "source")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

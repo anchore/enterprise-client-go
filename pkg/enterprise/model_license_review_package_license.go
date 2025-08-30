@@ -32,7 +32,10 @@ type LicenseReviewPackageLicense struct {
 	LicenseUrl *string `json:"license_url,omitempty"`
 	// The source of the license information
 	Source *string `json:"source,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicenseReviewPackageLicense LicenseReviewPackageLicense
 
 // NewLicenseReviewPackageLicense instantiates a new LicenseReviewPackageLicense object
 // This constructor will assign default values to properties that have it defined,
@@ -271,7 +274,38 @@ func (o LicenseReviewPackageLicense) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicenseReviewPackageLicense) UnmarshalJSON(data []byte) (err error) {
+	varLicenseReviewPackageLicense := _LicenseReviewPackageLicense{}
+
+	err = json.Unmarshal(data, &varLicenseReviewPackageLicense)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicenseReviewPackageLicense(varLicenseReviewPackageLicense)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "license_id")
+		delete(additionalProperties, "license_name")
+		delete(additionalProperties, "license_text")
+		delete(additionalProperties, "license_header")
+		delete(additionalProperties, "license_url")
+		delete(additionalProperties, "source")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicenseReviewPackageLicense struct {

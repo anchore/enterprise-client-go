@@ -21,7 +21,10 @@ var _ MappedNullable = &KubernetesNodes{}
 // KubernetesNodes Nodes defined in Kubernetes
 type KubernetesNodes struct {
 	Namespaces []KubernetesNode `json:"namespaces,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _KubernetesNodes KubernetesNodes
 
 // NewKubernetesNodes instantiates a new KubernetesNodes object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o KubernetesNodes) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Namespaces) {
 		toSerialize["namespaces"] = o.Namespaces
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *KubernetesNodes) UnmarshalJSON(data []byte) (err error) {
+	varKubernetesNodes := _KubernetesNodes{}
+
+	err = json.Unmarshal(data, &varKubernetesNodes)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KubernetesNodes(varKubernetesNodes)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "namespaces")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableKubernetesNodes struct {

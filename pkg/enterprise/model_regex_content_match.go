@@ -26,7 +26,10 @@ type RegexContentMatch struct {
 	Regex *string `json:"regex,omitempty"`
 	// A list of line numbers in the file that matched the regex
 	Lines []int32 `json:"lines,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RegexContentMatch RegexContentMatch
 
 // NewRegexContentMatch instantiates a new RegexContentMatch object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o RegexContentMatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Lines) {
 		toSerialize["lines"] = o.Lines
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RegexContentMatch) UnmarshalJSON(data []byte) (err error) {
+	varRegexContentMatch := _RegexContentMatch{}
+
+	err = json.Unmarshal(data, &varRegexContentMatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RegexContentMatch(varRegexContentMatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "regex")
+		delete(additionalProperties, "lines")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRegexContentMatch struct {

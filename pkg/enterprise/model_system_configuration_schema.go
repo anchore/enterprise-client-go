@@ -38,7 +38,10 @@ type SystemConfigurationSchema struct {
 	MultipleOf NullableFloat32 `json:"multiple_of,omitempty"`
 	Regex NullableString `json:"regex,omitempty"`
 	UniqueItems NullableBool `json:"unique_items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SystemConfigurationSchema SystemConfigurationSchema
 
 // NewSystemConfigurationSchema instantiates a new SystemConfigurationSchema object
 // This constructor will assign default values to properties that have it defined,
@@ -858,7 +861,50 @@ func (o SystemConfigurationSchema) ToMap() (map[string]interface{}, error) {
 	if o.UniqueItems.IsSet() {
 		toSerialize["unique_items"] = o.UniqueItems.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SystemConfigurationSchema) UnmarshalJSON(data []byte) (err error) {
+	varSystemConfigurationSchema := _SystemConfigurationSchema{}
+
+	err = json.Unmarshal(data, &varSystemConfigurationSchema)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemConfigurationSchema(varSystemConfigurationSchema)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "allow_inf_nan")
+		delete(additionalProperties, "decimal_places")
+		delete(additionalProperties, "data_type")
+		delete(additionalProperties, "default_value")
+		delete(additionalProperties, "enum")
+		delete(additionalProperties, "ge")
+		delete(additionalProperties, "gt")
+		delete(additionalProperties, "is_array")
+		delete(additionalProperties, "le")
+		delete(additionalProperties, "lt")
+		delete(additionalProperties, "max_digits")
+		delete(additionalProperties, "max_items")
+		delete(additionalProperties, "max_length")
+		delete(additionalProperties, "min_items")
+		delete(additionalProperties, "min_length")
+		delete(additionalProperties, "multiple_of")
+		delete(additionalProperties, "regex")
+		delete(additionalProperties, "unique_items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSystemConfigurationSchema struct {

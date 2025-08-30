@@ -29,7 +29,10 @@ type GroupSyncResult struct {
 	UpdatedRecordCount *int32 `json:"updated_record_count,omitempty"`
 	// The duration of the group sync in seconds
 	TotalTimeSeconds *float32 `json:"total_time_seconds,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GroupSyncResult GroupSyncResult
 
 // NewGroupSyncResult instantiates a new GroupSyncResult object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o GroupSyncResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalTimeSeconds) {
 		toSerialize["total_time_seconds"] = o.TotalTimeSeconds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GroupSyncResult) UnmarshalJSON(data []byte) (err error) {
+	varGroupSyncResult := _GroupSyncResult{}
+
+	err = json.Unmarshal(data, &varGroupSyncResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GroupSyncResult(varGroupSyncResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "group")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "updated_image_count")
+		delete(additionalProperties, "updated_record_count")
+		delete(additionalProperties, "total_time_seconds")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGroupSyncResult struct {

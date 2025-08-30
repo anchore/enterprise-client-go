@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type RbacManagerIdpUserGroup struct {
 	UserGroupName *string `json:"user_group_name,omitempty"`
 	// The timestamp when the user group was mapped to the IdP
 	MappedOn *time.Time `json:"mapped_on,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RbacManagerIdpUserGroup RbacManagerIdpUserGroup
@@ -156,6 +156,11 @@ func (o RbacManagerIdpUserGroup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MappedOn) {
 		toSerialize["mapped_on"] = o.MappedOn
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -183,15 +188,22 @@ func (o *RbacManagerIdpUserGroup) UnmarshalJSON(data []byte) (err error) {
 
 	varRbacManagerIdpUserGroup := _RbacManagerIdpUserGroup{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRbacManagerIdpUserGroup)
+	err = json.Unmarshal(data, &varRbacManagerIdpUserGroup)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RbacManagerIdpUserGroup(varRbacManagerIdpUserGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "user_group_uuid")
+		delete(additionalProperties, "user_group_name")
+		delete(additionalProperties, "mapped_on")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

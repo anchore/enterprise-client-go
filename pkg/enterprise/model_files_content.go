@@ -28,7 +28,10 @@ type FilesContent struct {
 	Size *int32 `json:"size,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Uid *int32 `json:"uid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FilesContent FilesContent
 
 // NewFilesContent instantiates a new FilesContent object
 // This constructor will assign default values to properties that have it defined,
@@ -357,7 +360,40 @@ func (o FilesContent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FilesContent) UnmarshalJSON(data []byte) (err error) {
+	varFilesContent := _FilesContent{}
+
+	err = json.Unmarshal(data, &varFilesContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FilesContent(varFilesContent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "gid")
+		delete(additionalProperties, "linkdest")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "sha256")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFilesContent struct {

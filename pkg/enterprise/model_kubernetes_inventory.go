@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type KubernetesInventory struct {
 	Nodes []KubernetesInventoryNode `json:"nodes,omitempty"`
 	Pods []KubernetesInventoryPod `json:"pods,omitempty"`
 	Containers []KubernetesInventoryContainer `json:"containers,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesInventory KubernetesInventory
@@ -252,6 +252,11 @@ func (o KubernetesInventory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Containers) {
 		toSerialize["containers"] = o.Containers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -280,15 +285,25 @@ func (o *KubernetesInventory) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesInventory := _KubernetesInventory{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesInventory)
+	err = json.Unmarshal(data, &varKubernetesInventory)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesInventory(varKubernetesInventory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cluster_name")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "namespaces")
+		delete(additionalProperties, "nodes")
+		delete(additionalProperties, "pods")
+		delete(additionalProperties, "containers")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

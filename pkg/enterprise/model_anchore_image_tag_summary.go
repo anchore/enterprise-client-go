@@ -29,7 +29,10 @@ type AnchoreImageTagSummary struct {
 	AnalyzedAt *int32 `json:"analyzed_at,omitempty"`
 	TagDetectedAt *int32 `json:"tag_detected_at,omitempty"`
 	ImageStatus *string `json:"image_status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnchoreImageTagSummary AnchoreImageTagSummary
 
 // NewAnchoreImageTagSummary instantiates a new AnchoreImageTagSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -373,7 +376,41 @@ func (o AnchoreImageTagSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ImageStatus) {
 		toSerialize["image_status"] = o.ImageStatus
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnchoreImageTagSummary) UnmarshalJSON(data []byte) (err error) {
+	varAnchoreImageTagSummary := _AnchoreImageTagSummary{}
+
+	err = json.Unmarshal(data, &varAnchoreImageTagSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnchoreImageTagSummary(varAnchoreImageTagSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "parent_digest")
+		delete(additionalProperties, "image_id")
+		delete(additionalProperties, "analysis_status")
+		delete(additionalProperties, "full_tag")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "analyzed_at")
+		delete(additionalProperties, "tag_detected_at")
+		delete(additionalProperties, "image_status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnchoreImageTagSummary struct {

@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -41,6 +40,7 @@ type User struct {
 	PasswordLastUpdated NullableTime `json:"password_last_updated,omitempty"`
 	// The unified list of RBAC roles this user currently has.
 	UnifiedRoles []UnifiedRoles `json:"unified_roles,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _User User
@@ -408,6 +408,11 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UnifiedRoles) {
 		toSerialize["unified_roles"] = o.UnifiedRoles
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -435,15 +440,28 @@ func (o *User) UnmarshalJSON(data []byte) (err error) {
 
 	varUser := _User{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUser)
+	err = json.Unmarshal(data, &varUser)
 
 	if err != nil {
 		return err
 	}
 
 	*o = User(varUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "idp_name")
+		delete(additionalProperties, "password_last_updated")
+		delete(additionalProperties, "unified_roles")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

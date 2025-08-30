@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type ECSTask struct {
 	TaskDefinitionArn string `json:"task_definition_arn"`
 	Tags map[string]string `json:"tags"`
 	AccountName string `json:"account_name"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ECSTask ECSTask
@@ -215,6 +215,11 @@ func (o ECSTask) ToMap() (map[string]interface{}, error) {
 	toSerialize["task_definition_arn"] = o.TaskDefinitionArn
 	toSerialize["tags"] = o.Tags
 	toSerialize["account_name"] = o.AccountName
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -247,15 +252,25 @@ func (o *ECSTask) UnmarshalJSON(data []byte) (err error) {
 
 	varECSTask := _ECSTask{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varECSTask)
+	err = json.Unmarshal(data, &varECSTask)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ECSTask(varECSTask)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arn")
+		delete(additionalProperties, "cluster_arn")
+		delete(additionalProperties, "service_arn")
+		delete(additionalProperties, "task_definition_arn")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "account_name")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -21,7 +21,10 @@ var _ MappedNullable = &IntegrationListResponse{}
 // IntegrationListResponse Response to list integration
 type IntegrationListResponse struct {
 	Items []IntegrationSummary `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IntegrationListResponse IntegrationListResponse
 
 // NewIntegrationListResponse instantiates a new IntegrationListResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o IntegrationListResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IntegrationListResponse) UnmarshalJSON(data []byte) (err error) {
+	varIntegrationListResponse := _IntegrationListResponse{}
+
+	err = json.Unmarshal(data, &varIntegrationListResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IntegrationListResponse(varIntegrationListResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIntegrationListResponse struct {

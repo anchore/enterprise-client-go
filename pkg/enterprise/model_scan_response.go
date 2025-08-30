@@ -22,7 +22,10 @@ var _ MappedNullable = &ScanResponse{}
 type ScanResponse struct {
 	VulnScan *SBOMVulnerabilitiesResponse `json:"vuln_scan,omitempty"`
 	PolicyScan *PolicyEvaluation `json:"policy_scan,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ScanResponse ScanResponse
 
 // NewScanResponse instantiates a new ScanResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ScanResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PolicyScan) {
 		toSerialize["policy_scan"] = o.PolicyScan
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ScanResponse) UnmarshalJSON(data []byte) (err error) {
+	varScanResponse := _ScanResponse{}
+
+	err = json.Unmarshal(data, &varScanResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ScanResponse(varScanResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "vuln_scan")
+		delete(additionalProperties, "policy_scan")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableScanResponse struct {

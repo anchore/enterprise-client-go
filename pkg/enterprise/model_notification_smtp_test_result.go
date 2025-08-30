@@ -22,7 +22,10 @@ var _ MappedNullable = &NotificationSMTPTestResult{}
 type NotificationSMTPTestResult struct {
 	Status *string `json:"status,omitempty"`
 	Response *string `json:"response,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationSMTPTestResult NotificationSMTPTestResult
 
 // NewNotificationSMTPTestResult instantiates a new NotificationSMTPTestResult object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o NotificationSMTPTestResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Response) {
 		toSerialize["response"] = o.Response
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationSMTPTestResult) UnmarshalJSON(data []byte) (err error) {
+	varNotificationSMTPTestResult := _NotificationSMTPTestResult{}
+
+	err = json.Unmarshal(data, &varNotificationSMTPTestResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationSMTPTestResult(varNotificationSMTPTestResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "response")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationSMTPTestResult struct {

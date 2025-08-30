@@ -47,7 +47,10 @@ type NotificationJiraEndpointConfigurationBase struct {
 	Assignee *string `json:"assignee,omitempty"`
 	// List of labels to associate with the issue
 	Labels []string `json:"labels,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationJiraEndpointConfigurationBase NotificationJiraEndpointConfigurationBase
 
 // NewNotificationJiraEndpointConfigurationBase instantiates a new NotificationJiraEndpointConfigurationBase object
 // This constructor will assign default values to properties that have it defined,
@@ -531,7 +534,45 @@ func (o NotificationJiraEndpointConfigurationBase) ToMap() (map[string]interface
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationJiraEndpointConfigurationBase) UnmarshalJSON(data []byte) (err error) {
+	varNotificationJiraEndpointConfigurationBase := _NotificationJiraEndpointConfigurationBase{}
+
+	err = json.Unmarshal(data, &varNotificationJiraEndpointConfigurationBase)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationJiraEndpointConfigurationBase(varNotificationJiraEndpointConfigurationBase)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "verify_tls")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "project_key")
+		delete(additionalProperties, "issue_type")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "assignee")
+		delete(additionalProperties, "labels")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationJiraEndpointConfigurationBase struct {

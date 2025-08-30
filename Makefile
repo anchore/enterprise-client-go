@@ -27,6 +27,7 @@ define generate_openapi_client
 				-c /local/generator.yaml \
 				--additional-properties packageName=${2} \
 				--additional-properties packageVersion=$(CLIENT_VERSION) \
+				--additional-properties=disallowAdditionalPropertiesIfNotPresent=false,ignoreUnknownFields=true \
 				--http-user-agent "anchore-client/$(CLIENT_VERSION)/go" \
 				-i /local/${1} \
 				-o /local/${3} \
@@ -80,4 +81,4 @@ help:
 .PHONY :=
 patch:
 	python3 patches/replace_interface_literals.py
-	git apply -q patches/*.diff
+	git apply patches/*.diff

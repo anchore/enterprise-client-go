@@ -23,7 +23,10 @@ type RbacManagerStatusResponse struct {
 	Busy *bool `json:"busy,omitempty"`
 	Up *bool `json:"up,omitempty"`
 	Message *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerStatusResponse RbacManagerStatusResponse
 
 // NewRbacManagerStatusResponse instantiates a new RbacManagerStatusResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o RbacManagerStatusResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerStatusResponse) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerStatusResponse := _RbacManagerStatusResponse{}
+
+	err = json.Unmarshal(data, &varRbacManagerStatusResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerStatusResponse(varRbacManagerStatusResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "busy")
+		delete(additionalProperties, "up")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerStatusResponse struct {

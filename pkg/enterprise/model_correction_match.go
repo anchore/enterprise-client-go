@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type CorrectionMatch struct {
 	Type string `json:"type"`
 	// list of field matches that are required in order for this correction to match
 	FieldMatches []CorrectionFieldMatch `json:"field_matches,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CorrectionMatch CorrectionMatch
@@ -118,6 +118,11 @@ func (o CorrectionMatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FieldMatches) {
 		toSerialize["field_matches"] = o.FieldMatches
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *CorrectionMatch) UnmarshalJSON(data []byte) (err error) {
 
 	varCorrectionMatch := _CorrectionMatch{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCorrectionMatch)
+	err = json.Unmarshal(data, &varCorrectionMatch)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CorrectionMatch(varCorrectionMatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "field_matches")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

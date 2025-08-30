@@ -21,7 +21,10 @@ var _ MappedNullable = &FeatureList{}
 // FeatureList struct for FeatureList
 type FeatureList struct {
 	Items []Feature `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FeatureList FeatureList
 
 // NewFeatureList instantiates a new FeatureList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o FeatureList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FeatureList) UnmarshalJSON(data []byte) (err error) {
+	varFeatureList := _FeatureList{}
+
+	err = json.Unmarshal(data, &varFeatureList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FeatureList(varFeatureList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFeatureList struct {

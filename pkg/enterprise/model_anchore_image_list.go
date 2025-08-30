@@ -21,7 +21,10 @@ var _ MappedNullable = &AnchoreImageList{}
 // AnchoreImageList A list of Anchore Images
 type AnchoreImageList struct {
 	Items []AnchoreImage `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnchoreImageList AnchoreImageList
 
 // NewAnchoreImageList instantiates a new AnchoreImageList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o AnchoreImageList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnchoreImageList) UnmarshalJSON(data []byte) (err error) {
+	varAnchoreImageList := _AnchoreImageList{}
+
+	err = json.Unmarshal(data, &varAnchoreImageList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnchoreImageList(varAnchoreImageList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnchoreImageList struct {

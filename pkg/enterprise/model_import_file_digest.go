@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &ImportFileDigest{}
 type ImportFileDigest struct {
 	Algorithm string `json:"algorithm"`
 	Value string `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ImportFileDigest ImportFileDigest
@@ -107,6 +107,11 @@ func (o ImportFileDigest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["algorithm"] = o.Algorithm
 	toSerialize["value"] = o.Value
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *ImportFileDigest) UnmarshalJSON(data []byte) (err error) {
 
 	varImportFileDigest := _ImportFileDigest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImportFileDigest)
+	err = json.Unmarshal(data, &varImportFileDigest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ImportFileDigest(varImportFileDigest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "algorithm")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -23,7 +23,10 @@ type EventSubcategory struct {
 	Name *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Events []EventDescription `json:"events,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EventSubcategory EventSubcategory
 
 // NewEventSubcategory instantiates a new EventSubcategory object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o EventSubcategory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Events) {
 		toSerialize["events"] = o.Events
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EventSubcategory) UnmarshalJSON(data []byte) (err error) {
+	varEventSubcategory := _EventSubcategory{}
+
+	err = json.Unmarshal(data, &varEventSubcategory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventSubcategory(varEventSubcategory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "events")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEventSubcategory struct {

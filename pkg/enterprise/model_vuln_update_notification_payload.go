@@ -28,7 +28,10 @@ type VulnUpdateNotificationPayload struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _VulnUpdateNotificationPayload VulnUpdateNotificationPayload
 
 // NewVulnUpdateNotificationPayload instantiates a new VulnUpdateNotificationPayload object
 // This constructor will assign default values to properties that have it defined,
@@ -303,7 +306,39 @@ func (o VulnUpdateNotificationPayload) ToMap() (map[string]interface{}, error) {
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *VulnUpdateNotificationPayload) UnmarshalJSON(data []byte) (err error) {
+	varVulnUpdateNotificationPayload := _VulnUpdateNotificationPayload{}
+
+	err = json.Unmarshal(data, &varVulnUpdateNotificationPayload)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VulnUpdateNotificationPayload(varVulnUpdateNotificationPayload)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "subscription_key")
+		delete(additionalProperties, "subscription_type")
+		delete(additionalProperties, "notification_id")
+		delete(additionalProperties, "diff_vulnerability_result")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "annotations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVulnUpdateNotificationPayload struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -36,6 +35,7 @@ type AccountK8sInventoryReportInfo struct {
 	HasErrors bool `json:"has_errors"`
 	// List of information about inventory report batches
 	Batches []AccountK8sInventoryReportInfoBatchesInner `json:"batches"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AccountK8sInventoryReportInfo AccountK8sInventoryReportInfo
@@ -249,6 +249,11 @@ func (o AccountK8sInventoryReportInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["last_successful_index"] = o.LastSuccessfulIndex
 	toSerialize["has_errors"] = o.HasErrors
 	toSerialize["batches"] = o.Batches
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -282,15 +287,26 @@ func (o *AccountK8sInventoryReportInfo) UnmarshalJSON(data []byte) (err error) {
 
 	varAccountK8sInventoryReportInfo := _AccountK8sInventoryReportInfo{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAccountK8sInventoryReportInfo)
+	err = json.Unmarshal(data, &varAccountK8sInventoryReportInfo)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AccountK8sInventoryReportInfo(varAccountK8sInventoryReportInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "report_timestamp")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "sent_as_user")
+		delete(additionalProperties, "batch_size")
+		delete(additionalProperties, "last_successful_index")
+		delete(additionalProperties, "has_errors")
+		delete(additionalProperties, "batches")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

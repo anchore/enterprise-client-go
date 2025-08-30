@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,6 +29,7 @@ type ImageImportManifest struct {
 	// An \"image_id\" as used by Docker if available
 	LocalImageId *string `json:"local_image_id,omitempty"`
 	OperationUuid string `json:"operation_uuid"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ImageImportManifest ImageImportManifest
@@ -235,6 +235,11 @@ func (o ImageImportManifest) ToMap() (map[string]interface{}, error) {
 		toSerialize["local_image_id"] = o.LocalImageId
 	}
 	toSerialize["operation_uuid"] = o.OperationUuid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -265,15 +270,25 @@ func (o *ImageImportManifest) UnmarshalJSON(data []byte) (err error) {
 
 	varImageImportManifest := _ImageImportManifest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImageImportManifest)
+	err = json.Unmarshal(data, &varImageImportManifest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ImageImportManifest(varImageImportManifest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "contents")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "digest")
+		delete(additionalProperties, "parent_digest")
+		delete(additionalProperties, "local_image_id")
+		delete(additionalProperties, "operation_uuid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

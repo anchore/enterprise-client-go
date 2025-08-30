@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &ComplianceViolationAlertState{}
 type ComplianceViolationAlertState struct {
 	// The new state of the compliance violation alert
 	State string `json:"state"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ComplianceViolationAlertState ComplianceViolationAlertState
@@ -81,6 +81,11 @@ func (o ComplianceViolationAlertState) MarshalJSON() ([]byte, error) {
 func (o ComplianceViolationAlertState) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["state"] = o.State
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *ComplianceViolationAlertState) UnmarshalJSON(data []byte) (err error) {
 
 	varComplianceViolationAlertState := _ComplianceViolationAlertState{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varComplianceViolationAlertState)
+	err = json.Unmarshal(data, &varComplianceViolationAlertState)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ComplianceViolationAlertState(varComplianceViolationAlertState)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

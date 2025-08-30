@@ -22,7 +22,10 @@ var _ MappedNullable = &UserGroupUsersPostUsernamesInner{}
 type UserGroupUsersPostUsernamesInner struct {
 	// A username
 	Username *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserGroupUsersPostUsernamesInner UserGroupUsersPostUsernamesInner
 
 // NewUserGroupUsersPostUsernamesInner instantiates a new UserGroupUsersPostUsernamesInner object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o UserGroupUsersPostUsernamesInner) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserGroupUsersPostUsernamesInner) UnmarshalJSON(data []byte) (err error) {
+	varUserGroupUsersPostUsernamesInner := _UserGroupUsersPostUsernamesInner{}
+
+	err = json.Unmarshal(data, &varUserGroupUsersPostUsernamesInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupUsersPostUsernamesInner(varUserGroupUsersPostUsernamesInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserGroupUsersPostUsernamesInner struct {

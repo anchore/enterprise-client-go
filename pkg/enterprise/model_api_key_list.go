@@ -21,7 +21,10 @@ var _ MappedNullable = &ApiKeyList{}
 // ApiKeyList struct for ApiKeyList
 type ApiKeyList struct {
 	Items []UserApiKey `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ApiKeyList ApiKeyList
 
 // NewApiKeyList instantiates a new ApiKeyList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ApiKeyList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ApiKeyList) UnmarshalJSON(data []byte) (err error) {
+	varApiKeyList := _ApiKeyList{}
+
+	err = json.Unmarshal(data, &varApiKeyList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiKeyList(varApiKeyList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApiKeyList struct {

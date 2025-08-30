@@ -22,7 +22,10 @@ var _ MappedNullable = &AssociatedSourceArtifact{}
 type AssociatedSourceArtifact struct {
 	ArtifactAssociationMetadata *ArtifactAssociationMetadata `json:"artifact_association_metadata,omitempty"`
 	Source *Source `json:"source,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AssociatedSourceArtifact AssociatedSourceArtifact
 
 // NewAssociatedSourceArtifact instantiates a new AssociatedSourceArtifact object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o AssociatedSourceArtifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AssociatedSourceArtifact) UnmarshalJSON(data []byte) (err error) {
+	varAssociatedSourceArtifact := _AssociatedSourceArtifact{}
+
+	err = json.Unmarshal(data, &varAssociatedSourceArtifact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AssociatedSourceArtifact(varAssociatedSourceArtifact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "artifact_association_metadata")
+		delete(additionalProperties, "source")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAssociatedSourceArtifact struct {

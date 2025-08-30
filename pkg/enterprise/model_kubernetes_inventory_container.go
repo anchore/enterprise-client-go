@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type KubernetesInventoryContainer struct {
 	ImageTag string `json:"image_tag" validate:"regexp=^(?!\\\\s*$).+"`
 	ImageDigest *string `json:"image_digest,omitempty"`
 	PodUid string `json:"pod_uid" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesInventoryContainer KubernetesInventoryContainer
@@ -198,6 +198,11 @@ func (o KubernetesInventoryContainer) ToMap() (map[string]interface{}, error) {
 		toSerialize["image_digest"] = o.ImageDigest
 	}
 	toSerialize["pod_uid"] = o.PodUid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -228,15 +233,24 @@ func (o *KubernetesInventoryContainer) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesInventoryContainer := _KubernetesInventoryContainer{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesInventoryContainer)
+	err = json.Unmarshal(data, &varKubernetesInventoryContainer)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesInventoryContainer(varKubernetesInventoryContainer)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "image_tag")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "pod_uid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

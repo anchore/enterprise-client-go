@@ -21,7 +21,10 @@ var _ MappedNullable = &STIGMetadataResponseList{}
 // STIGMetadataResponseList struct for STIGMetadataResponseList
 type STIGMetadataResponseList struct {
 	Items []STIGMetadataResponse `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _STIGMetadataResponseList STIGMetadataResponseList
 
 // NewSTIGMetadataResponseList instantiates a new STIGMetadataResponseList object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o STIGMetadataResponseList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *STIGMetadataResponseList) UnmarshalJSON(data []byte) (err error) {
+	varSTIGMetadataResponseList := _STIGMetadataResponseList{}
+
+	err = json.Unmarshal(data, &varSTIGMetadataResponseList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = STIGMetadataResponseList(varSTIGMetadataResponseList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSTIGMetadataResponseList struct {

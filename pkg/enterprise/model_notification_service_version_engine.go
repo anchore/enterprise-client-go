@@ -24,7 +24,10 @@ type NotificationServiceVersionEngine struct {
 	Version *string `json:"version,omitempty"`
 	// Version of the installed engine db schema
 	Db *string `json:"db,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationServiceVersionEngine NotificationServiceVersionEngine
 
 // NewNotificationServiceVersionEngine instantiates a new NotificationServiceVersionEngine object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o NotificationServiceVersionEngine) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Db) {
 		toSerialize["db"] = o.Db
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationServiceVersionEngine) UnmarshalJSON(data []byte) (err error) {
+	varNotificationServiceVersionEngine := _NotificationServiceVersionEngine{}
+
+	err = json.Unmarshal(data, &varNotificationServiceVersionEngine)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationServiceVersionEngine(varNotificationServiceVersionEngine)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "db")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationServiceVersionEngine struct {

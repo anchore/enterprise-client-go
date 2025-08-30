@@ -23,7 +23,10 @@ type ImageContentSummaryItemsInner struct {
 	ContentType *string `json:"content_type,omitempty"`
 	DisplayName *string `json:"display_name,omitempty"`
 	Count *int32 `json:"count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageContentSummaryItemsInner ImageContentSummaryItemsInner
 
 // NewImageContentSummaryItemsInner instantiates a new ImageContentSummaryItemsInner object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o ImageContentSummaryItemsInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageContentSummaryItemsInner) UnmarshalJSON(data []byte) (err error) {
+	varImageContentSummaryItemsInner := _ImageContentSummaryItemsInner{}
+
+	err = json.Unmarshal(data, &varImageContentSummaryItemsInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageContentSummaryItemsInner(varImageContentSummaryItemsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "content_type")
+		delete(additionalProperties, "display_name")
+		delete(additionalProperties, "count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageContentSummaryItemsInner struct {

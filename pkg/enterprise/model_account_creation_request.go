@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type AccountCreationRequest struct {
 	Name string "json:\"name\" validate:\"regexp=^[a-zA-Z0-9][ a-zA-Z0-9@.!$+=^_`~;-]{1,126}[a-zA-Z0-9_]$\""
 	// An optional email to associate with the account for contact purposes
 	Email *string "json:\"email,omitempty\" validate:\"regexp=[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\""
+	AdditionalProperties map[string]interface{}
 }
 
 type _AccountCreationRequest AccountCreationRequest
@@ -118,6 +118,11 @@ func (o AccountCreationRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *AccountCreationRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varAccountCreationRequest := _AccountCreationRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAccountCreationRequest)
+	err = json.Unmarshal(data, &varAccountCreationRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AccountCreationRequest(varAccountCreationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "email")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

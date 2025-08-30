@@ -1,0 +1,22 @@
+diff --git a/pkg/enterprise/model_registry_configuration_request.go b/pkg/enterprise/model_registry_configuration_request.go
+index 39e19ac..1801f47 100644
+--- a/pkg/enterprise/model_registry_configuration_request.go
++++ b/pkg/enterprise/model_registry_configuration_request.go
+@@ -275,9 +275,14 @@ func (o RegistryConfigurationRequest) ToMap() (map[string]interface{}, error) {
+ 		toSerialize["registry_verify"] = o.RegistryVerify
+ 	}
+ 
+-	for key, value := range o.AdditionalProperties {
+-		toSerialize[key] = value
+-	}
++	// The registry update command should be requiring all known fields as this is a PUT operation. However,
++	// it is doing a GET first and populating all fields returned into the RegistryConfigurationRequest object.
++	// Even ones that do not exist in the spec. To prevent enterprise from returning a 500 due to unknown fields,
++	// we will remove any additional properties in the serialized output here.
++
++	//for key, value := range o.AdditionalProperties {
++	//	toSerialize[key] = value
++	//}
+ 
+ 	return toSerialize, nil
+ }

@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type ContentSearchMetadata struct {
 	AnchorectlVersion string `json:"anchorectl_version"`
 	// The platform of AnchoreCTL used to generate the result
 	Platform string `json:"platform"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ContentSearchMetadata ContentSearchMetadata
@@ -138,6 +138,11 @@ func (o ContentSearchMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize["analyzed_at"] = o.AnalyzedAt
 	toSerialize["anchorectl_version"] = o.AnchorectlVersion
 	toSerialize["platform"] = o.Platform
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -167,15 +172,22 @@ func (o *ContentSearchMetadata) UnmarshalJSON(data []byte) (err error) {
 
 	varContentSearchMetadata := _ContentSearchMetadata{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varContentSearchMetadata)
+	err = json.Unmarshal(data, &varContentSearchMetadata)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ContentSearchMetadata(varContentSearchMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "analyzed_at")
+		delete(additionalProperties, "anchorectl_version")
+		delete(additionalProperties, "platform")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

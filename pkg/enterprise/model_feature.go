@@ -24,7 +24,10 @@ type Feature struct {
 	Name *string `json:"name,omitempty"`
 	// If the feature is enabled
 	Enabled *bool `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Feature Feature
 
 // NewFeature instantiates a new Feature object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o Feature) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Feature) UnmarshalJSON(data []byte) (err error) {
+	varFeature := _Feature{}
+
+	err = json.Unmarshal(data, &varFeature)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Feature(varFeature)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFeature struct {

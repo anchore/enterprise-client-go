@@ -27,7 +27,10 @@ type UserGroupRoleRolesInner struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The unique identifier for the role membership
 	MembershipId *string `json:"membership_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserGroupRoleRolesInner UserGroupRoleRolesInner
 
 // NewUserGroupRoleRolesInner instantiates a new UserGroupRoleRolesInner object
 // This constructor will assign default values to properties that have it defined,
@@ -161,7 +164,35 @@ func (o UserGroupRoleRolesInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MembershipId) {
 		toSerialize["membership_id"] = o.MembershipId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserGroupRoleRolesInner) UnmarshalJSON(data []byte) (err error) {
+	varUserGroupRoleRolesInner := _UserGroupRoleRolesInner{}
+
+	err = json.Unmarshal(data, &varUserGroupRoleRolesInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupRoleRolesInner(varUserGroupRoleRolesInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "membership_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserGroupRoleRolesInner struct {

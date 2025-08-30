@@ -23,7 +23,10 @@ type LicenseReviewItem struct {
 	Package *LicenseReviewPackage `json:"package,omitempty"`
 	// List of licenses for the package
 	Licenses []LicenseReviewPackageLicense `json:"licenses,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LicenseReviewItem LicenseReviewItem
 
 // NewLicenseReviewItem instantiates a new LicenseReviewItem object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o LicenseReviewItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Licenses) {
 		toSerialize["licenses"] = o.Licenses
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LicenseReviewItem) UnmarshalJSON(data []byte) (err error) {
+	varLicenseReviewItem := _LicenseReviewItem{}
+
+	err = json.Unmarshal(data, &varLicenseReviewItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LicenseReviewItem(varLicenseReviewItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "package")
+		delete(additionalProperties, "licenses")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLicenseReviewItem struct {

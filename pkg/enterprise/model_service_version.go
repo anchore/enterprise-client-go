@@ -23,7 +23,10 @@ type ServiceVersion struct {
 	Service *NotificationServiceVersionService `json:"service,omitempty"`
 	Api *NotificationServiceVersionApi `json:"api,omitempty"`
 	Db *NotificationServiceVersionDb `json:"db,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceVersion ServiceVersion
 
 // NewServiceVersion instantiates a new ServiceVersion object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o ServiceVersion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Db) {
 		toSerialize["db"] = o.Db
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceVersion) UnmarshalJSON(data []byte) (err error) {
+	varServiceVersion := _ServiceVersion{}
+
+	err = json.Unmarshal(data, &varServiceVersion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceVersion(varServiceVersion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "api")
+		delete(additionalProperties, "db")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceVersion struct {

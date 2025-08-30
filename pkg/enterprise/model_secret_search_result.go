@@ -22,7 +22,10 @@ var _ MappedNullable = &SecretSearchResult{}
 type SecretSearchResult struct {
 	Path *string `json:"path,omitempty"`
 	Matches []RegexContentMatch `json:"matches,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SecretSearchResult SecretSearchResult
 
 // NewSecretSearchResult instantiates a new SecretSearchResult object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o SecretSearchResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Matches) {
 		toSerialize["matches"] = o.Matches
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SecretSearchResult) UnmarshalJSON(data []byte) (err error) {
+	varSecretSearchResult := _SecretSearchResult{}
+
+	err = json.Unmarshal(data, &varSecretSearchResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecretSearchResult(varSecretSearchResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "matches")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSecretSearchResult struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -38,6 +37,7 @@ type ImportContentDigests struct {
 	ContentSearches *string `json:"content_searches,omitempty"`
 	// Digest for reference content for file retrieve content
 	FileContents *string `json:"file_contents,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ImportContentDigests ImportContentDigests
@@ -322,6 +322,11 @@ func (o ImportContentDigests) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FileContents) {
 		toSerialize["file_contents"] = o.FileContents
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -351,15 +356,27 @@ func (o *ImportContentDigests) UnmarshalJSON(data []byte) (err error) {
 
 	varImportContentDigests := _ImportContentDigests{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImportContentDigests)
+	err = json.Unmarshal(data, &varImportContentDigests)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ImportContentDigests(varImportContentDigests)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "packages")
+		delete(additionalProperties, "image_config")
+		delete(additionalProperties, "manifest")
+		delete(additionalProperties, "parent_manifest")
+		delete(additionalProperties, "dockerfile")
+		delete(additionalProperties, "secret_searches")
+		delete(additionalProperties, "content_searches")
+		delete(additionalProperties, "file_contents")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

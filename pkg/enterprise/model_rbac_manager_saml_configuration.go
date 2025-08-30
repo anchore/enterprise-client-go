@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -57,6 +56,7 @@ type RbacManagerSamlConfiguration struct {
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// Indicates if Anchore will require an authenticating SSO user to already exist.  This field is ignored on POST/PUT Operations.
 	RequireExistingUsers *bool `json:"require_existing_users,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RbacManagerSamlConfiguration RbacManagerSamlConfiguration
@@ -694,6 +694,11 @@ func (o RbacManagerSamlConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RequireExistingUsers) {
 		toSerialize["require_existing_users"] = o.RequireExistingUsers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -724,15 +729,37 @@ func (o *RbacManagerSamlConfiguration) UnmarshalJSON(data []byte) (err error) {
 
 	varRbacManagerSamlConfiguration := _RbacManagerSamlConfiguration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRbacManagerSamlConfiguration)
+	err = json.Unmarshal(data, &varRbacManagerSamlConfiguration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RbacManagerSamlConfiguration(varRbacManagerSamlConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "sp_entity_id")
+		delete(additionalProperties, "acs_url")
+		delete(additionalProperties, "acs_https_port")
+		delete(additionalProperties, "idp_metadata_url")
+		delete(additionalProperties, "idp_metadata_xml")
+		delete(additionalProperties, "idp_username_attribute")
+		delete(additionalProperties, "idp_account_attribute")
+		delete(additionalProperties, "idp_role_attribute")
+		delete(additionalProperties, "idp_groups_attribute")
+		delete(additionalProperties, "default_account")
+		delete(additionalProperties, "default_role")
+		delete(additionalProperties, "require_signed_assertions")
+		delete(additionalProperties, "require_signed_response")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "require_existing_users")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -24,7 +24,10 @@ type GenericNotificationPayload struct {
 	SubscriptionKey *string `json:"subscription_key,omitempty"`
 	SubscriptionType *string `json:"subscription_type,omitempty"`
 	NotificationId *string `json:"notification_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GenericNotificationPayload GenericNotificationPayload
 
 // NewGenericNotificationPayload instantiates a new GenericNotificationPayload object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o GenericNotificationPayload) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NotificationId) {
 		toSerialize["notification_id"] = o.NotificationId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GenericNotificationPayload) UnmarshalJSON(data []byte) (err error) {
+	varGenericNotificationPayload := _GenericNotificationPayload{}
+
+	err = json.Unmarshal(data, &varGenericNotificationPayload)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GenericNotificationPayload(varGenericNotificationPayload)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "subscription_key")
+		delete(additionalProperties, "subscription_type")
+		delete(additionalProperties, "notification_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGenericNotificationPayload struct {

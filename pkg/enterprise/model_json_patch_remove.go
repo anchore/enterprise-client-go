@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -27,6 +26,7 @@ type JsonPatchRemove struct {
 	Op string `json:"op"`
 	// A JSONPointer per RFC6901
 	Path string `json:"path" validate:"regexp=^(\\/[^\\/~]*(~[01][^\\/~]*)*)*$"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _JsonPatchRemove JsonPatchRemove
@@ -145,6 +145,11 @@ func (o JsonPatchRemove) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["op"] = o.Op
 	toSerialize["path"] = o.Path
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -173,15 +178,22 @@ func (o *JsonPatchRemove) UnmarshalJSON(data []byte) (err error) {
 
 	varJsonPatchRemove := _JsonPatchRemove{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varJsonPatchRemove)
+	err = json.Unmarshal(data, &varJsonPatchRemove)
 
 	if err != nil {
 		return err
 	}
 
 	*o = JsonPatchRemove(varJsonPatchRemove)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "op")
+		delete(additionalProperties, "path")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

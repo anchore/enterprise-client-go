@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &SourceImportMetadataContents{}
 type SourceImportMetadataContents struct {
 	// Digest to use for the sbom
 	Sbom string `json:"sbom"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SourceImportMetadataContents SourceImportMetadataContents
@@ -81,6 +81,11 @@ func (o SourceImportMetadataContents) MarshalJSON() ([]byte, error) {
 func (o SourceImportMetadataContents) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["sbom"] = o.Sbom
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *SourceImportMetadataContents) UnmarshalJSON(data []byte) (err error) {
 
 	varSourceImportMetadataContents := _SourceImportMetadataContents{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSourceImportMetadataContents)
+	err = json.Unmarshal(data, &varSourceImportMetadataContents)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SourceImportMetadataContents(varSourceImportMetadataContents)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sbom")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -34,6 +33,7 @@ type HealthReport struct {
 	// Interval (in seconds) between health reports
 	HealthReportInterval int32 `json:"health_report_interval"`
 	HealthData HealthData `json:"health_data"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _HealthReport HealthReport
@@ -221,6 +221,11 @@ func (o HealthReport) ToMap() (map[string]interface{}, error) {
 	toSerialize["uptime"] = o.Uptime
 	toSerialize["health_report_interval"] = o.HealthReportInterval
 	toSerialize["health_data"] = o.HealthData
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -253,15 +258,25 @@ func (o *HealthReport) UnmarshalJSON(data []byte) (err error) {
 
 	varHealthReport := _HealthReport{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varHealthReport)
+	err = json.Unmarshal(data, &varHealthReport)
 
 	if err != nil {
 		return err
 	}
 
 	*o = HealthReport(varHealthReport)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "protocol_version")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "uptime")
+		delete(additionalProperties, "health_report_interval")
+		delete(additionalProperties, "health_data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -26,7 +26,10 @@ type PaginationProperties struct {
 	NextPage *string `json:"next_page,omitempty"`
 	// The number of items sent in this response
 	ReturnedCount *int32 `json:"returned_count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaginationProperties PaginationProperties
 
 // NewPaginationProperties instantiates a new PaginationProperties object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o PaginationProperties) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReturnedCount) {
 		toSerialize["returned_count"] = o.ReturnedCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaginationProperties) UnmarshalJSON(data []byte) (err error) {
+	varPaginationProperties := _PaginationProperties{}
+
+	err = json.Unmarshal(data, &varPaginationProperties)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaginationProperties(varPaginationProperties)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "page")
+		delete(additionalProperties, "next_page")
+		delete(additionalProperties, "returned_count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaginationProperties struct {

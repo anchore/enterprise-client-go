@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -27,6 +26,7 @@ type ContentSearchFindingsInnerContentSearchesInner struct {
 	LineOffset int32 `json:"line_offset"`
 	SeekPosition int32 `json:"seek_position"`
 	Length int32 `json:"length"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ContentSearchFindingsInnerContentSearchesInner ContentSearchFindingsInnerContentSearchesInner
@@ -188,6 +188,11 @@ func (o ContentSearchFindingsInnerContentSearchesInner) ToMap() (map[string]inte
 	toSerialize["line_offset"] = o.LineOffset
 	toSerialize["seek_position"] = o.SeekPosition
 	toSerialize["length"] = o.Length
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -219,15 +224,24 @@ func (o *ContentSearchFindingsInnerContentSearchesInner) UnmarshalJSON(data []by
 
 	varContentSearchFindingsInnerContentSearchesInner := _ContentSearchFindingsInnerContentSearchesInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varContentSearchFindingsInnerContentSearchesInner)
+	err = json.Unmarshal(data, &varContentSearchFindingsInnerContentSearchesInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ContentSearchFindingsInnerContentSearchesInner(varContentSearchFindingsInnerContentSearchesInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "classification")
+		delete(additionalProperties, "line_number")
+		delete(additionalProperties, "line_offset")
+		delete(additionalProperties, "seek_position")
+		delete(additionalProperties, "length")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

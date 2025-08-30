@@ -22,7 +22,10 @@ var _ MappedNullable = &ArchiveSummary{}
 type ArchiveSummary struct {
 	Images *AnalysisArchiveSummary `json:"images,omitempty"`
 	Rules *AnalysisArchiveRulesSummary `json:"rules,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArchiveSummary ArchiveSummary
 
 // NewArchiveSummary instantiates a new ArchiveSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ArchiveSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Rules) {
 		toSerialize["rules"] = o.Rules
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArchiveSummary) UnmarshalJSON(data []byte) (err error) {
+	varArchiveSummary := _ArchiveSummary{}
+
+	err = json.Unmarshal(data, &varArchiveSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArchiveSummary(varArchiveSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "images")
+		delete(additionalProperties, "rules")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArchiveSummary struct {

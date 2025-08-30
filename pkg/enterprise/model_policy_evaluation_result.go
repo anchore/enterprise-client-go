@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -47,6 +46,7 @@ type PolicyEvaluationResult struct {
 	MatchedMappingRule NullableMappingRule `json:"matched_mapping_rule,omitempty"`
 	// Number of policy findings in the response
 	NumberOfFindings int32 `json:"number_of_findings"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PolicyEvaluationResult PolicyEvaluationResult
@@ -537,6 +537,11 @@ func (o PolicyEvaluationResult) ToMap() (map[string]interface{}, error) {
 		toSerialize["matched_mapping_rule"] = o.MatchedMappingRule.Get()
 	}
 	toSerialize["number_of_findings"] = o.NumberOfFindings
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -572,15 +577,33 @@ func (o *PolicyEvaluationResult) UnmarshalJSON(data []byte) (err error) {
 
 	varPolicyEvaluationResult := _PolicyEvaluationResult{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPolicyEvaluationResult)
+	err = json.Unmarshal(data, &varPolicyEvaluationResult)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PolicyEvaluationResult(varPolicyEvaluationResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "comparison_image_digest")
+		delete(additionalProperties, "evaluation_time")
+		delete(additionalProperties, "evaluation_problems")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "final_action")
+		delete(additionalProperties, "final_action_reason")
+		delete(additionalProperties, "image_allowlisted")
+		delete(additionalProperties, "matched_allowlisted_images_rule")
+		delete(additionalProperties, "image_denylisted")
+		delete(additionalProperties, "matched_denylisted_images_rule")
+		delete(additionalProperties, "image_mapped_to_rule")
+		delete(additionalProperties, "matched_mapping_rule")
+		delete(additionalProperties, "number_of_findings")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

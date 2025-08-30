@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -38,6 +37,7 @@ type PolicyRecord struct {
 	Name string `json:"name"`
 	// Description of the policy, human readable
 	Description *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PolicyRecord PolicyRecord
@@ -349,6 +349,11 @@ func (o PolicyRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -380,15 +385,28 @@ func (o *PolicyRecord) UnmarshalJSON(data []byte) (err error) {
 
 	varPolicyRecord := _PolicyRecord{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPolicyRecord)
+	err = json.Unmarshal(data, &varPolicyRecord)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PolicyRecord(varPolicyRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "policy_id")
+		delete(additionalProperties, "active")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "policy_source")
+		delete(additionalProperties, "policy")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

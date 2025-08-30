@@ -24,7 +24,10 @@ type ImageSource struct {
 	Digest NullableRegistryDigestSource `json:"digest,omitempty"`
 	Archive NullableAnalysisArchiveSource `json:"archive,omitempty"`
 	Import NullableImageImportManifest `json:"import,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageSource ImageSource
 
 // NewImageSource instantiates a new ImageSource object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,36 @@ func (o ImageSource) ToMap() (map[string]interface{}, error) {
 	if o.Import.IsSet() {
 		toSerialize["import"] = o.Import.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageSource) UnmarshalJSON(data []byte) (err error) {
+	varImageSource := _ImageSource{}
+
+	err = json.Unmarshal(data, &varImageSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageSource(varImageSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "digest")
+		delete(additionalProperties, "archive")
+		delete(additionalProperties, "import")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageSource struct {

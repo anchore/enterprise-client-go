@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -31,6 +30,7 @@ type SourceImportMetadata struct {
 	Revision string `json:"revision"`
 	ChangeAuthor NullableString `json:"change_author,omitempty"`
 	Contents SourceImportMetadataContents `json:"contents"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SourceImportMetadata SourceImportMetadata
@@ -346,6 +346,11 @@ func (o SourceImportMetadata) ToMap() (map[string]interface{}, error) {
 		toSerialize["change_author"] = o.ChangeAuthor.Get()
 	}
 	toSerialize["contents"] = o.Contents
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -376,15 +381,27 @@ func (o *SourceImportMetadata) UnmarshalJSON(data []byte) (err error) {
 
 	varSourceImportMetadata := _SourceImportMetadata{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSourceImportMetadata)
+	err = json.Unmarshal(data, &varSourceImportMetadata)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SourceImportMetadata(varSourceImportMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ci_workflow_name")
+		delete(additionalProperties, "ci_workflow_execution_time")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "repository_name")
+		delete(additionalProperties, "branch_name")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "change_author")
+		delete(additionalProperties, "contents")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

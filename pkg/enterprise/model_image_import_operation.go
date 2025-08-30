@@ -25,7 +25,10 @@ type ImageImportOperation struct {
 	Status *string `json:"status,omitempty"`
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageImportOperation ImageImportOperation
 
 // NewImageImportOperation instantiates a new ImageImportOperation object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o ImageImportOperation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageImportOperation) UnmarshalJSON(data []byte) (err error) {
+	varImageImportOperation := _ImageImportOperation{}
+
+	err = json.Unmarshal(data, &varImageImportOperation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageImportOperation(varImageImportOperation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageImportOperation struct {

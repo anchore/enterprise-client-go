@@ -24,7 +24,10 @@ type RbacManagerPermission struct {
 	Action *string `json:"action,omitempty"`
 	// The target to which the action may be applied. Either a '*' for all or a specific target id
 	Target *string `json:"target,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerPermission RbacManagerPermission
 
 // NewRbacManagerPermission instantiates a new RbacManagerPermission object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o RbacManagerPermission) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerPermission) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerPermission := _RbacManagerPermission{}
+
+	err = json.Unmarshal(data, &varRbacManagerPermission)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerPermission(varRbacManagerPermission)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "target")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerPermission struct {

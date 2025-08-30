@@ -27,7 +27,10 @@ type ArtifactAssociationMetadata struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the artifact association was last updated
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArtifactAssociationMetadata ArtifactAssociationMetadata
 
 // NewArtifactAssociationMetadata instantiates a new ArtifactAssociationMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -161,7 +164,35 @@ func (o ArtifactAssociationMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArtifactAssociationMetadata) UnmarshalJSON(data []byte) (err error) {
+	varArtifactAssociationMetadata := _ArtifactAssociationMetadata{}
+
+	err = json.Unmarshal(data, &varArtifactAssociationMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactAssociationMetadata(varArtifactAssociationMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "association_id")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArtifactAssociationMetadata struct {

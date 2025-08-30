@@ -23,7 +23,10 @@ var _ MappedNullable = &SourceImportContentResponse{}
 type SourceImportContentResponse struct {
 	Digest *string `json:"digest,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourceImportContentResponse SourceImportContentResponse
 
 // NewSourceImportContentResponse instantiates a new SourceImportContentResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o SourceImportContentResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourceImportContentResponse) UnmarshalJSON(data []byte) (err error) {
+	varSourceImportContentResponse := _SourceImportContentResponse{}
+
+	err = json.Unmarshal(data, &varSourceImportContentResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceImportContentResponse(varSourceImportContentResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "digest")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourceImportContentResponse struct {

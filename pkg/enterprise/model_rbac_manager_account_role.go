@@ -27,7 +27,10 @@ type RbacManagerAccountRole struct {
 	DomainName *string `json:"domain_name,omitempty"`
 	Roles *RbacManagerRole `json:"roles,omitempty"`
 	Account *Account `json:"account,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerAccountRole RbacManagerAccountRole
 
 // NewRbacManagerAccountRole instantiates a new RbacManagerAccountRole object
 // This constructor will assign default values to properties that have it defined,
@@ -199,7 +202,36 @@ func (o RbacManagerAccountRole) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Account) {
 		toSerialize["account"] = o.Account
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerAccountRole) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerAccountRole := _RbacManagerAccountRole{}
+
+	err = json.Unmarshal(data, &varRbacManagerAccountRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerAccountRole(varRbacManagerAccountRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "for_account")
+		delete(additionalProperties, "domain_name")
+		delete(additionalProperties, "roles")
+		delete(additionalProperties, "account")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerAccountRole struct {

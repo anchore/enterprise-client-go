@@ -23,7 +23,10 @@ type ArtifactAssociationResponse struct {
 	Source *Source `json:"source,omitempty"`
 	Image *ImageArtifact `json:"image,omitempty"`
 	ArtifactAssociationMetadata *ArtifactAssociationMetadata `json:"artifact_association_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArtifactAssociationResponse ArtifactAssociationResponse
 
 // NewArtifactAssociationResponse instantiates a new ArtifactAssociationResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o ArtifactAssociationResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ArtifactAssociationMetadata) {
 		toSerialize["artifact_association_metadata"] = o.ArtifactAssociationMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArtifactAssociationResponse) UnmarshalJSON(data []byte) (err error) {
+	varArtifactAssociationResponse := _ArtifactAssociationResponse{}
+
+	err = json.Unmarshal(data, &varArtifactAssociationResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactAssociationResponse(varArtifactAssociationResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "artifact_association_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArtifactAssociationResponse struct {

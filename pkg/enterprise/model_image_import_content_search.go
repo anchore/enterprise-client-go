@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &ImageImportContentSearch{}
 type ImageImportContentSearch struct {
 	Location ImportPackageLocation `json:"location"`
 	ContentSearches []ImportContentSearchElement `json:"content_searches"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ImageImportContentSearch ImageImportContentSearch
@@ -107,6 +107,11 @@ func (o ImageImportContentSearch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["location"] = o.Location
 	toSerialize["content_searches"] = o.ContentSearches
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *ImageImportContentSearch) UnmarshalJSON(data []byte) (err error) {
 
 	varImageImportContentSearch := _ImageImportContentSearch{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImageImportContentSearch)
+	err = json.Unmarshal(data, &varImageImportContentSearch)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ImageImportContentSearch(varImageImportContentSearch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "content_searches")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

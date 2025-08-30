@@ -26,7 +26,10 @@ type SourceManifestMetadataRecord struct {
 	CiWorkflowExecutionTime NullableTime `json:"ci_workflow_execution_time,omitempty"`
 	BranchName NullableString `json:"branch_name,omitempty"`
 	ChangeAuthor NullableString `json:"change_author,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourceManifestMetadataRecord SourceManifestMetadataRecord
 
 // NewSourceManifestMetadataRecord instantiates a new SourceManifestMetadataRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -270,7 +273,37 @@ func (o SourceManifestMetadataRecord) ToMap() (map[string]interface{}, error) {
 	if o.ChangeAuthor.IsSet() {
 		toSerialize["change_author"] = o.ChangeAuthor.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourceManifestMetadataRecord) UnmarshalJSON(data []byte) (err error) {
+	varSourceManifestMetadataRecord := _SourceManifestMetadataRecord{}
+
+	err = json.Unmarshal(data, &varSourceManifestMetadataRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceManifestMetadataRecord(varSourceManifestMetadataRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "ci_workflow_name")
+		delete(additionalProperties, "ci_workflow_execution_time")
+		delete(additionalProperties, "branch_name")
+		delete(additionalProperties, "change_author")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourceManifestMetadataRecord struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type UserGroupRole struct {
 	// The domain scope for this role. This may be an account name when the domain is an account.
 	DomainName *string `json:"domain_name,omitempty"`
 	Roles []UserGroupRoleRolesInner `json:"roles"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserGroupRole UserGroupRole
@@ -149,6 +149,11 @@ func (o UserGroupRole) ToMap() (map[string]interface{}, error) {
 		toSerialize["domain_name"] = o.DomainName
 	}
 	toSerialize["roles"] = o.Roles
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -177,15 +182,22 @@ func (o *UserGroupRole) UnmarshalJSON(data []byte) (err error) {
 
 	varUserGroupRole := _UserGroupRole{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserGroupRole)
+	err = json.Unmarshal(data, &varUserGroupRole)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserGroupRole(varUserGroupRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "for_account")
+		delete(additionalProperties, "domain_name")
+		delete(additionalProperties, "roles")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

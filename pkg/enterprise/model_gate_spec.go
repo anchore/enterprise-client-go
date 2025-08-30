@@ -31,7 +31,10 @@ type GateSpec struct {
 	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// List of the triggers that can fire for this Gate
 	Triggers []TriggerSpec `json:"triggers,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GateSpec GateSpec
 
 // NewGateSpec instantiates a new GateSpec object
 // This constructor will assign default values to properties that have it defined,
@@ -280,7 +283,38 @@ func (o GateSpec) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Triggers) {
 		toSerialize["triggers"] = o.Triggers
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GateSpec) UnmarshalJSON(data []byte) (err error) {
+	varGateSpec := _GateSpec{}
+
+	err = json.Unmarshal(data, &varGateSpec)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GateSpec(varGateSpec)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "supported_artifact_type")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "superseded_by")
+		delete(additionalProperties, "triggers")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGateSpec struct {

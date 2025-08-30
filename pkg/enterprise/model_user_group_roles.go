@@ -22,7 +22,10 @@ var _ MappedNullable = &UserGroupRoles{}
 type UserGroupRoles struct {
 	// The list of accounts and all its roles which are configured in the user group
 	Items []UserGroupRole `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserGroupRoles UserGroupRoles
 
 // NewUserGroupRoles instantiates a new UserGroupRoles object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o UserGroupRoles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserGroupRoles) UnmarshalJSON(data []byte) (err error) {
+	varUserGroupRoles := _UserGroupRoles{}
+
+	err = json.Unmarshal(data, &varUserGroupRoles)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupRoles(varUserGroupRoles)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserGroupRoles struct {

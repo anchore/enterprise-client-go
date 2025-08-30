@@ -25,7 +25,10 @@ type NotificationApiErrorResponse struct {
 	Message *string `json:"message,omitempty"`
 	// Details structure for additional information about the error if available. Content and structure will be error specific.
 	Detail interface{} `json:"detail,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationApiErrorResponse NotificationApiErrorResponse
 
 // NewNotificationApiErrorResponse instantiates a new NotificationApiErrorResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o NotificationApiErrorResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Detail) {
 		toSerialize["detail"] = o.Detail
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationApiErrorResponse) UnmarshalJSON(data []byte) (err error) {
+	varNotificationApiErrorResponse := _NotificationApiErrorResponse{}
+
+	err = json.Unmarshal(data, &varNotificationApiErrorResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationApiErrorResponse(varNotificationApiErrorResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "error_type")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "detail")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationApiErrorResponse struct {

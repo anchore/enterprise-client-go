@@ -33,7 +33,10 @@ type Application struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was last updated
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Application Application
 
 // NewApplication instantiates a new Application object
 // This constructor will assign default values to properties that have it defined,
@@ -272,7 +275,38 @@ func (o Application) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Application) UnmarshalJSON(data []byte) (err error) {
+	varApplication := _Application{}
+
+	err = json.Unmarshal(data, &varApplication)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Application(varApplication)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application_id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "application_versions")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApplication struct {

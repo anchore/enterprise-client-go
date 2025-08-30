@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,6 +24,7 @@ type FileContentsFindingsInner struct {
 	Location FileContentsFindingsInnerLocation `json:"location"`
 	// The contents of the file
 	Contents string `json:"contents"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FileContentsFindingsInner FileContentsFindingsInner
@@ -108,6 +108,11 @@ func (o FileContentsFindingsInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["location"] = o.Location
 	toSerialize["contents"] = o.Contents
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -136,15 +141,21 @@ func (o *FileContentsFindingsInner) UnmarshalJSON(data []byte) (err error) {
 
 	varFileContentsFindingsInner := _FileContentsFindingsInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFileContentsFindingsInner)
+	err = json.Unmarshal(data, &varFileContentsFindingsInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FileContentsFindingsInner(varFileContentsFindingsInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "contents")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

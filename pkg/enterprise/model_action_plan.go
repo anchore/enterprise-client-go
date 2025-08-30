@@ -33,7 +33,10 @@ type ActionPlan struct {
 	Uuid *string `json:"uuid,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ActionPlan ActionPlan
 
 // NewActionPlan instantiates a new ActionPlan object
 // This constructor will assign default values to properties that have it defined,
@@ -482,7 +485,44 @@ func (o ActionPlan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ActionPlan) UnmarshalJSON(data []byte) (err error) {
+	varActionPlan := _ActionPlan{}
+
+	err = json.Unmarshal(data, &varActionPlan)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ActionPlan(varActionPlan)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "image_tag")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "policy_id")
+		delete(additionalProperties, "resolutions")
+		delete(additionalProperties, "endpoint")
+		delete(additionalProperties, "configuration_id")
+		delete(additionalProperties, "subject")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableActionPlan struct {

@@ -35,7 +35,10 @@ type ArchiveTagEntry struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The timestamp that the last change was made to this record.
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArchiveTagEntry ArchiveTagEntry
 
 // NewArchiveTagEntry instantiates a new ArchiveTagEntry object
 // This constructor will assign default values to properties that have it defined,
@@ -309,7 +312,39 @@ func (o ArchiveTagEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArchiveTagEntry) UnmarshalJSON(data []byte) (err error) {
+	varArchiveTagEntry := _ArchiveTagEntry{}
+
+	err = json.Unmarshal(data, &varArchiveTagEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArchiveTagEntry(varArchiveTagEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "pull_string")
+		delete(additionalProperties, "registry")
+		delete(additionalProperties, "repository")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "detected_at")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArchiveTagEntry struct {

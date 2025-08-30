@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &FileContentsFindingsInnerLocation{}
 type FileContentsFindingsInnerLocation struct {
 	Path string `json:"path"`
 	LayerID *string `json:"layerID,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FileContentsFindingsInnerLocation FileContentsFindingsInnerLocation
@@ -116,6 +116,11 @@ func (o FileContentsFindingsInnerLocation) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.LayerID) {
 		toSerialize["layerID"] = o.LayerID
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -143,15 +148,21 @@ func (o *FileContentsFindingsInnerLocation) UnmarshalJSON(data []byte) (err erro
 
 	varFileContentsFindingsInnerLocation := _FileContentsFindingsInnerLocation{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFileContentsFindingsInnerLocation)
+	err = json.Unmarshal(data, &varFileContentsFindingsInnerLocation)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FileContentsFindingsInnerLocation(varFileContentsFindingsInnerLocation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "layerID")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

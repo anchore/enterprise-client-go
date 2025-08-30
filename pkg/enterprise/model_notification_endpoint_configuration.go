@@ -31,7 +31,10 @@ type NotificationEndpointConfiguration struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp for last modification to the record
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationEndpointConfiguration NotificationEndpointConfiguration
 
 // NewNotificationEndpointConfiguration instantiates a new NotificationEndpointConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -235,7 +238,37 @@ func (o NotificationEndpointConfiguration) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationEndpointConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varNotificationEndpointConfiguration := _NotificationEndpointConfiguration{}
+
+	err = json.Unmarshal(data, &varNotificationEndpointConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationEndpointConfiguration(varNotificationEndpointConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "verify_tls")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationEndpointConfiguration struct {

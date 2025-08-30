@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -49,6 +48,7 @@ type NotificationJiraEndpointConfigurationPost struct {
 	Assignee *string `json:"assignee,omitempty"`
 	// List of labels to associate with the issue
 	Labels []string `json:"labels,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NotificationJiraEndpointConfigurationPost NotificationJiraEndpointConfigurationPost
@@ -490,6 +490,11 @@ func (o NotificationJiraEndpointConfigurationPost) ToMap() (map[string]interface
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -521,15 +526,32 @@ func (o *NotificationJiraEndpointConfigurationPost) UnmarshalJSON(data []byte) (
 
 	varNotificationJiraEndpointConfigurationPost := _NotificationJiraEndpointConfigurationPost{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotificationJiraEndpointConfigurationPost)
+	err = json.Unmarshal(data, &varNotificationJiraEndpointConfigurationPost)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NotificationJiraEndpointConfigurationPost(varNotificationJiraEndpointConfigurationPost)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "verify_tls")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "project_key")
+		delete(additionalProperties, "issue_type")
+		delete(additionalProperties, "priority")
+		delete(additionalProperties, "assignee")
+		delete(additionalProperties, "labels")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

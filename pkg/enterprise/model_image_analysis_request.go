@@ -25,7 +25,10 @@ type ImageAnalysisRequest struct {
 	// Annotations to be associated with the added image in key/value form
 	Annotations interface{} `json:"annotations,omitempty"`
 	Source *ImageSource `json:"source,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageAnalysisRequest ImageAnalysisRequest
 
 // NewImageAnalysisRequest instantiates a new ImageAnalysisRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o ImageAnalysisRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageAnalysisRequest) UnmarshalJSON(data []byte) (err error) {
+	varImageAnalysisRequest := _ImageAnalysisRequest{}
+
+	err = json.Unmarshal(data, &varImageAnalysisRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageAnalysisRequest(varImageAnalysisRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_type")
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "source")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageAnalysisRequest struct {

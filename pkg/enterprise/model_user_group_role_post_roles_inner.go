@@ -22,7 +22,10 @@ var _ MappedNullable = &UserGroupRolePostRolesInner{}
 type UserGroupRolePostRolesInner struct {
 	// The name of the rbac role
 	Role *string `json:"role,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserGroupRolePostRolesInner UserGroupRolePostRolesInner
 
 // NewUserGroupRolePostRolesInner instantiates a new UserGroupRolePostRolesInner object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o UserGroupRolePostRolesInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Role) {
 		toSerialize["role"] = o.Role
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserGroupRolePostRolesInner) UnmarshalJSON(data []byte) (err error) {
+	varUserGroupRolePostRolesInner := _UserGroupRolePostRolesInner{}
+
+	err = json.Unmarshal(data, &varUserGroupRolePostRolesInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupRolePostRolesInner(varUserGroupRolePostRolesInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "role")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserGroupRolePostRolesInner struct {

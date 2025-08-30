@@ -23,7 +23,10 @@ type VulnDiffResult struct {
 	Added []interface{} `json:"added,omitempty"`
 	Updated []interface{} `json:"updated,omitempty"`
 	Removed []interface{} `json:"removed,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _VulnDiffResult VulnDiffResult
 
 // NewVulnDiffResult instantiates a new VulnDiffResult object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o VulnDiffResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Removed) {
 		toSerialize["removed"] = o.Removed
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *VulnDiffResult) UnmarshalJSON(data []byte) (err error) {
+	varVulnDiffResult := _VulnDiffResult{}
+
+	err = json.Unmarshal(data, &varVulnDiffResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VulnDiffResult(varVulnDiffResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "added")
+		delete(additionalProperties, "updated")
+		delete(additionalProperties, "removed")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVulnDiffResult struct {

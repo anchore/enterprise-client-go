@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type ContentSearch struct {
 	MediaType string `json:"media_type"`
 	Metadata ContentSearchMetadata `json:"metadata"`
 	Findings []ContentSearchFindingsInner `json:"findings"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ContentSearch ContentSearch
@@ -135,6 +135,11 @@ func (o ContentSearch) ToMap() (map[string]interface{}, error) {
 	toSerialize["media_type"] = o.MediaType
 	toSerialize["metadata"] = o.Metadata
 	toSerialize["findings"] = o.Findings
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -164,15 +169,22 @@ func (o *ContentSearch) UnmarshalJSON(data []byte) (err error) {
 
 	varContentSearch := _ContentSearch{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varContentSearch)
+	err = json.Unmarshal(data, &varContentSearch)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ContentSearch(varContentSearch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "media_type")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "findings")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

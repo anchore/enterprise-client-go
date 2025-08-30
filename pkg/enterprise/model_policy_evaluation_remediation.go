@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type PolicyEvaluationRemediation struct {
 	Suggestions []PolicyEvaluationRemediationSuggestion `json:"suggestions"`
 	// List of trigger IDs that these remediation suggestions apply to
 	TriggerIds []string `json:"trigger_ids"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PolicyEvaluationRemediation PolicyEvaluationRemediation
@@ -109,6 +109,11 @@ func (o PolicyEvaluationRemediation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["suggestions"] = o.Suggestions
 	toSerialize["trigger_ids"] = o.TriggerIds
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *PolicyEvaluationRemediation) UnmarshalJSON(data []byte) (err error) {
 
 	varPolicyEvaluationRemediation := _PolicyEvaluationRemediation{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPolicyEvaluationRemediation)
+	err = json.Unmarshal(data, &varPolicyEvaluationRemediation)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PolicyEvaluationRemediation(varPolicyEvaluationRemediation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "suggestions")
+		delete(additionalProperties, "trigger_ids")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

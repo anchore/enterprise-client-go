@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -27,6 +26,7 @@ type ImportContentSearchElement struct {
 	LineOffset int32 `json:"line_offset"`
 	SeekPosition int32 `json:"seek_position"`
 	Length int32 `json:"length"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ImportContentSearchElement ImportContentSearchElement
@@ -188,6 +188,11 @@ func (o ImportContentSearchElement) ToMap() (map[string]interface{}, error) {
 	toSerialize["line_offset"] = o.LineOffset
 	toSerialize["seek_position"] = o.SeekPosition
 	toSerialize["length"] = o.Length
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -219,15 +224,24 @@ func (o *ImportContentSearchElement) UnmarshalJSON(data []byte) (err error) {
 
 	varImportContentSearchElement := _ImportContentSearchElement{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImportContentSearchElement)
+	err = json.Unmarshal(data, &varImportContentSearchElement)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ImportContentSearchElement(varImportContentSearchElement)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "classification")
+		delete(additionalProperties, "line_number")
+		delete(additionalProperties, "line_offset")
+		delete(additionalProperties, "seek_position")
+		delete(additionalProperties, "length")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

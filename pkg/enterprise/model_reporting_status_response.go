@@ -23,7 +23,10 @@ type ReportingStatusResponse struct {
 	Busy *bool `json:"busy,omitempty"`
 	Up *bool `json:"up,omitempty"`
 	Message *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ReportingStatusResponse ReportingStatusResponse
 
 // NewReportingStatusResponse instantiates a new ReportingStatusResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o ReportingStatusResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ReportingStatusResponse) UnmarshalJSON(data []byte) (err error) {
+	varReportingStatusResponse := _ReportingStatusResponse{}
+
+	err = json.Unmarshal(data, &varReportingStatusResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReportingStatusResponse(varReportingStatusResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "busy")
+		delete(additionalProperties, "up")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableReportingStatusResponse struct {

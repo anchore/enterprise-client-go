@@ -36,7 +36,10 @@ type ImageDetail struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	Tag *string `json:"tag,omitempty"`
 	TagDetectedAt *time.Time `json:"tag_detected_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageDetail ImageDetail
 
 // NewImageDetail instantiates a new ImageDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -495,7 +498,44 @@ func (o ImageDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TagDetectedAt) {
 		toSerialize["tag_detected_at"] = o.TagDetectedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageDetail) UnmarshalJSON(data []byte) (err error) {
+	varImageDetail := _ImageDetail{}
+
+	err = json.Unmarshal(data, &varImageDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageDetail(varImageDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "full_tag")
+		delete(additionalProperties, "full_digest")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "image_id")
+		delete(additionalProperties, "registry")
+		delete(additionalProperties, "repo")
+		delete(additionalProperties, "dockerfile")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "tag")
+		delete(additionalProperties, "tag_detected_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageDetail struct {
