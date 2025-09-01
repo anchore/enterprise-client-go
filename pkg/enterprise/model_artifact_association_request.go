@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type ArtifactAssociationRequest struct {
 	ArtifactType string `json:"artifact_type"`
 	// A json with key-pair values to query on
 	ArtifactKeys interface{} `json:"artifact_keys"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ArtifactAssociationRequest ArtifactAssociationRequest
@@ -109,6 +109,11 @@ func (o ArtifactAssociationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["artifact_type"] = o.ArtifactType
 	toSerialize["artifact_keys"] = o.ArtifactKeys
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *ArtifactAssociationRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varArtifactAssociationRequest := _ArtifactAssociationRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varArtifactAssociationRequest)
+	err = json.Unmarshal(data, &varArtifactAssociationRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ArtifactAssociationRequest(varArtifactAssociationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "artifact_type")
+		delete(additionalProperties, "artifact_keys")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -27,7 +27,10 @@ type ApplicationVersionSbom struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	SourceSboms []interface{} `json:"source_sboms,omitempty"`
 	ImageSboms []interface{} `json:"image_sboms,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ApplicationVersionSbom ApplicationVersionSbom
 
 // NewApplicationVersionSbom instantiates a new ApplicationVersionSbom object
 // This constructor will assign default values to properties that have it defined,
@@ -231,7 +234,37 @@ func (o ApplicationVersionSbom) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ImageSboms) {
 		toSerialize["image_sboms"] = o.ImageSboms
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ApplicationVersionSbom) UnmarshalJSON(data []byte) (err error) {
+	varApplicationVersionSbom := _ApplicationVersionSbom{}
+
+	err = json.Unmarshal(data, &varApplicationVersionSbom)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApplicationVersionSbom(varApplicationVersionSbom)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "application")
+		delete(additionalProperties, "application_version")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "source_sboms")
+		delete(additionalProperties, "image_sboms")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableApplicationVersionSbom struct {

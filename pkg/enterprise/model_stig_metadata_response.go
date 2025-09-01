@@ -27,7 +27,10 @@ type STIGMetadataResponse struct {
 	StigProfile *string `json:"stig_profile,omitempty"`
 	// The format of the STIG content
 	EvaluationFormat *string `json:"evaluation_format,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _STIGMetadataResponse STIGMetadataResponse
 
 // NewSTIGMetadataResponse instantiates a new STIGMetadataResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o STIGMetadataResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EvaluationFormat) {
 		toSerialize["evaluation_format"] = o.EvaluationFormat
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *STIGMetadataResponse) UnmarshalJSON(data []byte) (err error) {
+	varSTIGMetadataResponse := _STIGMetadataResponse{}
+
+	err = json.Unmarshal(data, &varSTIGMetadataResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = STIGMetadataResponse(varSTIGMetadataResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "evaluation_uuid")
+		delete(additionalProperties, "uploaded_at")
+		delete(additionalProperties, "stig_profile")
+		delete(additionalProperties, "evaluation_format")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSTIGMetadataResponse struct {

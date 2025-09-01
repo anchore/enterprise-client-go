@@ -30,7 +30,10 @@ type SystemResourceLimit struct {
 	CurrentValue *int32 `json:"current_value,omitempty"`
 	// Whether the limit has been exceeded and is being enforced
 	LimitExceeded *bool `json:"limit_exceeded,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SystemResourceLimit SystemResourceLimit
 
 // NewSystemResourceLimit instantiates a new SystemResourceLimit object
 // This constructor will assign default values to properties that have it defined,
@@ -254,7 +257,37 @@ func (o SystemResourceLimit) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LimitExceeded) {
 		toSerialize["limit_exceeded"] = o.LimitExceeded
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SystemResourceLimit) UnmarshalJSON(data []byte) (err error) {
+	varSystemResourceLimit := _SystemResourceLimit{}
+
+	err = json.Unmarshal(data, &varSystemResourceLimit)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemResourceLimit(varSystemResourceLimit)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "warning_value")
+		delete(additionalProperties, "limit_value")
+		delete(additionalProperties, "current_value")
+		delete(additionalProperties, "limit_exceeded")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSystemResourceLimit struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type NotificationEventSelector struct {
 	ResourceType string `json:"resource_type"`
 	// The type of event to filter, using wildcards against type field of the event. Event types have a structured format <category>.<subcategory>.<event>. Thus, '*' matches all types of events. 'system.*' matches all system events, 'user.*' matches events that are relevant to individual consumption, and omitting an asterisk will do an exact match. See the GET /event_types route definition in the engine's external API for the list of event types. 
 	Type string `json:"type" validate:"regexp=^[a-z0-9-_.*]+$"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NotificationEventSelector NotificationEventSelector
@@ -137,6 +137,11 @@ func (o NotificationEventSelector) ToMap() (map[string]interface{}, error) {
 	toSerialize["level"] = o.Level
 	toSerialize["resource_type"] = o.ResourceType
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *NotificationEventSelector) UnmarshalJSON(data []byte) (err error) {
 
 	varNotificationEventSelector := _NotificationEventSelector{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotificationEventSelector)
+	err = json.Unmarshal(data, &varNotificationEventSelector)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NotificationEventSelector(varNotificationEventSelector)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "level")
+		delete(additionalProperties, "resource_type")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

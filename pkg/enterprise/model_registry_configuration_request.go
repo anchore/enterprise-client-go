@@ -32,7 +32,10 @@ type RegistryConfigurationRequest struct {
 	RegistryName *string `json:"registry_name,omitempty"`
 	// Use TLS/SSL verification for the registry URL
 	RegistryVerify *bool `json:"registry_verify,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RegistryConfigurationRequest RegistryConfigurationRequest
 
 // NewRegistryConfigurationRequest instantiates a new RegistryConfigurationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -271,7 +274,43 @@ func (o RegistryConfigurationRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RegistryVerify) {
 		toSerialize["registry_verify"] = o.RegistryVerify
 	}
+
+	// The registry update command should be requiring all known fields as this is a PUT operation. However,
+	// it is doing a GET first and populating all fields returned into the RegistryConfigurationRequest object.
+	// Even ones that do not exist in the spec. To prevent enterprise from returning a 500 due to unknown fields,
+	// we will remove any additional properties in the serialized output here.
+
+	//for key, value := range o.AdditionalProperties {
+	//	toSerialize[key] = value
+	//}
+
 	return toSerialize, nil
+}
+
+func (o *RegistryConfigurationRequest) UnmarshalJSON(data []byte) (err error) {
+	varRegistryConfigurationRequest := _RegistryConfigurationRequest{}
+
+	err = json.Unmarshal(data, &varRegistryConfigurationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RegistryConfigurationRequest(varRegistryConfigurationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "registry_user")
+		delete(additionalProperties, "registry_pass")
+		delete(additionalProperties, "registry_type")
+		delete(additionalProperties, "registry")
+		delete(additionalProperties, "registry_name")
+		delete(additionalProperties, "registry_verify")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRegistryConfigurationRequest struct {

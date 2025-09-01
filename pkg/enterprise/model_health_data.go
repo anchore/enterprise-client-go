@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type HealthData struct {
 	Errors []string `json:"errors,omitempty"`
 	// Information about sent inventory report for accounts
 	AccountK8sInventoryReports *map[string]AccountK8sInventoryReportInfo `json:"account_k8s_inventory_reports,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _HealthData HealthData
@@ -182,6 +182,11 @@ func (o HealthData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountK8sInventoryReports) {
 		toSerialize["account_k8s_inventory_reports"] = o.AccountK8sInventoryReports
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -210,15 +215,23 @@ func (o *HealthData) UnmarshalJSON(data []byte) (err error) {
 
 	varHealthData := _HealthData{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varHealthData)
+	err = json.Unmarshal(data, &varHealthData)
 
 	if err != nil {
 		return err
 	}
 
 	*o = HealthData(varHealthData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "account_k8s_inventory_reports")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

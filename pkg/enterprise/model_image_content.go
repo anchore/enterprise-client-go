@@ -21,7 +21,10 @@ var _ MappedNullable = &ImageContent{}
 // ImageContent A metadata content record for a specific image, containing different content type entries
 type ImageContent struct {
 	Metadata *ImageContentMetadata `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageContent ImageContent
 
 // NewImageContent instantiates a new ImageContent object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ImageContent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageContent) UnmarshalJSON(data []byte) (err error) {
+	varImageContent := _ImageContent{}
+
+	err = json.Unmarshal(data, &varImageContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageContent(varImageContent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageContent struct {

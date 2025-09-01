@@ -32,7 +32,10 @@ type Subscription struct {
 	Active *bool `json:"active,omitempty"`
 	// the unique id for this subscription record
 	SubscriptionId *string `json:"subscription_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Subscription Subscription
 
 // NewSubscription instantiates a new Subscription object
 // This constructor will assign default values to properties that have it defined,
@@ -281,7 +284,38 @@ func (o Subscription) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SubscriptionId) {
 		toSerialize["subscription_id"] = o.SubscriptionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Subscription) UnmarshalJSON(data []byte) (err error) {
+	varSubscription := _Subscription{}
+
+	err = json.Unmarshal(data, &varSubscription)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Subscription(varSubscription)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "subscription_key")
+		delete(additionalProperties, "subscription_type")
+		delete(additionalProperties, "subscription_value")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "active")
+		delete(additionalProperties, "subscription_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSubscription struct {

@@ -27,7 +27,10 @@ type StatusResponse struct {
 	Version *string `json:"version,omitempty"`
 	DbVersion *string `json:"db_version,omitempty"`
 	Detail interface{} `json:"detail,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _StatusResponse StatusResponse
 
 // NewStatusResponse instantiates a new StatusResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o StatusResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Detail) {
 		toSerialize["detail"] = o.Detail
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *StatusResponse) UnmarshalJSON(data []byte) (err error) {
+	varStatusResponse := _StatusResponse{}
+
+	err = json.Unmarshal(data, &varStatusResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StatusResponse(varStatusResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "available")
+		delete(additionalProperties, "busy")
+		delete(additionalProperties, "up")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "db_version")
+		delete(additionalProperties, "detail")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableStatusResponse struct {

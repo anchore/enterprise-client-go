@@ -22,7 +22,10 @@ var _ MappedNullable = &AccountStatus{}
 type AccountStatus struct {
 	// The status of the account
 	State *string `json:"state,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AccountStatus AccountStatus
 
 // NewAccountStatus instantiates a new AccountStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o AccountStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AccountStatus) UnmarshalJSON(data []byte) (err error) {
+	varAccountStatus := _AccountStatus{}
+
+	err = json.Unmarshal(data, &varAccountStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountStatus(varAccountStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAccountStatus struct {

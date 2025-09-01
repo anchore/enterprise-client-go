@@ -29,7 +29,10 @@ type NotificationBase struct {
 	RecordStateVal NullableString `json:"record_state_val,omitempty"`
 	Tries *int32 `json:"tries,omitempty"`
 	MaxTries *int32 `json:"max_tries,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationBase NotificationBase
 
 // NewNotificationBase instantiates a new NotificationBase object
 // This constructor will assign default values to properties that have it defined,
@@ -387,7 +390,41 @@ func (o NotificationBase) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MaxTries) {
 		toSerialize["max_tries"] = o.MaxTries
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationBase) UnmarshalJSON(data []byte) (err error) {
+	varNotificationBase := _NotificationBase{}
+
+	err = json.Unmarshal(data, &varNotificationBase)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationBase(varNotificationBase)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "queue_id")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "data_id")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "record_state_key")
+		delete(additionalProperties, "record_state_val")
+		delete(additionalProperties, "tries")
+		delete(additionalProperties, "max_tries")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationBase struct {

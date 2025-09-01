@@ -34,7 +34,10 @@ type ImageContentMetadata struct {
 	ImageSize *int64 `json:"image_size,omitempty"`
 	// The number of layers in the image
 	LayerCount *int32 `json:"layer_count,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageContentMetadata ImageContentMetadata
 
 // NewImageContentMetadata instantiates a new ImageContentMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -308,7 +311,39 @@ func (o ImageContentMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LayerCount) {
 		toSerialize["layer_count"] = o.LayerCount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageContentMetadata) UnmarshalJSON(data []byte) (err error) {
+	varImageContentMetadata := _ImageContentMetadata{}
+
+	err = json.Unmarshal(data, &varImageContentMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageContentMetadata(varImageContentMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arch")
+		delete(additionalProperties, "distro")
+		delete(additionalProperties, "distro_version")
+		delete(additionalProperties, "extended_support")
+		delete(additionalProperties, "dockerfile_mode")
+		delete(additionalProperties, "image_size")
+		delete(additionalProperties, "layer_count")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageContentMetadata struct {

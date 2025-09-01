@@ -28,7 +28,10 @@ type InventoryItem struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	LastSeen *time.Time `json:"last_seen,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InventoryItem InventoryItem
 
 // NewInventoryItem instantiates a new InventoryItem object
 // This constructor will assign default values to properties that have it defined,
@@ -302,7 +305,39 @@ func (o InventoryItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastSeen) {
 		toSerialize["last_seen"] = o.LastSeen
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InventoryItem) UnmarshalJSON(data []byte) (err error) {
+	varInventoryItem := _InventoryItem{}
+
+	err = json.Unmarshal(data, &varInventoryItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InventoryItem(varInventoryItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "inventory_type")
+		delete(additionalProperties, "context")
+		delete(additionalProperties, "image_tag")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "last_seen")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInventoryItem struct {

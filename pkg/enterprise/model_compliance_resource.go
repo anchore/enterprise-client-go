@@ -28,7 +28,10 @@ type ComplianceResource struct {
 	Repository *string `json:"repository,omitempty"`
 	EvaluationId *string `json:"evaluation_id,omitempty"`
 	EvaluatedAt *time.Time `json:"evaluated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ComplianceResource ComplianceResource
 
 // NewComplianceResource instantiates a new ComplianceResource object
 // This constructor will assign default values to properties that have it defined,
@@ -302,7 +305,39 @@ func (o ComplianceResource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EvaluatedAt) {
 		toSerialize["evaluated_at"] = o.EvaluatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ComplianceResource) UnmarshalJSON(data []byte) (err error) {
+	varComplianceResource := _ComplianceResource{}
+
+	err = json.Unmarshal(data, &varComplianceResource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ComplianceResource(varComplianceResource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "policy_id")
+		delete(additionalProperties, "image_tag")
+		delete(additionalProperties, "registry")
+		delete(additionalProperties, "repository")
+		delete(additionalProperties, "evaluation_id")
+		delete(additionalProperties, "evaluated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableComplianceResource struct {

@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -27,6 +26,7 @@ type UserGroupUser struct {
 	Username string `json:"username"`
 	// The timestamp of when the user was added to the group
 	AddedOn *time.Time `json:"added_on,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserGroupUser UserGroupUser
@@ -119,6 +119,11 @@ func (o UserGroupUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AddedOn) {
 		toSerialize["added_on"] = o.AddedOn
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -146,15 +151,21 @@ func (o *UserGroupUser) UnmarshalJSON(data []byte) (err error) {
 
 	varUserGroupUser := _UserGroupUser{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserGroupUser)
+	err = json.Unmarshal(data, &varUserGroupUser)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserGroupUser(varUserGroupUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "added_on")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

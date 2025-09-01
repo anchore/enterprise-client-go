@@ -24,7 +24,10 @@ type PackageEPSS struct {
 	Epss *float32 `json:"epss,omitempty"`
 	// The percentile of the EPSS score for the vulnerability
 	Percentile *float32 `json:"percentile,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PackageEPSS PackageEPSS
 
 // NewPackageEPSS instantiates a new PackageEPSS object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o PackageEPSS) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Percentile) {
 		toSerialize["percentile"] = o.Percentile
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PackageEPSS) UnmarshalJSON(data []byte) (err error) {
+	varPackageEPSS := _PackageEPSS{}
+
+	err = json.Unmarshal(data, &varPackageEPSS)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PackageEPSS(varPackageEPSS)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "epss")
+		delete(additionalProperties, "percentile")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePackageEPSS struct {
