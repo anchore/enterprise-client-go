@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,6 +29,7 @@ type TokenResponse struct {
 	TokenType *string `json:"token_type,omitempty"`
 	// The refresh token content
 	RefreshToken *string `json:"refresh_token,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TokenResponse TokenResponse
@@ -192,6 +192,11 @@ func (o TokenResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RefreshToken) {
 		toSerialize["refresh_token"] = o.RefreshToken
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -219,15 +224,23 @@ func (o *TokenResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varTokenResponse := _TokenResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTokenResponse)
+	err = json.Unmarshal(data, &varTokenResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TokenResponse(varTokenResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "token_type")
+		delete(additionalProperties, "refresh_token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

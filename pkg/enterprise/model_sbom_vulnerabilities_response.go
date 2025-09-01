@@ -24,7 +24,10 @@ type SBOMVulnerabilitiesResponse struct {
 	// Whether Extended Update Support (EUS) data was used for the vulnerability scan
 	ExtendedSupport *bool `json:"extended_support,omitempty"`
 	Vulnerabilities []PackageVulnerability `json:"vulnerabilities,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SBOMVulnerabilitiesResponse SBOMVulnerabilitiesResponse
 
 // NewSBOMVulnerabilitiesResponse instantiates a new SBOMVulnerabilitiesResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o SBOMVulnerabilitiesResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Vulnerabilities) {
 		toSerialize["vulnerabilities"] = o.Vulnerabilities
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SBOMVulnerabilitiesResponse) UnmarshalJSON(data []byte) (err error) {
+	varSBOMVulnerabilitiesResponse := _SBOMVulnerabilitiesResponse{}
+
+	err = json.Unmarshal(data, &varSBOMVulnerabilitiesResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SBOMVulnerabilitiesResponse(varSBOMVulnerabilitiesResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sbom_id")
+		delete(additionalProperties, "extended_support")
+		delete(additionalProperties, "vulnerabilities")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSBOMVulnerabilitiesResponse struct {

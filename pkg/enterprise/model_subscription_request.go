@@ -23,7 +23,10 @@ type SubscriptionRequest struct {
 	SubscriptionKey *string `json:"subscription_key,omitempty"`
 	SubscriptionValue NullableString `json:"subscription_value,omitempty"`
 	SubscriptionType *string `json:"subscription_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SubscriptionRequest SubscriptionRequest
 
 // NewSubscriptionRequest instantiates a new SubscriptionRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -167,7 +170,35 @@ func (o SubscriptionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SubscriptionType) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SubscriptionRequest) UnmarshalJSON(data []byte) (err error) {
+	varSubscriptionRequest := _SubscriptionRequest{}
+
+	err = json.Unmarshal(data, &varSubscriptionRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubscriptionRequest(varSubscriptionRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "subscription_key")
+		delete(additionalProperties, "subscription_value")
+		delete(additionalProperties, "subscription_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSubscriptionRequest struct {

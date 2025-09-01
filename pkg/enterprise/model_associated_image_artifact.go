@@ -22,7 +22,10 @@ var _ MappedNullable = &AssociatedImageArtifact{}
 type AssociatedImageArtifact struct {
 	ArtifactAssociationMetadata *ArtifactAssociationMetadata `json:"artifact_association_metadata,omitempty"`
 	Image *ImageArtifact `json:"image,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AssociatedImageArtifact AssociatedImageArtifact
 
 // NewAssociatedImageArtifact instantiates a new AssociatedImageArtifact object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o AssociatedImageArtifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Image) {
 		toSerialize["image"] = o.Image
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AssociatedImageArtifact) UnmarshalJSON(data []byte) (err error) {
+	varAssociatedImageArtifact := _AssociatedImageArtifact{}
+
+	err = json.Unmarshal(data, &varAssociatedImageArtifact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AssociatedImageArtifact(varAssociatedImageArtifact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "artifact_association_metadata")
+		delete(additionalProperties, "image")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAssociatedImageArtifact struct {

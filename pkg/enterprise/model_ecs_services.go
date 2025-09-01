@@ -21,7 +21,10 @@ var _ MappedNullable = &ECSServices{}
 // ECSServices Services defined in ECS
 type ECSServices struct {
 	Services []ECSService `json:"services,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ECSServices ECSServices
 
 // NewECSServices instantiates a new ECSServices object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ECSServices) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Services) {
 		toSerialize["services"] = o.Services
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ECSServices) UnmarshalJSON(data []byte) (err error) {
+	varECSServices := _ECSServices{}
+
+	err = json.Unmarshal(data, &varECSServices)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSServices(varECSServices)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "services")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableECSServices struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type AnalysisStatusDetail struct {
 	ToStatus string `json:"to_status"`
 	Timestamp string `json:"timestamp"`
 	Source ServiceAnalysisReference `json:"source"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AnalysisStatusDetail AnalysisStatusDetail
@@ -161,6 +161,11 @@ func (o AnalysisStatusDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["to_status"] = o.ToStatus
 	toSerialize["timestamp"] = o.Timestamp
 	toSerialize["source"] = o.Source
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -191,15 +196,23 @@ func (o *AnalysisStatusDetail) UnmarshalJSON(data []byte) (err error) {
 
 	varAnalysisStatusDetail := _AnalysisStatusDetail{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAnalysisStatusDetail)
+	err = json.Unmarshal(data, &varAnalysisStatusDetail)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AnalysisStatusDetail(varAnalysisStatusDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "from_status")
+		delete(additionalProperties, "to_status")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "source")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

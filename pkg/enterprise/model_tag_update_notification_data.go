@@ -24,7 +24,10 @@ type TagUpdateNotificationData struct {
 	NotificationUserEmail *string `json:"notification_user_email,omitempty"`
 	NotificationType *string `json:"notification_type,omitempty"`
 	NotificationPayload *TagUpdateNotificationPayload `json:"notification_payload,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TagUpdateNotificationData TagUpdateNotificationData
 
 // NewTagUpdateNotificationData instantiates a new TagUpdateNotificationData object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o TagUpdateNotificationData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.NotificationPayload) {
 		toSerialize["notification_payload"] = o.NotificationPayload
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TagUpdateNotificationData) UnmarshalJSON(data []byte) (err error) {
+	varTagUpdateNotificationData := _TagUpdateNotificationData{}
+
+	err = json.Unmarshal(data, &varTagUpdateNotificationData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TagUpdateNotificationData(varTagUpdateNotificationData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "notification_user")
+		delete(additionalProperties, "notification_user_email")
+		delete(additionalProperties, "notification_type")
+		delete(additionalProperties, "notification_payload")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTagUpdateNotificationData struct {

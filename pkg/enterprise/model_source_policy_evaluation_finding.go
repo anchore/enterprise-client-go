@@ -39,7 +39,10 @@ type SourcePolicyEvaluationFinding struct {
 	// Indicates if this finding was allowlisted or not
 	Allowlisted *bool `json:"allowlisted,omitempty"`
 	AllowlistMatch NullablePolicyFindingAllowlistMatch `json:"allowlist_match,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourcePolicyEvaluationFinding SourcePolicyEvaluationFinding
 
 // NewSourcePolicyEvaluationFinding instantiates a new SourcePolicyEvaluationFinding object
 // This constructor will assign default values to properties that have it defined,
@@ -428,7 +431,42 @@ func (o SourcePolicyEvaluationFinding) ToMap() (map[string]interface{}, error) {
 	if o.AllowlistMatch.IsSet() {
 		toSerialize["allowlist_match"] = o.AllowlistMatch.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourcePolicyEvaluationFinding) UnmarshalJSON(data []byte) (err error) {
+	varSourcePolicyEvaluationFinding := _SourcePolicyEvaluationFinding{}
+
+	err = json.Unmarshal(data, &varSourcePolicyEvaluationFinding)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourcePolicyEvaluationFinding(varSourcePolicyEvaluationFinding)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "trigger_id")
+		delete(additionalProperties, "gate")
+		delete(additionalProperties, "trigger")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "policy_id")
+		delete(additionalProperties, "recommendation")
+		delete(additionalProperties, "rule_id")
+		delete(additionalProperties, "allowlisted")
+		delete(additionalProperties, "allowlist_match")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourcePolicyEvaluationFinding struct {

@@ -28,7 +28,10 @@ type ServiceAnalysisReference struct {
 	AnalysisEngine *string `json:"analysis_engine,omitempty"`
 	// The version of the Anchore Enterprise service that performed the analysis
 	EnterpriseVersion *string `json:"enterprise_version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceAnalysisReference ServiceAnalysisReference
 
 // NewServiceAnalysisReference instantiates a new ServiceAnalysisReference object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o ServiceAnalysisReference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EnterpriseVersion) {
 		toSerialize["enterprise_version"] = o.EnterpriseVersion
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceAnalysisReference) UnmarshalJSON(data []byte) (err error) {
+	varServiceAnalysisReference := _ServiceAnalysisReference{}
+
+	err = json.Unmarshal(data, &varServiceAnalysisReference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceAnalysisReference(varServiceAnalysisReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "host_id")
+		delete(additionalProperties, "service_name")
+		delete(additionalProperties, "analysis_engine")
+		delete(additionalProperties, "enterprise_version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceAnalysisReference struct {

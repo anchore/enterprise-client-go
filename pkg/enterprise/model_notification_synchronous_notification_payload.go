@@ -21,7 +21,10 @@ var _ MappedNullable = &NotificationSynchronousNotificationPayload{}
 // NotificationSynchronousNotificationPayload defines a notification payload that can be sent synchronously
 type NotificationSynchronousNotificationPayload struct {
 	Type *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationSynchronousNotificationPayload NotificationSynchronousNotificationPayload
 
 // NewNotificationSynchronousNotificationPayload instantiates a new NotificationSynchronousNotificationPayload object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o NotificationSynchronousNotificationPayload) ToMap() (map[string]interfac
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationSynchronousNotificationPayload) UnmarshalJSON(data []byte) (err error) {
+	varNotificationSynchronousNotificationPayload := _NotificationSynchronousNotificationPayload{}
+
+	err = json.Unmarshal(data, &varNotificationSynchronousNotificationPayload)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationSynchronousNotificationPayload(varNotificationSynchronousNotificationPayload)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationSynchronousNotificationPayload struct {

@@ -27,7 +27,10 @@ type NotificationActionPlanNotificationPayload struct {
 	BundleId *string `json:"bundle_id,omitempty"`
 	Subject *string `json:"subject,omitempty"`
 	Message *string `json:"message,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationActionPlanNotificationPayload NotificationActionPlanNotificationPayload
 
 // NewNotificationActionPlanNotificationPayload instantiates a new NotificationActionPlanNotificationPayload object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o NotificationActionPlanNotificationPayload) ToMap() (map[string]interface
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationActionPlanNotificationPayload) UnmarshalJSON(data []byte) (err error) {
+	varNotificationActionPlanNotificationPayload := _NotificationActionPlanNotificationPayload{}
+
+	err = json.Unmarshal(data, &varNotificationActionPlanNotificationPayload)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationActionPlanNotificationPayload(varNotificationActionPlanNotificationPayload)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "image_tag")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "bundle_id")
+		delete(additionalProperties, "subject")
+		delete(additionalProperties, "message")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationActionPlanNotificationPayload struct {

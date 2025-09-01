@@ -28,7 +28,10 @@ type PackageReference struct {
 	Type *string `json:"type,omitempty"`
 	// Whether a vendor will or will not fix a vulnerability
 	WillNotFix *bool `json:"will_not_fix,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PackageReference PackageReference
 
 // NewPackageReference instantiates a new PackageReference object
 // This constructor will assign default values to properties that have it defined,
@@ -207,7 +210,36 @@ func (o PackageReference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WillNotFix) {
 		toSerialize["will_not_fix"] = o.WillNotFix
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PackageReference) UnmarshalJSON(data []byte) (err error) {
+	varPackageReference := _PackageReference{}
+
+	err = json.Unmarshal(data, &varPackageReference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PackageReference(varPackageReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "will_not_fix")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePackageReference struct {

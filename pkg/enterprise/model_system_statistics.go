@@ -24,7 +24,10 @@ type SystemStatistics struct {
 	Description *string `json:"description,omitempty"`
 	ValueType *string `json:"value_type,omitempty"`
 	Value *int32 `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SystemStatistics SystemStatistics
 
 // NewSystemStatistics instantiates a new SystemStatistics object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o SystemStatistics) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SystemStatistics) UnmarshalJSON(data []byte) (err error) {
+	varSystemStatistics := _SystemStatistics{}
+
+	err = json.Unmarshal(data, &varSystemStatistics)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SystemStatistics(varSystemStatistics)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "value_type")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSystemStatistics struct {

@@ -306,8 +306,8 @@ type ImagesAPI interface {
 	GetImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiGetImageVulnAnnotationRequest
 
 	// GetImageVulnAnnotationExecute executes the request
-	//  @return PackageVulnerabilityAnnotationResponse
-	GetImageVulnAnnotationExecute(r ApiGetImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error)
+	//  @return PackageVulnerabilityAnnotation
+	GetImageVulnAnnotationExecute(r ApiGetImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotation, *http.Response, error)
 
 	/*
 	GetImageVulnerabilitiesByDigest Get vulnerabilities by type
@@ -507,8 +507,8 @@ type ImagesAPI interface {
 	UpdateImageVulnAnnotation(ctx context.Context, imageDigest string, vulnAnnotationUuid string) ApiUpdateImageVulnAnnotationRequest
 
 	// UpdateImageVulnAnnotationExecute executes the request
-	//  @return PackageVulnerabilityAnnotationResponse
-	UpdateImageVulnAnnotationExecute(r ApiUpdateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error)
+	//  @return PackageVulnerabilityAnnotation
+	UpdateImageVulnAnnotationExecute(r ApiUpdateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotation, *http.Response, error)
 }
 
 // ImagesAPIService ImagesAPI service
@@ -3643,7 +3643,7 @@ type ApiGetImageVulnAnnotationRequest struct {
 	vulnAnnotationUuid string
 }
 
-func (r ApiGetImageVulnAnnotationRequest) Execute() (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+func (r ApiGetImageVulnAnnotationRequest) Execute() (*PackageVulnerabilityAnnotation, *http.Response, error) {
 	return r.ApiService.GetImageVulnAnnotationExecute(r)
 }
 
@@ -3665,13 +3665,13 @@ func (a *ImagesAPIService) GetImageVulnAnnotation(ctx context.Context, imageDige
 }
 
 // Execute executes the request
-//  @return PackageVulnerabilityAnnotationResponse
-func (a *ImagesAPIService) GetImageVulnAnnotationExecute(r ApiGetImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+//  @return PackageVulnerabilityAnnotation
+func (a *ImagesAPIService) GetImageVulnAnnotationExecute(r ApiGetImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PackageVulnerabilityAnnotationResponse
+		localVarReturnValue  *PackageVulnerabilityAnnotation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.GetImageVulnAnnotation")
@@ -6182,15 +6182,15 @@ type ApiUpdateImageVulnAnnotationRequest struct {
 	ApiService ImagesAPI
 	imageDigest string
 	vulnAnnotationUuid string
-	packageVulnerabilityAnnotation *PackageVulnerabilityAnnotation
+	vulnerabilityAnnotation *VulnerabilityAnnotation
 }
 
-func (r ApiUpdateImageVulnAnnotationRequest) PackageVulnerabilityAnnotation(packageVulnerabilityAnnotation PackageVulnerabilityAnnotation) ApiUpdateImageVulnAnnotationRequest {
-	r.packageVulnerabilityAnnotation = &packageVulnerabilityAnnotation
+func (r ApiUpdateImageVulnAnnotationRequest) VulnerabilityAnnotation(vulnerabilityAnnotation VulnerabilityAnnotation) ApiUpdateImageVulnAnnotationRequest {
+	r.vulnerabilityAnnotation = &vulnerabilityAnnotation
 	return r
 }
 
-func (r ApiUpdateImageVulnAnnotationRequest) Execute() (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+func (r ApiUpdateImageVulnAnnotationRequest) Execute() (*PackageVulnerabilityAnnotation, *http.Response, error) {
 	return r.ApiService.UpdateImageVulnAnnotationExecute(r)
 }
 
@@ -6212,13 +6212,13 @@ func (a *ImagesAPIService) UpdateImageVulnAnnotation(ctx context.Context, imageD
 }
 
 // Execute executes the request
-//  @return PackageVulnerabilityAnnotationResponse
-func (a *ImagesAPIService) UpdateImageVulnAnnotationExecute(r ApiUpdateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotationResponse, *http.Response, error) {
+//  @return PackageVulnerabilityAnnotation
+func (a *ImagesAPIService) UpdateImageVulnAnnotationExecute(r ApiUpdateImageVulnAnnotationRequest) (*PackageVulnerabilityAnnotation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PackageVulnerabilityAnnotationResponse
+		localVarReturnValue  *PackageVulnerabilityAnnotation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.UpdateImageVulnAnnotation")
@@ -6258,7 +6258,7 @@ func (a *ImagesAPIService) UpdateImageVulnAnnotationExecute(r ApiUpdateImageVuln
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.packageVulnerabilityAnnotation
+	localVarPostBody = r.vulnerabilityAnnotation
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

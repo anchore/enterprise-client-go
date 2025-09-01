@@ -1,62 +1,12 @@
 diff --git a/pkg/enterprise/model_rbac_manager_role_member.go b/pkg/enterprise/model_rbac_manager_role_member.go
-index 65795c7..a1f7380 100644
+index 74b7ea1..e7608d6 100644
 --- a/pkg/enterprise/model_rbac_manager_role_member.go
 +++ b/pkg/enterprise/model_rbac_manager_role_member.go
-@@ -13,8 +13,8 @@ package enterprise
- 
+@@ -14,6 +14,7 @@ package enterprise
  import (
  	"encoding/json"
--	"bytes"
  	"fmt"
 +	"time"
  )
  
  // checks if the RbacManagerRoleMember type satisfies the MappedNullable interface at compile time
-@@ -29,6 +29,7 @@ type RbacManagerRoleMember struct {
- 	// The domain scope that applies to the set of roles. This will be the account name if the domain scope is an account.
- 	DomainName *string
- 	CreatedAt *time.Time
-+	AdditionalProperties map[string]interface{}
- }
- 
- type _RbacManagerRoleMember RbacManagerRoleMember
-@@ -193,6 +194,11 @@ func (o RbacManagerRoleMember) ToMap() (map[string]interface{}, error) {
- 	if !IsNil(o.CreatedAt) {
- 		toSerialize["created_at"] = o.CreatedAt
- 	}
-+
-+	for key, value := range o.AdditionalProperties {
-+		toSerialize[key] = value
-+	}
-+
- 	return toSerialize, nil
- }
- 
-@@ -220,9 +226,7 @@ func (o *RbacManagerRoleMember) UnmarshalJSON(data []byte) (err error) {
- 
- 	varRbacManagerRoleMember := _RbacManagerRoleMember{}
- 
--	decoder := json.NewDecoder(bytes.NewReader(data))
--	decoder.DisallowUnknownFields()
--	err = decoder.Decode(&varRbacManagerRoleMember)
-+	err = json.Unmarshal(data, &varRbacManagerRoleMember)
- 
- 	if err != nil {
- 		return err
-@@ -230,6 +234,16 @@ func (o *RbacManagerRoleMember) UnmarshalJSON(data []byte) (err error) {
- 
- 	*o = RbacManagerRoleMember(varRbacManagerRoleMember)
- 
-+	additionalProperties := make(map[string]interface{})
-+
-+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-+		delete(additionalProperties, "username")
-+		delete(additionalProperties, "for_account")
-+		delete(additionalProperties, "domain_name")
-+		delete(additionalProperties, "created_at")
-+		o.AdditionalProperties = additionalProperties
-+	}
-+
- 	return err
- }
- 

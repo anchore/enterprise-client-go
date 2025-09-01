@@ -36,7 +36,10 @@ type ArchivedAnalysis struct {
 	AnalyzedAt *time.Time `json:"analyzed_at,omitempty"`
 	// The size, in bytes, of the analysis archive file
 	ArchiveSizeBytes *int32 `json:"archive_size_bytes,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ArchivedAnalysis ArchivedAnalysis
 
 // NewArchivedAnalysis instantiates a new ArchivedAnalysis object
 // This constructor will assign default values to properties that have it defined,
@@ -380,7 +383,41 @@ func (o ArchivedAnalysis) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ArchiveSizeBytes) {
 		toSerialize["archive_size_bytes"] = o.ArchiveSizeBytes
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ArchivedAnalysis) UnmarshalJSON(data []byte) (err error) {
+	varArchivedAnalysis := _ArchivedAnalysis{}
+
+	err = json.Unmarshal(data, &varArchivedAnalysis)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArchivedAnalysis(varArchivedAnalysis)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "parent_digest")
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "image_detail")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "analyzed_at")
+		delete(additionalProperties, "archive_size_bytes")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableArchivedAnalysis struct {

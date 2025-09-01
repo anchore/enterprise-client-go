@@ -4461,7 +4461,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PackageVulnerabilityAnnotationResponse'
+                $ref: '#/components/schemas/PackageVulnerabilityAnnotation'
           description: Vulnerability annotation details
         "500":
           content:
@@ -4497,13 +4497,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PackageVulnerabilityAnnotation'
+              $ref: '#/components/schemas/VulnerabilityAnnotation'
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PackageVulnerabilityAnnotationResponse'
+                $ref: '#/components/schemas/PackageVulnerabilityAnnotation'
           description: Vulnerability annotation update successful
         "500":
           content:
@@ -25809,31 +25809,6 @@ components:
       required:
       - annotation
       type: object
-    PackageVulnerabilityAnnotationResponse:
-      example:
-        annotation:
-          vulnerability_id: CVE-2023-1234
-          updated_at: 2000-01-23T04:56:07.000+00:00
-          additional_details: additional_details
-          author: author
-          created_at: 2000-01-23T04:56:07.000+00:00
-          action_statement: action_statement
-          justification: component_not_present
-          impact_statement: impact_statement
-          uuid: uuid
-          version: 0
-          status_notes: status_notes
-          status: not_affected
-        package_identifier:
-          name: name
-          type: type
-          version: version
-      properties:
-        annotation:
-          $ref: '#/components/schemas/VulnerabilityAnnotation'
-        package_identifier:
-          $ref: '#/components/schemas/PackageIdentifier'
-      type: object
     PackageVulnerabilityAnnotationResponseList:
       description: A list of VulnerabilityAnnotation entries for an artifact
       example:
@@ -25876,7 +25851,7 @@ components:
         items:
           description: The annotations for the artifact
           items:
-            $ref: '#/components/schemas/PackageVulnerabilityAnnotationResponse'
+            $ref: '#/components/schemas/PackageVulnerabilityAnnotation'
           type: array
       required:
       - items

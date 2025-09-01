@@ -22,7 +22,10 @@ var _ MappedNullable = &ImageWithPackages{}
 type ImageWithPackages struct {
 	Image *ImageReference `json:"image,omitempty"`
 	Packages []PackageReference `json:"packages,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageWithPackages ImageWithPackages
 
 // NewImageWithPackages instantiates a new ImageWithPackages object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ImageWithPackages) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Packages) {
 		toSerialize["packages"] = o.Packages
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageWithPackages) UnmarshalJSON(data []byte) (err error) {
+	varImageWithPackages := _ImageWithPackages{}
+
+	err = json.Unmarshal(data, &varImageWithPackages)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageWithPackages(varImageWithPackages)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image")
+		delete(additionalProperties, "packages")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageWithPackages struct {

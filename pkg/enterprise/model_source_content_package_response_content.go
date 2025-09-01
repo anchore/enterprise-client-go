@@ -34,7 +34,10 @@ type SourceContentPackageResponseContent struct {
 	// Package type specific metadata
 	Metadata interface{} `json:"metadata,omitempty"`
 	Purl *string `json:"purl,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourceContentPackageResponseContent SourceContentPackageResponseContent
 
 // NewSourceContentPackageResponseContent instantiates a new SourceContentPackageResponseContent object
 // This constructor will assign default values to properties that have it defined,
@@ -448,7 +451,43 @@ func (o SourceContentPackageResponseContent) ToMap() (map[string]interface{}, er
 	if !IsNil(o.Purl) {
 		toSerialize["purl"] = o.Purl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourceContentPackageResponseContent) UnmarshalJSON(data []byte) (err error) {
+	varSourceContentPackageResponseContent := _SourceContentPackageResponseContent{}
+
+	err = json.Unmarshal(data, &varSourceContentPackageResponseContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceContentPackageResponseContent(varSourceContentPackageResponseContent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "package")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "size")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "origin")
+		delete(additionalProperties, "licenses")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "cpes")
+		delete(additionalProperties, "metadata_type")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "purl")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourceContentPackageResponseContent struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -34,6 +33,7 @@ type ArtifactLifecyclePolicyConditions struct {
 	IncludeFailedAnalysis *bool `json:"include_failed_analysis,omitempty"`
 	// The type of artifact that will be processed.
 	ArtifactType string `json:"artifact_type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ArtifactLifecyclePolicyConditions ArtifactLifecyclePolicyConditions
@@ -248,6 +248,11 @@ func (o ArtifactLifecyclePolicyConditions) ToMap() (map[string]interface{}, erro
 		toSerialize["include_failed_analysis"] = o.IncludeFailedAnalysis
 	}
 	toSerialize["artifact_type"] = o.ArtifactType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -277,15 +282,25 @@ func (o *ArtifactLifecyclePolicyConditions) UnmarshalJSON(data []byte) (err erro
 
 	varArtifactLifecyclePolicyConditions := _ArtifactLifecyclePolicyConditions{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varArtifactLifecyclePolicyConditions)
+	err = json.Unmarshal(data, &varArtifactLifecyclePolicyConditions)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ArtifactLifecyclePolicyConditions(varArtifactLifecyclePolicyConditions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "even_if_exists_in_runtime_inventory")
+		delete(additionalProperties, "days_since_analyzed")
+		delete(additionalProperties, "include_base_images")
+		delete(additionalProperties, "include_failed_analysis")
+		delete(additionalProperties, "artifact_type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

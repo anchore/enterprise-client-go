@@ -24,7 +24,10 @@ type EventResponse struct {
 	EventId *string `json:"event_id,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	Event *EventResponseEvent `json:"event,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EventResponse EventResponse
 
 // NewEventResponse instantiates a new EventResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o EventResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Event) {
 		toSerialize["event"] = o.Event
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EventResponse) UnmarshalJSON(data []byte) (err error) {
+	varEventResponse := _EventResponse{}
+
+	err = json.Unmarshal(data, &varEventResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventResponse(varEventResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "event_id")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "event")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEventResponse struct {

@@ -22,7 +22,10 @@ var _ MappedNullable = &AnchoreImageTagSummaryList{}
 type AnchoreImageTagSummaryList struct {
 	Items []AnchoreImageTagSummary `json:"items,omitempty"`
 	TotalRows *int32 `json:"total_rows,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnchoreImageTagSummaryList AnchoreImageTagSummaryList
 
 // NewAnchoreImageTagSummaryList instantiates a new AnchoreImageTagSummaryList object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o AnchoreImageTagSummaryList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalRows) {
 		toSerialize["total_rows"] = o.TotalRows
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnchoreImageTagSummaryList) UnmarshalJSON(data []byte) (err error) {
+	varAnchoreImageTagSummaryList := _AnchoreImageTagSummaryList{}
+
+	err = json.Unmarshal(data, &varAnchoreImageTagSummaryList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnchoreImageTagSummaryList(varAnchoreImageTagSummaryList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "total_rows")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnchoreImageTagSummaryList struct {

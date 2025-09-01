@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type AccountK8sInventoryReportInfoBatchesInner struct {
 	SendTimestamp time.Time `json:"send_timestamp"`
 	// Error message if the sending was unsuccessful
 	Error *string `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AccountK8sInventoryReportInfoBatchesInner AccountK8sInventoryReportInfoBatchesInner
@@ -147,6 +147,11 @@ func (o AccountK8sInventoryReportInfoBatchesInner) ToMap() (map[string]interface
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -175,15 +180,22 @@ func (o *AccountK8sInventoryReportInfoBatchesInner) UnmarshalJSON(data []byte) (
 
 	varAccountK8sInventoryReportInfoBatchesInner := _AccountK8sInventoryReportInfoBatchesInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAccountK8sInventoryReportInfoBatchesInner)
+	err = json.Unmarshal(data, &varAccountK8sInventoryReportInfoBatchesInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AccountK8sInventoryReportInfoBatchesInner(varAccountK8sInventoryReportInfoBatchesInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "batch_index")
+		delete(additionalProperties, "send_timestamp")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

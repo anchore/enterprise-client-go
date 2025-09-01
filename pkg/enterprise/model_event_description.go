@@ -28,7 +28,10 @@ type EventDescription struct {
 	Message *string `json:"message,omitempty"`
 	// The type of resource this event is generated from
 	ResourceType *string `json:"resource_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EventDescription EventDescription
 
 // NewEventDescription instantiates a new EventDescription object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o EventDescription) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResourceType) {
 		toSerialize["resource_type"] = o.ResourceType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EventDescription) UnmarshalJSON(data []byte) (err error) {
+	varEventDescription := _EventDescription{}
+
+	err = json.Unmarshal(data, &varEventDescription)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventDescription(varEventDescription)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "resource_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEventDescription struct {
