@@ -21825,6 +21825,12 @@ components:
         subscription_id:
           type: string
           description: the unique id for this subscription record
+        created_at:
+          type: string
+          format: date-time
+        last_updated:
+          type: string
+          format: date-time
       description: Subscription entry
     SubscriptionList:
       type: array
