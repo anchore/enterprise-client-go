@@ -30200,8 +30200,10 @@ components:
       example:
         subscription_id: subscription_id
         subscription_value: subscription_value
+        last_updated: 2000-01-23T04:56:07.000+00:00
         account_name: account_name
         active: true
+        created_at: 2000-01-23T04:56:07.000+00:00
         subscription_key: subscription_key
         subscription_type: subscription_type
       properties:
@@ -30224,6 +30226,12 @@ components:
           type: boolean
         subscription_id:
           description: the unique id for this subscription record
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
           type: string
       type: object
     SubscriptionList:

@@ -13,6 +13,7 @@ package enterprise
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the Subscription type satisfies the MappedNullable interface at compile time
@@ -32,6 +33,8 @@ type Subscription struct {
 	Active *bool `json:"active,omitempty"`
 	// the unique id for this subscription record
 	SubscriptionId *string `json:"subscription_id,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -256,6 +259,70 @@ func (o *Subscription) SetSubscriptionId(v string) {
 	o.SubscriptionId = &v
 }
 
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *Subscription) GetCreatedAt() time.Time {
+	if o == nil || IsNil(o.CreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Subscription) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *Subscription) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *Subscription) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *Subscription) GetLastUpdated() time.Time {
+	if o == nil || IsNil(o.LastUpdated) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Subscription) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *Subscription) HasLastUpdated() bool {
+	if o != nil && !IsNil(o.LastUpdated) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
+func (o *Subscription) SetLastUpdated(v time.Time) {
+	o.LastUpdated = &v
+}
+
 func (o Subscription) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -283,6 +350,12 @@ func (o Subscription) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SubscriptionId) {
 		toSerialize["subscription_id"] = o.SubscriptionId
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -312,6 +385,8 @@ func (o *Subscription) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "account_name")
 		delete(additionalProperties, "active")
 		delete(additionalProperties, "subscription_id")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
 		o.AdditionalProperties = additionalProperties
 	}
 
