@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Version** | Pointer to **NullableString** |  | [optional] 
 **VersionID** | Pointer to **NullableString** |  | [optional] 
 **IdLike** | Pointer to **interface{}** |  | [optional] 
+**ExtendedSupport** | Pointer to **NullableBool** |  | [optional] 
 
 ## Methods
 
@@ -204,6 +205,41 @@ HasIdLike returns a boolean if a field has been set.
 `func (o *NativeSBOMDistribution) UnsetIdLike()`
 
 UnsetIdLike ensures that no value is present for IdLike, not even an explicit nil
+### GetExtendedSupport
+
+`func (o *NativeSBOMDistribution) GetExtendedSupport() bool`
+
+GetExtendedSupport returns the ExtendedSupport field if non-nil, zero value otherwise.
+
+### GetExtendedSupportOk
+
+`func (o *NativeSBOMDistribution) GetExtendedSupportOk() (*bool, bool)`
+
+GetExtendedSupportOk returns a tuple with the ExtendedSupport field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExtendedSupport
+
+`func (o *NativeSBOMDistribution) SetExtendedSupport(v bool)`
+
+SetExtendedSupport sets ExtendedSupport field to given value.
+
+### HasExtendedSupport
+
+`func (o *NativeSBOMDistribution) HasExtendedSupport() bool`
+
+HasExtendedSupport returns a boolean if a field has been set.
+
+### SetExtendedSupportNil
+
+`func (o *NativeSBOMDistribution) SetExtendedSupportNil(b bool)`
+
+ SetExtendedSupportNil sets the value for ExtendedSupport to be an explicit nil
+
+### UnsetExtendedSupport
+`func (o *NativeSBOMDistribution) UnsetExtendedSupport()`
+
+UnsetExtendedSupport ensures that no value is present for ExtendedSupport, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
