@@ -5283,6 +5283,59 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/vex/openvex:
+    get:
+      tags:
+      - Images
+      summary: Get image VEX document in the OpenVEX format
+      operationId: get_image_openvex
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Image lookup success
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        403:
+          description: Not permitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        404:
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
+      x-anchore-authz-action: listVulnAnnotations
   /images/{image_digest}:
     get:
       tags:
@@ -22976,9 +23029,11 @@ components:
           $ref: "#/components/schemas/VulnAnnotationStatus"
         status_notes:
           type: string
+          nullable: true
           description: Notes on the status of the annotation
         justification:
           type: string
+          nullable: true
           enum:
             - component_not_present
             - vulnerable_code_not_present
@@ -22987,12 +23042,15 @@ components:
             - inline_mitigations_already_exist
         impact_statement:
           type: string
+          nullable: true
           description: A statement of the impact of the vulnerability on the component or service
         action_statement:
           type: string
+          nullable: true
           description: A statement of the action taken in response to the vulnerability
         additional_details:
           type: string
+          nullable: true
           description: Detailed description of the impact including methods used during annotation. If a vulnerability is not exploitable, this field should include specific details on why the component or service is not impacted by this vulnerability.
     VulnDiffResult:
       type: object

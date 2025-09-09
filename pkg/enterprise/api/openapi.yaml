@@ -5835,6 +5835,64 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/vex/openvex:
+    get:
+      operationId: get_image_openvex
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          format: path
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Image lookup success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not permitted
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Image not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get image VEX document in the OpenVEX format
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
+      x-anchore-authz-action: listVulnAnnotations
   /images/{image_digest}:
     delete:
       operationId: delete_image
@@ -31616,6 +31674,7 @@ components:
           $ref: '#/components/schemas/VulnAnnotationStatus'
         status_notes:
           description: Notes on the status of the annotation
+          nullable: true
           type: string
         justification:
           enum:
@@ -31624,19 +31683,23 @@ components:
           - vulnerable_code_not_in_execute_path
           - vulnerable_code_cannot_be_controlled_by_adversary
           - inline_mitigations_already_exist
+          nullable: true
           type: string
         impact_statement:
           description: A statement of the impact of the vulnerability on the component
             or service
+          nullable: true
           type: string
         action_statement:
           description: A statement of the action taken in response to the vulnerability
+          nullable: true
           type: string
         additional_details:
           description: "Detailed description of the impact including methods used\
             \ during annotation. If a vulnerability is not exploitable, this field\
             \ should include specific details on why the component or service is not\
             \ impacted by this vulnerability."
+          nullable: true
           type: string
       required:
       - status

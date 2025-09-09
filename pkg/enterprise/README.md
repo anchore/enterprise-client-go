@@ -151,6 +151,7 @@ Class | Method | HTTP request | Description
 *ImagesAPI* | [**GetImageContentByTypeMalware**](docs/ImagesAPI.md#getimagecontentbytypemalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
 *ImagesAPI* | [**GetImageContentSummary**](docs/ImagesAPI.md#getimagecontentsummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
 *ImagesAPI* | [**GetImageMetadataByType**](docs/ImagesAPI.md#getimagemetadatabytype) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
+*ImagesAPI* | [**GetImageOpenvex**](docs/ImagesAPI.md#getimageopenvex) | **Get** /images/{image_digest}/vex/openvex | Get image VEX document in the OpenVEX format
 *ImagesAPI* | [**GetImagePolicyCheckByDigest**](docs/ImagesAPI.md#getimagepolicycheckbydigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
 *ImagesAPI* | [**GetImageSbomCyclonedxJson**](docs/ImagesAPI.md#getimagesbomcyclonedxjson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
 *ImagesAPI* | [**GetImageSbomNativeJson**](docs/ImagesAPI.md#getimagesbomnativejson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
