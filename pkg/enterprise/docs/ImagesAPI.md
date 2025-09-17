@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**GetImageContentByTypeMalware**](ImagesAPI.md#GetImageContentByTypeMalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
 [**GetImageContentSummary**](ImagesAPI.md#GetImageContentSummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
 [**GetImageMetadataByType**](ImagesAPI.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
+[**GetImageOpenvex**](ImagesAPI.md#GetImageOpenvex) | **Get** /images/{image_digest}/vex/openvex | Get image VEX document in the OpenVEX format
 [**GetImagePolicyCheckByDigest**](ImagesAPI.md#GetImagePolicyCheckByDigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
 [**GetImageSbomCyclonedxJson**](ImagesAPI.md#GetImageSbomCyclonedxJson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
 [**GetImageSbomNativeJson**](ImagesAPI.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
@@ -26,6 +27,8 @@ Method | HTTP request | Description
 [**GetImageStig**](ImagesAPI.md#GetImageStig) | **Get** /images/{image_digest}/stig/{evaluation_uuid}/file | Get a specific STIG evaluation for an image
 [**GetImageVulnAnnotation**](ImagesAPI.md#GetImageVulnAnnotation) | **Get** /images/{image_digest}/vuln-annotations/{vuln_annotation_uuid} | Get a vuln annotation
 [**GetImageVulnerabilitiesByDigest**](ImagesAPI.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
+[**GetImageVulnerabilitiesByDigestCyclonedxJson**](ImagesAPI.md#GetImageVulnerabilitiesByDigestCyclonedxJson) | **Get** /images/{image_digest}/vuln/{vuln_type}/cyclonedx-json | Get vulnerabilities by type in CycloneDX JSON format
+[**GetImageVulnerabilitiesByDigestCyclonedxXml**](ImagesAPI.md#GetImageVulnerabilitiesByDigestCyclonedxXml) | **Get** /images/{image_digest}/vuln/{vuln_type}/cyclonedx-xml | Get vulnerabilities by type in CycloneDX XML format
 [**GetImageVulnerabilityTypes**](ImagesAPI.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
 [**ListFileContentSearchResults**](ImagesAPI.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 [**ListImageContent**](ImagesAPI.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
@@ -1107,6 +1110,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetImageOpenvex
+
+> string GetImageOpenvex(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Get image VEX document in the OpenVEX format
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageOpenvex(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageOpenvex``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageOpenvex`: string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageOpenvex`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageOpenvexRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetImagePolicyCheckByDigest
 
 > PolicyEvaluation GetImagePolicyCheckByDigest(ctx, imageDigest).Tag(tag).PolicyId(policyId).Detail(detail).History(history).Interactive(interactive).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1620,6 +1693,168 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetImageVulnerabilitiesByDigestCyclonedxJson
+
+> interface{} GetImageVulnerabilitiesByDigestCyclonedxJson(ctx, imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).IncludeAnnotationDetail(includeAnnotationDetail).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Get vulnerabilities by type in CycloneDX JSON format
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	vulnType := "vulnType_example" // string | 
+	forceRefresh := true // bool |  (optional) (default to false)
+	includeVulnDescription := true // bool |  (optional) (default to false)
+	includeAnnotationDetail := true // bool | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. (optional) (default to false)
+	vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxJson(context.Background(), imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).IncludeAnnotationDetail(includeAnnotationDetail).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageVulnerabilitiesByDigestCyclonedxJson`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxJson`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**vulnType** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **forceRefresh** | **bool** |  | [default to false]
+ **includeVulnDescription** | **bool** |  | [default to false]
+ **includeAnnotationDetail** | **bool** | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. | [default to false]
+ **vendorOnly** | **bool** | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60; | [default to true]
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetImageVulnerabilitiesByDigestCyclonedxXml
+
+> interface{} GetImageVulnerabilitiesByDigestCyclonedxXml(ctx, imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).IncludeAnnotationDetail(includeAnnotationDetail).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Get vulnerabilities by type in CycloneDX XML format
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	vulnType := "vulnType_example" // string | 
+	forceRefresh := true // bool |  (optional) (default to false)
+	includeVulnDescription := true // bool |  (optional) (default to false)
+	includeAnnotationDetail := true // bool | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. (optional) (default to false)
+	vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxXml(context.Background(), imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).IncludeAnnotationDetail(includeAnnotationDetail).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxXml``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageVulnerabilitiesByDigestCyclonedxXml`: interface{}
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxXml`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**vulnType** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **forceRefresh** | **bool** |  | [default to false]
+ **includeVulnDescription** | **bool** |  | [default to false]
+ **includeAnnotationDetail** | **bool** | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. | [default to false]
+ **vendorOnly** | **bool** | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60; | [default to true]
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+**interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

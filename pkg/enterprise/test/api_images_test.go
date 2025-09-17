@@ -230,6 +230,20 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ImagesAPIService GetImageOpenvex", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageOpenvex(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ImagesAPIService GetImagePolicyCheckByDigest", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -324,6 +338,36 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		var vulnType string
 
 		resp, httpRes, err := apiClient.ImagesAPI.GetImageVulnerabilitiesByDigest(context.Background(), imageDigest, vulnType).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService GetImageVulnerabilitiesByDigestCyclonedxJson", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var vulnType string
+
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxJson(context.Background(), imageDigest, vulnType).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService GetImageVulnerabilitiesByDigestCyclonedxXml", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var vulnType string
+
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageVulnerabilitiesByDigestCyclonedxXml(context.Background(), imageDigest, vulnType).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
