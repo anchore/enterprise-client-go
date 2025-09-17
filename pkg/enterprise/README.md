@@ -151,6 +151,7 @@ Class | Method | HTTP request | Description
 *ImagesAPI* | [**GetImageContentByTypeMalware**](docs/ImagesAPI.md#getimagecontentbytypemalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
 *ImagesAPI* | [**GetImageContentSummary**](docs/ImagesAPI.md#getimagecontentsummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
 *ImagesAPI* | [**GetImageMetadataByType**](docs/ImagesAPI.md#getimagemetadatabytype) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
+*ImagesAPI* | [**GetImageOpenvex**](docs/ImagesAPI.md#getimageopenvex) | **Get** /images/{image_digest}/vex/openvex | Get image VEX document in the OpenVEX format
 *ImagesAPI* | [**GetImagePolicyCheckByDigest**](docs/ImagesAPI.md#getimagepolicycheckbydigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
 *ImagesAPI* | [**GetImageSbomCyclonedxJson**](docs/ImagesAPI.md#getimagesbomcyclonedxjson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
 *ImagesAPI* | [**GetImageSbomNativeJson**](docs/ImagesAPI.md#getimagesbomnativejson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
@@ -158,6 +159,8 @@ Class | Method | HTTP request | Description
 *ImagesAPI* | [**GetImageStig**](docs/ImagesAPI.md#getimagestig) | **Get** /images/{image_digest}/stig/{evaluation_uuid}/file | Get a specific STIG evaluation for an image
 *ImagesAPI* | [**GetImageVulnAnnotation**](docs/ImagesAPI.md#getimagevulnannotation) | **Get** /images/{image_digest}/vuln-annotations/{vuln_annotation_uuid} | Get a vuln annotation
 *ImagesAPI* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesAPI.md#getimagevulnerabilitiesbydigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
+*ImagesAPI* | [**GetImageVulnerabilitiesByDigestCyclonedxJson**](docs/ImagesAPI.md#getimagevulnerabilitiesbydigestcyclonedxjson) | **Get** /images/{image_digest}/vuln/{vuln_type}/cyclonedx-json | Get vulnerabilities by type in CycloneDX JSON format
+*ImagesAPI* | [**GetImageVulnerabilitiesByDigestCyclonedxXml**](docs/ImagesAPI.md#getimagevulnerabilitiesbydigestcyclonedxxml) | **Get** /images/{image_digest}/vuln/{vuln_type}/cyclonedx-xml | Get vulnerabilities by type in CycloneDX XML format
 *ImagesAPI* | [**GetImageVulnerabilityTypes**](docs/ImagesAPI.md#getimagevulnerabilitytypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
 *ImagesAPI* | [**ListFileContentSearchResults**](docs/ImagesAPI.md#listfilecontentsearchresults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 *ImagesAPI* | [**ListImageContent**](docs/ImagesAPI.md#listimagecontent) | **Get** /images/{image_digest}/content | List image content types

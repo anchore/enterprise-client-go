@@ -228,6 +228,19 @@ type ImagesAPI interface {
 	GetImageMetadataByTypeExecute(r ApiGetImageMetadataByTypeRequest) (*MetadataResponse, *http.Response, error)
 
 	/*
+	GetImageOpenvex Get image VEX document in the OpenVEX format
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiGetImageOpenvexRequest
+	*/
+	GetImageOpenvex(ctx context.Context, imageDigest string) ApiGetImageOpenvexRequest
+
+	// GetImageOpenvexExecute executes the request
+	//  @return string
+	GetImageOpenvexExecute(r ApiGetImageOpenvexRequest) (string, *http.Response, error)
+
+	/*
 	GetImagePolicyCheckByDigest Check policy evaluation status for image
 
 	Get the policy evaluation for the given image
@@ -322,6 +335,34 @@ type ImagesAPI interface {
 	// GetImageVulnerabilitiesByDigestExecute executes the request
 	//  @return ImagePackageVulnerabilityResponse
 	GetImageVulnerabilitiesByDigestExecute(r ApiGetImageVulnerabilitiesByDigestRequest) (*ImagePackageVulnerabilityResponse, *http.Response, error)
+
+	/*
+	GetImageVulnerabilitiesByDigestCyclonedxJson Get vulnerabilities by type in CycloneDX JSON format
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param vulnType
+	@return ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest
+	*/
+	GetImageVulnerabilitiesByDigestCyclonedxJson(ctx context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest
+
+	// GetImageVulnerabilitiesByDigestCyclonedxJsonExecute executes the request
+	//  @return interface{}
+	GetImageVulnerabilitiesByDigestCyclonedxJsonExecute(r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) (interface{}, *http.Response, error)
+
+	/*
+	GetImageVulnerabilitiesByDigestCyclonedxXml Get vulnerabilities by type in CycloneDX XML format
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param vulnType
+	@return ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest
+	*/
+	GetImageVulnerabilitiesByDigestCyclonedxXml(ctx context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest
+
+	// GetImageVulnerabilitiesByDigestCyclonedxXmlExecute executes the request
+	//  @return interface{}
+	GetImageVulnerabilitiesByDigestCyclonedxXmlExecute(r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) (interface{}, *http.Response, error)
 
 	/*
 	GetImageVulnerabilityTypes Get vulnerability types
@@ -2789,6 +2830,160 @@ func (a *ImagesAPIService) GetImageMetadataByTypeExecute(r ApiGetImageMetadataBy
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetImageOpenvexRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageOpenvexRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageOpenvexRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageOpenvexRequest) Execute() (string, *http.Response, error) {
+	return r.ApiService.GetImageOpenvexExecute(r)
+}
+
+/*
+GetImageOpenvex Get image VEX document in the OpenVEX format
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiGetImageOpenvexRequest
+*/
+func (a *ImagesAPIService) GetImageOpenvex(ctx context.Context, imageDigest string) ApiGetImageOpenvexRequest {
+	return ApiGetImageOpenvexRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *ImagesAPIService) GetImageOpenvexExecute(r ApiGetImageOpenvexRequest) (string, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.GetImageOpenvex")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vex/openvex"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetImagePolicyCheckByDigestRequest struct {
 	ctx context.Context
 	ApiService ImagesAPI
@@ -3946,6 +4141,379 @@ func (a *ImagesAPIService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	vulnType string
+	forceRefresh *bool
+	includeVulnDescription *bool
+	includeAnnotationDetail *bool
+	vendorOnly *bool
+	xAnchoreAccount *string
+}
+
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) ForceRefresh(forceRefresh bool) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest {
+	r.forceRefresh = &forceRefresh
+	return r
+}
+
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) IncludeVulnDescription(includeVulnDescription bool) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest {
+	r.includeVulnDescription = &includeVulnDescription
+	return r
+}
+
+// When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role.
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) IncludeAnnotationDetail(includeAnnotationDetail bool) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest {
+	r.includeAnnotationDetail = &includeAnnotationDetail
+	return r
+}
+
+// Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60;
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) VendorOnly(vendorOnly bool) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest {
+	r.vendorOnly = &vendorOnly
+	return r
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) Execute() (interface{}, *http.Response, error) {
+	return r.ApiService.GetImageVulnerabilitiesByDigestCyclonedxJsonExecute(r)
+}
+
+/*
+GetImageVulnerabilitiesByDigestCyclonedxJson Get vulnerabilities by type in CycloneDX JSON format
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param vulnType
+ @return ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest
+*/
+func (a *ImagesAPIService) GetImageVulnerabilitiesByDigestCyclonedxJson(ctx context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest {
+	return ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		vulnType: vulnType,
+	}
+}
+
+// Execute executes the request
+//  @return interface{}
+func (a *ImagesAPIService) GetImageVulnerabilitiesByDigestCyclonedxJsonExecute(r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) (interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.GetImageVulnerabilitiesByDigestCyclonedxJson")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vuln_type}/cyclonedx-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", url.PathEscape(parameterValueToString(r.vulnType, "vulnType")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.forceRefresh != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force_refresh", r.forceRefresh, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.forceRefresh = &defaultValue
+	}
+	if r.includeVulnDescription != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_vuln_description", r.includeVulnDescription, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeVulnDescription = &defaultValue
+	}
+	if r.includeAnnotationDetail != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_annotation_detail", r.includeAnnotationDetail, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeAnnotationDetail = &defaultValue
+	}
+	if r.vendorOnly != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "vendor_only", r.vendorOnly, "form", "")
+	} else {
+		var defaultValue bool = true
+		r.vendorOnly = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	vulnType string
+	forceRefresh *bool
+	includeVulnDescription *bool
+	includeAnnotationDetail *bool
+	vendorOnly *bool
+	xAnchoreAccount *string
+}
+
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) ForceRefresh(forceRefresh bool) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest {
+	r.forceRefresh = &forceRefresh
+	return r
+}
+
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) IncludeVulnDescription(includeVulnDescription bool) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest {
+	r.includeVulnDescription = &includeVulnDescription
+	return r
+}
+
+// When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role.
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) IncludeAnnotationDetail(includeAnnotationDetail bool) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest {
+	r.includeAnnotationDetail = &includeAnnotationDetail
+	return r
+}
+
+// Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60;
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) VendorOnly(vendorOnly bool) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest {
+	r.vendorOnly = &vendorOnly
+	return r
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) Execute() (interface{}, *http.Response, error) {
+	return r.ApiService.GetImageVulnerabilitiesByDigestCyclonedxXmlExecute(r)
+}
+
+/*
+GetImageVulnerabilitiesByDigestCyclonedxXml Get vulnerabilities by type in CycloneDX XML format
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param vulnType
+ @return ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest
+*/
+func (a *ImagesAPIService) GetImageVulnerabilitiesByDigestCyclonedxXml(ctx context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest {
+	return ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		vulnType: vulnType,
+	}
+}
+
+// Execute executes the request
+//  @return interface{}
+func (a *ImagesAPIService) GetImageVulnerabilitiesByDigestCyclonedxXmlExecute(r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) (interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.GetImageVulnerabilitiesByDigestCyclonedxXml")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vuln_type}/cyclonedx-xml"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", url.PathEscape(parameterValueToString(r.vulnType, "vulnType")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.forceRefresh != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force_refresh", r.forceRefresh, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.forceRefresh = &defaultValue
+	}
+	if r.includeVulnDescription != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_vuln_description", r.includeVulnDescription, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeVulnDescription = &defaultValue
+	}
+	if r.includeAnnotationDetail != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_annotation_detail", r.includeAnnotationDetail, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeAnnotationDetail = &defaultValue
+	}
+	if r.vendorOnly != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "vendor_only", r.vendorOnly, "form", "")
+	} else {
+		var defaultValue bool = true
+		r.vendorOnly = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/xml"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
