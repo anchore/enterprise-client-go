@@ -21157,9 +21157,6 @@ components:
             type: boolean
         type: object
       example:
-        severity: severity
-        package: package
-        package_path: package_path
         nvd_data:
         - epss:
             percentile: 6.027456183070403
@@ -21193,11 +21190,7 @@ components:
           id: id
           source: source
           type: Primary
-        epss:
-        - percentile: 6.027456183070403
-          epss: 0.8008281904610115
-        - percentile: 6.027456183070403
-          epss: 0.8008281904610115
+        suggested_fix_version: suggested_fix_version
         vendor_data:
         - cvss_v3:
             base_score: 5.962133916683182
@@ -21222,22 +21215,30 @@ components:
           source: source
           type: Primary
         description: description
-        is_kev: true
         purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
         package_type: package_type
+        will_not_fix: true
+        fix: fix
+        annotation_status: not_affected
+        fix_observed_at: 2000-01-23T04:56:07.000+00:00
+        feed_group: feed_group
+        annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        severity: severity
+        package: package
+        package_path: package_path
+        epss:
+        - percentile: 6.027456183070403
+          epss: 0.8008281904610115
+        - percentile: 6.027456183070403
+          epss: 0.8008281904610115
+        is_kev: true
         package_cpe: package_cpe
         url: url
-        will_not_fix: true
         feed: feed
         detected_at: 2000-01-23T04:56:07.000+00:00
         package_version: package_version
-        fix: fix
-        annotation_status: not_affected
         vuln: vuln
-        fix_observed_at: 2000-01-23T04:56:07.000+00:00
-        feed_group: feed_group
         package_name: package_name
-        annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         inherited_from_base: true
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
@@ -21250,10 +21251,7 @@ components:
         base_digest: base_digest
         image_digest: image_digest
         vulnerabilities:
-        - severity: severity
-          package: package
-          package_path: package_path
-          nvd_data:
+        - nvd_data:
           - epss:
               percentile: 6.027456183070403
               epss: 0.8008281904610115
@@ -21286,11 +21284,7 @@ components:
             id: id
             source: source
             type: Primary
-          epss:
-          - percentile: 6.027456183070403
-            epss: 0.8008281904610115
-          - percentile: 6.027456183070403
-            epss: 0.8008281904610115
+          suggested_fix_version: suggested_fix_version
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -21315,27 +21309,32 @@ components:
             source: source
             type: Primary
           description: description
-          is_kev: true
           purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
+          will_not_fix: true
+          fix: fix
+          annotation_status: not_affected
+          fix_observed_at: 2000-01-23T04:56:07.000+00:00
+          feed_group: feed_group
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          severity: severity
+          package: package
+          package_path: package_path
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          is_kev: true
           package_cpe: package_cpe
           url: url
-          will_not_fix: true
           feed: feed
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
-          fix: fix
-          annotation_status: not_affected
           vuln: vuln
-          fix_observed_at: 2000-01-23T04:56:07.000+00:00
-          feed_group: feed_group
           package_name: package_name
-          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           inherited_from_base: true
-        - severity: severity
-          package: package
-          package_path: package_path
-          nvd_data:
+        - nvd_data:
           - epss:
               percentile: 6.027456183070403
               epss: 0.8008281904610115
@@ -21368,11 +21367,7 @@ components:
             id: id
             source: source
             type: Primary
-          epss:
-          - percentile: 6.027456183070403
-            epss: 0.8008281904610115
-          - percentile: 6.027456183070403
-            epss: 0.8008281904610115
+          suggested_fix_version: suggested_fix_version
           vendor_data:
           - cvss_v3:
               base_score: 5.962133916683182
@@ -21397,22 +21392,30 @@ components:
             source: source
             type: Primary
           description: description
-          is_kev: true
           purl: pkg:deb/debian/libssl3@3.0.17-1~deb12u2?arch=amd64&distro=debian-12&upstream=openssl
           package_type: package_type
+          will_not_fix: true
+          fix: fix
+          annotation_status: not_affected
+          fix_observed_at: 2000-01-23T04:56:07.000+00:00
+          feed_group: feed_group
+          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          severity: severity
+          package: package
+          package_path: package_path
+          epss:
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          - percentile: 6.027456183070403
+            epss: 0.8008281904610115
+          is_kev: true
           package_cpe: package_cpe
           url: url
-          will_not_fix: true
           feed: feed
           detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
-          fix: fix
-          annotation_status: not_affected
           vuln: vuln
-          fix_observed_at: 2000-01-23T04:56:07.000+00:00
-          feed_group: feed_group
           package_name: package_name
-          annotation_uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           inherited_from_base: true
       properties:
         image_digest:
@@ -23754,6 +23757,27 @@ components:
           name: name
           id: id
           version: version
+        files:
+        - metadata: "{}"
+          digests:
+          - value: value
+            algorithm: algorithm
+          - value: value
+            algorithm: algorithm
+          location:
+            path: path
+            layerID: layerID
+          id: id
+        - metadata: "{}"
+          digests:
+          - value: value
+            algorithm: algorithm
+          - value: value
+            algorithm: algorithm
+          location:
+            path: path
+            layerID: layerID
+          id: id
         source:
           metadata:
             key: ""
@@ -23819,6 +23843,11 @@ components:
         artifacts:
           items:
             $ref: '#/components/schemas/NativeSBOMPackage'
+          type: array
+        files:
+          items:
+            $ref: '#/components/schemas/ImportFile'
+          nullable: true
           type: array
         source:
           $ref: '#/components/schemas/NativeSBOMSource'
@@ -24814,6 +24843,27 @@ components:
             name: name
             id: id
             version: version
+          files:
+          - metadata: "{}"
+            digests:
+            - value: value
+              algorithm: algorithm
+            - value: value
+              algorithm: algorithm
+            location:
+              path: path
+              layerID: layerID
+            id: id
+          - metadata: "{}"
+            digests:
+            - value: value
+              algorithm: algorithm
+            - value: value
+              algorithm: algorithm
+            location:
+              path: path
+              layerID: layerID
+            id: id
           source:
             metadata:
               key: ""
@@ -25013,6 +25063,7 @@ components:
               id: id
               source: source
               type: Primary
+            suggested_fix_version: suggested_fix_version
             epss:
             - percentile: 6.027456183070403
               epss: 0.8008281904610115
@@ -25094,6 +25145,7 @@ components:
               id: id
               source: source
               type: Primary
+            suggested_fix_version: suggested_fix_version
             epss:
             - percentile: 6.027456183070403
               epss: 0.8008281904610115
@@ -25918,6 +25970,7 @@ components:
           id: id
           source: source
           type: Primary
+        suggested_fix_version: suggested_fix_version
         epss:
         - percentile: 6.027456183070403
           epss: 0.8008281904610115
@@ -26027,8 +26080,14 @@ components:
           format: date-time
           type: string
         fix_observed_at:
-          description: When the fix was observed
+          description: When the suggested_fix_version was first observed in the vulnerability
+            feed.
           format: date-time
+          type: string
+        suggested_fix_version:
+          description: The recommended version of the package that contains a fix
+            for the vulnerability. This is usually the version that is closest to
+            the current version.
           type: string
         is_kev:
           type: boolean
@@ -29091,6 +29150,7 @@ components:
             id: id
             source: source
             type: Primary
+          suggested_fix_version: suggested_fix_version
           epss:
           - percentile: 6.027456183070403
             epss: 0.8008281904610115
@@ -29172,6 +29232,7 @@ components:
             id: id
             source: source
             type: Primary
+          suggested_fix_version: suggested_fix_version
           epss:
           - percentile: 6.027456183070403
             epss: 0.8008281904610115
@@ -29763,6 +29824,7 @@ components:
             id: id
             source: source
             type: Primary
+          suggested_fix_version: suggested_fix_version
           epss:
           - percentile: 6.027456183070403
             epss: 0.8008281904610115
@@ -29844,6 +29906,7 @@ components:
             id: id
             source: source
             type: Primary
+          suggested_fix_version: suggested_fix_version
           epss:
           - percentile: 6.027456183070403
             epss: 0.8008281904610115

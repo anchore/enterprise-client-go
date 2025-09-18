@@ -22,6 +22,7 @@ var _ MappedNullable = &NativeSBOM{}
 // NativeSBOM struct for NativeSBOM
 type NativeSBOM struct {
 	Artifacts []NativeSBOMPackage `json:"artifacts"`
+	Files []ImportFile `json:"files,omitempty"`
 	Source NativeSBOMSource `json:"source"`
 	Distro NativeSBOMDistribution `json:"distro"`
 	Descriptor *NativeSBOMDescriptor `json:"descriptor,omitempty"`
@@ -74,6 +75,39 @@ func (o *NativeSBOM) GetArtifactsOk() ([]NativeSBOMPackage, bool) {
 // SetArtifacts sets field value
 func (o *NativeSBOM) SetArtifacts(v []NativeSBOMPackage) {
 	o.Artifacts = v
+}
+
+// GetFiles returns the Files field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NativeSBOM) GetFiles() []ImportFile {
+	if o == nil {
+		var ret []ImportFile
+		return ret
+	}
+	return o.Files
+}
+
+// GetFilesOk returns a tuple with the Files field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NativeSBOM) GetFilesOk() ([]ImportFile, bool) {
+	if o == nil || IsNil(o.Files) {
+		return nil, false
+	}
+	return o.Files, true
+}
+
+// HasFiles returns a boolean if a field has been set.
+func (o *NativeSBOM) HasFiles() bool {
+	if o != nil && !IsNil(o.Files) {
+		return true
+	}
+
+	return false
+}
+
+// SetFiles gets a reference to the given []ImportFile and assigns it to the Files field.
+func (o *NativeSBOM) SetFiles(v []ImportFile) {
+	o.Files = v
 }
 
 // GetSource returns the Source field value
@@ -231,6 +265,9 @@ func (o NativeSBOM) MarshalJSON() ([]byte, error) {
 func (o NativeSBOM) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["artifacts"] = o.Artifacts
+	if o.Files != nil {
+		toSerialize["files"] = o.Files
+	}
 	toSerialize["source"] = o.Source
 	toSerialize["distro"] = o.Distro
 	if !IsNil(o.Descriptor) {
@@ -288,6 +325,7 @@ func (o *NativeSBOM) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "artifacts")
+		delete(additionalProperties, "files")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "distro")
 		delete(additionalProperties, "descriptor")
