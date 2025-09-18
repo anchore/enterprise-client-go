@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Artifacts** | [**[]NativeSBOMPackage**](NativeSBOMPackage.md) |  | 
+**Files** | Pointer to [**[]ImportFile**](ImportFile.md) |  | [optional] 
 **Source** | [**NativeSBOMSource**](NativeSBOMSource.md) |  | 
 **Distro** | [**NativeSBOMDistribution**](NativeSBOMDistribution.md) |  | 
 **Descriptor** | Pointer to [**NativeSBOMDescriptor**](NativeSBOMDescriptor.md) |  | [optional] 
@@ -50,6 +51,41 @@ and a boolean to check if the value has been set.
 SetArtifacts sets Artifacts field to given value.
 
 
+### GetFiles
+
+`func (o *NativeSBOM) GetFiles() []ImportFile`
+
+GetFiles returns the Files field if non-nil, zero value otherwise.
+
+### GetFilesOk
+
+`func (o *NativeSBOM) GetFilesOk() (*[]ImportFile, bool)`
+
+GetFilesOk returns a tuple with the Files field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFiles
+
+`func (o *NativeSBOM) SetFiles(v []ImportFile)`
+
+SetFiles sets Files field to given value.
+
+### HasFiles
+
+`func (o *NativeSBOM) HasFiles() bool`
+
+HasFiles returns a boolean if a field has been set.
+
+### SetFilesNil
+
+`func (o *NativeSBOM) SetFilesNil(b bool)`
+
+ SetFilesNil sets the value for Files to be an explicit nil
+
+### UnsetFiles
+`func (o *NativeSBOM) UnsetFiles()`
+
+UnsetFiles ensures that no value is present for Files, not even an explicit nil
 ### GetSource
 
 `func (o *NativeSBOM) GetSource() NativeSBOMSource`

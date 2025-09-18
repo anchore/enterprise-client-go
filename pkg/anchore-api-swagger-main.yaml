@@ -19604,6 +19604,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NativeSBOMPackage'
+        files:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/ImportFile'
         source:
           $ref: '#/components/schemas/NativeSBOMSource'
         distro:
@@ -20599,8 +20604,11 @@ components:
           format: date-time
         fix_observed_at:
           type: string
-          description: When the fix was observed
+          description: When the suggested_fix_version was first observed in the vulnerability feed.
           format: date-time
+        suggested_fix_version:
+          type: string
+          description: The recommended version of the package that contains a fix for the vulnerability. This is usually the version that is closest to the current version.
         is_kev:
           type: boolean
         epss:
