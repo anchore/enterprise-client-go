@@ -5496,6 +5496,96 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
       x-anchore-authz-action: listVulnAnnotations
+  /images/{image_digest}/vex/cyclonedx-json:
+    get:
+      tags:
+        - Images
+      summary: Get image VEX document in the CycloneDX JSON format
+      operationId: get_image_cyclonedx_json
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            type: string
+            format: path
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
+      responses:
+        200:
+          description: Image lookup success
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        403:
+          description: Not permitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        404:
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
+      x-anchore-authz-action: listVulnAnnotations
+  /images/{image_digest}/vex/cyclonedx-xml:
+    get:
+      tags:
+        - Images
+      summary: Get image VEX document in the CycloneDX XML format
+      operationId: get_image_cyclonedx_xml
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            type: string
+            format: path
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
+      responses:
+        200:
+          description: Image lookup success
+          content:
+            application/xml:
+              schema:
+                type: string
+        400:
+          description: Bad request
+        403:
+          description: Not permitted
+        404:
+          description: Image not found
+        500:
+          description: Internal error
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
+      x-anchore-authz-action: listVulnAnnotations
   /images/{image_digest}:
     get:
       tags:
@@ -20308,9 +20398,8 @@ components:
         metadata:
           type: object
           required:
-            - analyzed_at
             - anchorectl_version
-            - platform
+            - anchorectl_platform
           properties:
             analyzed_at:
               type: string
@@ -20320,6 +20409,10 @@ components:
               type: string
               description: The version of AnchoreCTL used to generate the result
             platform:
+              type: string
+              description: Deprecated, use anchorectl_platform instead. The platform of AnchoreCTL used to generate the result
+              deprecated: true
+            anchorectl_platform:
               type: string
               description: The platform of AnchoreCTL used to generate the result
         findings:
@@ -20344,6 +20437,7 @@ components:
                 type: array
                 items:
                   type: object
+                  additionalProperties: true
                   required:
                     - classification
                     - line_number
@@ -20376,9 +20470,8 @@ components:
         metadata:
           type: object
           required:
-            - analyzed_at
             - anchorectl_version
-            - platform
+            - anchorectl_platform
           properties:
             analyzed_at:
               type: string
@@ -20388,6 +20481,10 @@ components:
               type: string
               description: The version of AnchoreCTL used to generate the result
             platform:
+              type: string
+              description: The platform of AnchoreCTL used to generate the result
+              deprecated: true
+            anchorectl_platform:
               type: string
               description: The platform of AnchoreCTL used to generate the result
         findings:

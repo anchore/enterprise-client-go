@@ -23,7 +23,7 @@ var _ MappedNullable = &FileContents{}
 type FileContents struct {
 	// The media type of this result
 	MediaType string `json:"media_type"`
-	Metadata ContentSearchMetadata `json:"metadata"`
+	Metadata FileContentsMetadata `json:"metadata"`
 	Findings []FileContentsFindingsInner `json:"findings"`
 	AdditionalProperties map[string]interface{}
 }
@@ -34,7 +34,7 @@ type _FileContents FileContents
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFileContents(mediaType string, metadata ContentSearchMetadata, findings []FileContentsFindingsInner) *FileContents {
+func NewFileContents(mediaType string, metadata FileContentsMetadata, findings []FileContentsFindingsInner) *FileContents {
 	this := FileContents{}
 	this.MediaType = mediaType
 	this.Metadata = metadata
@@ -75,9 +75,9 @@ func (o *FileContents) SetMediaType(v string) {
 }
 
 // GetMetadata returns the Metadata field value
-func (o *FileContents) GetMetadata() ContentSearchMetadata {
+func (o *FileContents) GetMetadata() FileContentsMetadata {
 	if o == nil {
-		var ret ContentSearchMetadata
+		var ret FileContentsMetadata
 		return ret
 	}
 
@@ -86,7 +86,7 @@ func (o *FileContents) GetMetadata() ContentSearchMetadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value
 // and a boolean to check if the value has been set.
-func (o *FileContents) GetMetadataOk() (*ContentSearchMetadata, bool) {
+func (o *FileContents) GetMetadataOk() (*FileContentsMetadata, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -94,7 +94,7 @@ func (o *FileContents) GetMetadataOk() (*ContentSearchMetadata, bool) {
 }
 
 // SetMetadata sets field value
-func (o *FileContents) SetMetadata(v ContentSearchMetadata) {
+func (o *FileContents) SetMetadata(v FileContentsMetadata) {
 	o.Metadata = v
 }
 

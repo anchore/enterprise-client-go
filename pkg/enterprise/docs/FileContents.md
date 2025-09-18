@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MediaType** | **string** | The media type of this result | 
-**Metadata** | [**ContentSearchMetadata**](ContentSearchMetadata.md) |  | 
+**Metadata** | [**FileContentsMetadata**](FileContentsMetadata.md) |  | 
 **Findings** | [**[]FileContentsFindingsInner**](FileContentsFindingsInner.md) |  | 
 
 ## Methods
 
 ### NewFileContents
 
-`func NewFileContents(mediaType string, metadata ContentSearchMetadata, findings []FileContentsFindingsInner, ) *FileContents`
+`func NewFileContents(mediaType string, metadata FileContentsMetadata, findings []FileContentsFindingsInner, ) *FileContents`
 
 NewFileContents instantiates a new FileContents object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetMediaType sets MediaType field to given value.
 
 ### GetMetadata
 
-`func (o *FileContents) GetMetadata() ContentSearchMetadata`
+`func (o *FileContents) GetMetadata() FileContentsMetadata`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *FileContents) GetMetadataOk() (*ContentSearchMetadata, bool)`
+`func (o *FileContents) GetMetadataOk() (*FileContentsMetadata, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *FileContents) SetMetadata(v ContentSearchMetadata)`
+`func (o *FileContents) SetMetadata(v FileContentsMetadata)`
 
 SetMetadata sets Metadata field to given value.
 

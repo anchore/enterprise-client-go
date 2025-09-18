@@ -17,16 +17,16 @@ import (
 	"fmt"
 )
 
-// checks if the ContentSearchMetadata type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ContentSearchMetadata{}
+// checks if the FileContentsMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FileContentsMetadata{}
 
-// ContentSearchMetadata struct for ContentSearchMetadata
-type ContentSearchMetadata struct {
+// FileContentsMetadata struct for FileContentsMetadata
+type FileContentsMetadata struct {
 	// The time the result was analyzed
 	AnalyzedAt *time.Time `json:"analyzed_at,omitempty"`
 	// The version of AnchoreCTL used to generate the result
 	AnchorectlVersion string `json:"anchorectl_version"`
-	// Deprecated, use anchorectl_platform instead. The platform of AnchoreCTL used to generate the result
+	// The platform of AnchoreCTL used to generate the result
 	// Deprecated
 	Platform *string `json:"platform,omitempty"`
 	// The platform of AnchoreCTL used to generate the result
@@ -34,29 +34,29 @@ type ContentSearchMetadata struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _ContentSearchMetadata ContentSearchMetadata
+type _FileContentsMetadata FileContentsMetadata
 
-// NewContentSearchMetadata instantiates a new ContentSearchMetadata object
+// NewFileContentsMetadata instantiates a new FileContentsMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContentSearchMetadata(anchorectlVersion string, anchorectlPlatform string) *ContentSearchMetadata {
-	this := ContentSearchMetadata{}
+func NewFileContentsMetadata(anchorectlVersion string, anchorectlPlatform string) *FileContentsMetadata {
+	this := FileContentsMetadata{}
 	this.AnchorectlVersion = anchorectlVersion
 	this.AnchorectlPlatform = anchorectlPlatform
 	return &this
 }
 
-// NewContentSearchMetadataWithDefaults instantiates a new ContentSearchMetadata object
+// NewFileContentsMetadataWithDefaults instantiates a new FileContentsMetadata object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewContentSearchMetadataWithDefaults() *ContentSearchMetadata {
-	this := ContentSearchMetadata{}
+func NewFileContentsMetadataWithDefaults() *FileContentsMetadata {
+	this := FileContentsMetadata{}
 	return &this
 }
 
 // GetAnalyzedAt returns the AnalyzedAt field value if set, zero value otherwise.
-func (o *ContentSearchMetadata) GetAnalyzedAt() time.Time {
+func (o *FileContentsMetadata) GetAnalyzedAt() time.Time {
 	if o == nil || IsNil(o.AnalyzedAt) {
 		var ret time.Time
 		return ret
@@ -66,7 +66,7 @@ func (o *ContentSearchMetadata) GetAnalyzedAt() time.Time {
 
 // GetAnalyzedAtOk returns a tuple with the AnalyzedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentSearchMetadata) GetAnalyzedAtOk() (*time.Time, bool) {
+func (o *FileContentsMetadata) GetAnalyzedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.AnalyzedAt) {
 		return nil, false
 	}
@@ -74,7 +74,7 @@ func (o *ContentSearchMetadata) GetAnalyzedAtOk() (*time.Time, bool) {
 }
 
 // HasAnalyzedAt returns a boolean if a field has been set.
-func (o *ContentSearchMetadata) HasAnalyzedAt() bool {
+func (o *FileContentsMetadata) HasAnalyzedAt() bool {
 	if o != nil && !IsNil(o.AnalyzedAt) {
 		return true
 	}
@@ -83,12 +83,12 @@ func (o *ContentSearchMetadata) HasAnalyzedAt() bool {
 }
 
 // SetAnalyzedAt gets a reference to the given time.Time and assigns it to the AnalyzedAt field.
-func (o *ContentSearchMetadata) SetAnalyzedAt(v time.Time) {
+func (o *FileContentsMetadata) SetAnalyzedAt(v time.Time) {
 	o.AnalyzedAt = &v
 }
 
 // GetAnchorectlVersion returns the AnchorectlVersion field value
-func (o *ContentSearchMetadata) GetAnchorectlVersion() string {
+func (o *FileContentsMetadata) GetAnchorectlVersion() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -99,7 +99,7 @@ func (o *ContentSearchMetadata) GetAnchorectlVersion() string {
 
 // GetAnchorectlVersionOk returns a tuple with the AnchorectlVersion field value
 // and a boolean to check if the value has been set.
-func (o *ContentSearchMetadata) GetAnchorectlVersionOk() (*string, bool) {
+func (o *FileContentsMetadata) GetAnchorectlVersionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -107,13 +107,13 @@ func (o *ContentSearchMetadata) GetAnchorectlVersionOk() (*string, bool) {
 }
 
 // SetAnchorectlVersion sets field value
-func (o *ContentSearchMetadata) SetAnchorectlVersion(v string) {
+func (o *FileContentsMetadata) SetAnchorectlVersion(v string) {
 	o.AnchorectlVersion = v
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 // Deprecated
-func (o *ContentSearchMetadata) GetPlatform() string {
+func (o *FileContentsMetadata) GetPlatform() string {
 	if o == nil || IsNil(o.Platform) {
 		var ret string
 		return ret
@@ -124,7 +124,7 @@ func (o *ContentSearchMetadata) GetPlatform() string {
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated
-func (o *ContentSearchMetadata) GetPlatformOk() (*string, bool) {
+func (o *FileContentsMetadata) GetPlatformOk() (*string, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *ContentSearchMetadata) GetPlatformOk() (*string, bool) {
 }
 
 // HasPlatform returns a boolean if a field has been set.
-func (o *ContentSearchMetadata) HasPlatform() bool {
+func (o *FileContentsMetadata) HasPlatform() bool {
 	if o != nil && !IsNil(o.Platform) {
 		return true
 	}
@@ -142,12 +142,12 @@ func (o *ContentSearchMetadata) HasPlatform() bool {
 
 // SetPlatform gets a reference to the given string and assigns it to the Platform field.
 // Deprecated
-func (o *ContentSearchMetadata) SetPlatform(v string) {
+func (o *FileContentsMetadata) SetPlatform(v string) {
 	o.Platform = &v
 }
 
 // GetAnchorectlPlatform returns the AnchorectlPlatform field value
-func (o *ContentSearchMetadata) GetAnchorectlPlatform() string {
+func (o *FileContentsMetadata) GetAnchorectlPlatform() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -158,7 +158,7 @@ func (o *ContentSearchMetadata) GetAnchorectlPlatform() string {
 
 // GetAnchorectlPlatformOk returns a tuple with the AnchorectlPlatform field value
 // and a boolean to check if the value has been set.
-func (o *ContentSearchMetadata) GetAnchorectlPlatformOk() (*string, bool) {
+func (o *FileContentsMetadata) GetAnchorectlPlatformOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -166,11 +166,11 @@ func (o *ContentSearchMetadata) GetAnchorectlPlatformOk() (*string, bool) {
 }
 
 // SetAnchorectlPlatform sets field value
-func (o *ContentSearchMetadata) SetAnchorectlPlatform(v string) {
+func (o *FileContentsMetadata) SetAnchorectlPlatform(v string) {
 	o.AnchorectlPlatform = v
 }
 
-func (o ContentSearchMetadata) MarshalJSON() ([]byte, error) {
+func (o FileContentsMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -178,7 +178,7 @@ func (o ContentSearchMetadata) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ContentSearchMetadata) ToMap() (map[string]interface{}, error) {
+func (o FileContentsMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.AnalyzedAt) {
 		toSerialize["analyzed_at"] = o.AnalyzedAt
@@ -196,7 +196,7 @@ func (o ContentSearchMetadata) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *ContentSearchMetadata) UnmarshalJSON(data []byte) (err error) {
+func (o *FileContentsMetadata) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -219,15 +219,15 @@ func (o *ContentSearchMetadata) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varContentSearchMetadata := _ContentSearchMetadata{}
+	varFileContentsMetadata := _FileContentsMetadata{}
 
-	err = json.Unmarshal(data, &varContentSearchMetadata)
+	err = json.Unmarshal(data, &varFileContentsMetadata)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ContentSearchMetadata(varContentSearchMetadata)
+	*o = FileContentsMetadata(varFileContentsMetadata)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -242,38 +242,38 @@ func (o *ContentSearchMetadata) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableContentSearchMetadata struct {
-	value *ContentSearchMetadata
+type NullableFileContentsMetadata struct {
+	value *FileContentsMetadata
 	isSet bool
 }
 
-func (v NullableContentSearchMetadata) Get() *ContentSearchMetadata {
+func (v NullableFileContentsMetadata) Get() *FileContentsMetadata {
 	return v.value
 }
 
-func (v *NullableContentSearchMetadata) Set(val *ContentSearchMetadata) {
+func (v *NullableFileContentsMetadata) Set(val *FileContentsMetadata) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableContentSearchMetadata) IsSet() bool {
+func (v NullableFileContentsMetadata) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableContentSearchMetadata) Unset() {
+func (v *NullableFileContentsMetadata) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableContentSearchMetadata(val *ContentSearchMetadata) *NullableContentSearchMetadata {
-	return &NullableContentSearchMetadata{value: val, isSet: true}
+func NewNullableFileContentsMetadata(val *FileContentsMetadata) *NullableFileContentsMetadata {
+	return &NullableFileContentsMetadata{value: val, isSet: true}
 }
 
-func (v NullableContentSearchMetadata) MarshalJSON() ([]byte, error) {
+func (v NullableFileContentsMetadata) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableContentSearchMetadata) UnmarshalJSON(src []byte) error {
+func (v *NullableFileContentsMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
