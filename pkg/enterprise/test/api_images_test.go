@@ -215,6 +215,34 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ImagesAPIService GetImageCyclonedxJson", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageCyclonedxJson(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService GetImageCyclonedxXml", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageCyclonedxXml(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ImagesAPIService GetImageMetadataByType", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

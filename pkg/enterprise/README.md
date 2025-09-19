@@ -150,6 +150,8 @@ Class | Method | HTTP request | Description
 *ImagesAPI* | [**GetImageContentByTypeLicense**](docs/ImagesAPI.md#getimagecontentbytypelicense) | **Get** /images/{image_digest}/content/licenses | Get package licenses for an image
 *ImagesAPI* | [**GetImageContentByTypeMalware**](docs/ImagesAPI.md#getimagecontentbytypemalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
 *ImagesAPI* | [**GetImageContentSummary**](docs/ImagesAPI.md#getimagecontentsummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
+*ImagesAPI* | [**GetImageCyclonedxJson**](docs/ImagesAPI.md#getimagecyclonedxjson) | **Get** /images/{image_digest}/vex/cyclonedx-json | Get image VEX document in the CycloneDX JSON format
+*ImagesAPI* | [**GetImageCyclonedxXml**](docs/ImagesAPI.md#getimagecyclonedxxml) | **Get** /images/{image_digest}/vex/cyclonedx-xml | Get image VEX document in the CycloneDX XML format
 *ImagesAPI* | [**GetImageMetadataByType**](docs/ImagesAPI.md#getimagemetadatabytype) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
 *ImagesAPI* | [**GetImageOpenvex**](docs/ImagesAPI.md#getimageopenvex) | **Get** /images/{image_digest}/vex/openvex | Get image VEX document in the OpenVEX format
 *ImagesAPI* | [**GetImagePolicyCheckByDigest**](docs/ImagesAPI.md#getimagepolicycheckbydigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
@@ -529,6 +531,7 @@ Class | Method | HTTP request | Description
  - [FileContents](docs/FileContents.md)
  - [FileContentsFindingsInner](docs/FileContentsFindingsInner.md)
  - [FileContentsFindingsInnerLocation](docs/FileContentsFindingsInnerLocation.md)
+ - [FileContentsMetadata](docs/FileContentsMetadata.md)
  - [FilesContent](docs/FilesContent.md)
  - [GateSpec](docs/GateSpec.md)
  - [GenericNotificationPayload](docs/GenericNotificationPayload.md)

@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**GetImageContentByTypeLicense**](ImagesAPI.md#GetImageContentByTypeLicense) | **Get** /images/{image_digest}/content/licenses | Get package licenses for an image
 [**GetImageContentByTypeMalware**](ImagesAPI.md#GetImageContentByTypeMalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
 [**GetImageContentSummary**](ImagesAPI.md#GetImageContentSummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
+[**GetImageCyclonedxJson**](ImagesAPI.md#GetImageCyclonedxJson) | **Get** /images/{image_digest}/vex/cyclonedx-json | Get image VEX document in the CycloneDX JSON format
+[**GetImageCyclonedxXml**](ImagesAPI.md#GetImageCyclonedxXml) | **Get** /images/{image_digest}/vex/cyclonedx-xml | Get image VEX document in the CycloneDX XML format
 [**GetImageMetadataByType**](ImagesAPI.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
 [**GetImageOpenvex**](ImagesAPI.md#GetImageOpenvex) | **Get** /images/{image_digest}/vex/openvex | Get image VEX document in the OpenVEX format
 [**GetImagePolicyCheckByDigest**](ImagesAPI.md#GetImagePolicyCheckByDigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
@@ -1031,6 +1033,146 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetImageCyclonedxJson
+
+> string GetImageCyclonedxJson(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Get image VEX document in the CycloneDX JSON format
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageCyclonedxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageCyclonedxJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageCyclonedxJson`: string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageCyclonedxJson`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageCyclonedxJsonRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetImageCyclonedxXml
+
+> string GetImageCyclonedxXml(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Get image VEX document in the CycloneDX XML format
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageCyclonedxXml(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageCyclonedxXml``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageCyclonedxXml`: string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageCyclonedxXml`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageCyclonedxXmlRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

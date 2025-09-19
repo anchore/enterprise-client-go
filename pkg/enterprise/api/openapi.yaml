@@ -6091,6 +6091,106 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
       x-anchore-authz-action: listVulnAnnotations
+  /images/{image_digest}/vex/cyclonedx-json:
+    get:
+      operationId: get_image_cyclonedx_json
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          format: path
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Image lookup success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not permitted
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Image not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get image VEX document in the CycloneDX JSON format
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
+      x-anchore-authz-action: listVulnAnnotations
+  /images/{image_digest}/vex/cyclonedx-xml:
+    get:
+      operationId: get_image_cyclonedx_xml
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          format: path
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/xml:
+              schema:
+                type: string
+          description: Image lookup success
+        "400":
+          description: Bad request
+        "403":
+          description: Not permitted
+        "404":
+          description: Image not found
+        "500":
+          description: Internal error
+      summary: Get image VEX document in the CycloneDX XML format
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.vex
+      x-anchore-authz-action: listVulnAnnotations
   /images/{image_digest}:
     delete:
       operationId: delete_image
@@ -24751,6 +24851,7 @@ components:
           metadata:
             anchorectl_version: anchorectl_version
             analyzed_at: 2000-01-23T04:56:07.000+00:00
+            anchorectl_platform: anchorectl_platform
             platform: platform
           media_type: application/anchore.enterprise.local-analyze.secret-search.v1+json
           findings:
@@ -24786,6 +24887,7 @@ components:
           metadata:
             anchorectl_version: anchorectl_version
             analyzed_at: 2000-01-23T04:56:07.000+00:00
+            anchorectl_platform: anchorectl_platform
             platform: platform
           media_type: application/anchore.enterprise.local-analyze.file-contents.v1+json
           findings:
@@ -24801,6 +24903,7 @@ components:
           metadata:
             anchorectl_version: anchorectl_version
             analyzed_at: 2000-01-23T04:56:07.000+00:00
+            anchorectl_platform: anchorectl_platform
             platform: platform
           media_type: application/anchore.enterprise.local-analyze.secret-search.v1+json
           findings:
@@ -24940,6 +25043,7 @@ components:
         metadata:
           anchorectl_version: anchorectl_version
           analyzed_at: 2000-01-23T04:56:07.000+00:00
+          anchorectl_platform: anchorectl_platform
           platform: platform
         media_type: application/anchore.enterprise.local-analyze.secret-search.v1+json
         findings:
@@ -24994,6 +25098,7 @@ components:
         metadata:
           anchorectl_version: anchorectl_version
           analyzed_at: 2000-01-23T04:56:07.000+00:00
+          anchorectl_platform: anchorectl_platform
           platform: platform
         media_type: application/anchore.enterprise.local-analyze.file-contents.v1+json
         findings:
@@ -25012,7 +25117,7 @@ components:
           - application/anchore.enterprise.local-analyze.file-contents.v1+json
           type: string
         metadata:
-          $ref: '#/components/schemas/ContentSearch_metadata'
+          $ref: '#/components/schemas/FileContents_metadata'
         findings:
           items:
             $ref: '#/components/schemas/FileContents_findings_inner'
@@ -32412,6 +32517,7 @@ components:
       example:
         anchorectl_version: anchorectl_version
         analyzed_at: 2000-01-23T04:56:07.000+00:00
+        anchorectl_platform: anchorectl_platform
         platform: platform
       properties:
         analyzed_at:
@@ -32422,12 +32528,16 @@ components:
           description: The version of AnchoreCTL used to generate the result
           type: string
         platform:
+          deprecated: true
+          description: "Deprecated, use anchorectl_platform instead. The platform\
+            \ of AnchoreCTL used to generate the result"
+          type: string
+        anchorectl_platform:
           description: The platform of AnchoreCTL used to generate the result
           type: string
       required:
-      - analyzed_at
+      - anchorectl_platform
       - anchorectl_version
-      - platform
       type: object
     ContentSearch_findings_inner_location:
       example:
@@ -32443,6 +32553,7 @@ components:
       - path
       type: object
     ContentSearch_findings_inner_content_searches_inner:
+      additionalProperties: true
       example:
         line_number: 0
         seek_position: 1
@@ -32493,6 +32604,31 @@ components:
       required:
       - content_searches
       - location
+      type: object
+    FileContents_metadata:
+      example:
+        anchorectl_version: anchorectl_version
+        analyzed_at: 2000-01-23T04:56:07.000+00:00
+        anchorectl_platform: anchorectl_platform
+        platform: platform
+      properties:
+        analyzed_at:
+          description: The time the result was analyzed
+          format: date-time
+          type: string
+        anchorectl_version:
+          description: The version of AnchoreCTL used to generate the result
+          type: string
+        platform:
+          deprecated: true
+          description: The platform of AnchoreCTL used to generate the result
+          type: string
+        anchorectl_platform:
+          description: The platform of AnchoreCTL used to generate the result
+          type: string
+      required:
+      - anchorectl_platform
+      - anchorectl_version
       type: object
     FileContents_findings_inner_location:
       example:

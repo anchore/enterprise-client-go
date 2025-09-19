@@ -148,6 +148,7 @@ docs/FileContentSearchResult.md
 docs/FileContents.md
 docs/FileContentsFindingsInner.md
 docs/FileContentsFindingsInnerLocation.md
+docs/FileContentsMetadata.md
 docs/FilesContent.md
 docs/GateSpec.md
 docs/GenericNotificationPayload.md
@@ -548,6 +549,7 @@ model_file_content_search_result.go
 model_file_contents.go
 model_file_contents_findings_inner.go
 model_file_contents_findings_inner_location.go
+model_file_contents_metadata.go
 model_files_content.go
 model_gate_spec.go
 model_generic_notification_payload.go
