@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Classification** | **string** |  | 
+**Regex** | Pointer to **string** |  | [optional] 
 **LineNumber** | **int32** |  | 
 **LineOffset** | **int32** |  | 
 **SeekPosition** | **int32** |  | 
@@ -48,6 +49,31 @@ and a boolean to check if the value has been set.
 
 SetClassification sets Classification field to given value.
 
+
+### GetRegex
+
+`func (o *ContentSearchFindingsInnerContentSearchesInner) GetRegex() string`
+
+GetRegex returns the Regex field if non-nil, zero value otherwise.
+
+### GetRegexOk
+
+`func (o *ContentSearchFindingsInnerContentSearchesInner) GetRegexOk() (*string, bool)`
+
+GetRegexOk returns a tuple with the Regex field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegex
+
+`func (o *ContentSearchFindingsInnerContentSearchesInner) SetRegex(v string)`
+
+SetRegex sets Regex field to given value.
+
+### HasRegex
+
+`func (o *ContentSearchFindingsInnerContentSearchesInner) HasRegex() bool`
+
+HasRegex returns a boolean if a field has been set.
 
 ### GetLineNumber
 
