@@ -1,0 +1,44 @@
+# Anchore Enterprise Go Client
+
+This is a Go client library for the Anchore Enterprise API, providing programmatic access to container security scanning, vulnerability assessment, and policy management capabilities.
+
+## Project Overview
+
+The enterprise-client-go is an auto-generated Go client based on the Anchore Enterprise OpenAPI specification. It enables developers to integrate Anchore Enterprise security features into their Go applications.
+
+## Key Features
+
+- Container image vulnerability scanning
+- Security policy evaluation and compliance checking
+- Software Bill of Materials (SBOM) generation and analysis
+- Registry integration and image monitoring
+- User and role-based access control (RBAC)
+- Notification and alerting management
+- Inventory tracking for Kubernetes and ECS deployments
+
+## Architecture
+
+The client is organized into several API modules:
+- **Images API**: Container image analysis and vulnerability scanning
+- **Policies API**: Security policy management and evaluation
+- **Vulnerabilities API**: Vulnerability data and annotations
+- **Applications API**: Application version tracking and SBOM management
+- **Integrations API**: External service integrations
+- **RBAC API**: User and permission management
+- **System API**: System configuration and health monitoring
+
+## Usage
+
+This library is intended for use as a dependency in other Go projects, not as a standalone executable. It provides type-safe Go structs and methods for all Anchore Enterprise API endpoints.
+
+## Code Generation
+
+The client code is auto-generated from the Anchore Enterprise OpenAPI specification. To regenerate the client code, update the `ENTERPRISE_REF` in the Makefile and run `make`.
+
+## Security Focus
+
+All functionality is designed for defensive security purposes:
+- Vulnerability detection and remediation
+- Compliance monitoring and reporting  
+- Secure software supply chain management
+- Container security best practices enforcement
