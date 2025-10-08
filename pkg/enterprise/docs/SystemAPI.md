@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**GetServicesByNameAndHost**](SystemAPI.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
 [**GetStatus**](SystemAPI.md#GetStatus) | **Get** /status | Service status
 [**GetStigEntitlement**](SystemAPI.md#GetStigEntitlement) | **Get** /system/stig-entitlement | Check STIG entitlement status
+[**GetStigProfiles**](SystemAPI.md#GetStigProfiles) | **Get** /stig-profiles | Download STIG profiles database
 [**GetSystemFeed**](SystemAPI.md#GetSystemFeed) | **Get** /system/feeds/{feed} | 
 [**GetSystemFeeds**](SystemAPI.md#GetSystemFeeds) | **Get** /system/feeds | list feeds operations and information
 [**HealthCheck**](SystemAPI.md#HealthCheck) | **Get** /health | 
@@ -725,6 +726,67 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetStigProfiles
+
+> *os.File GetStigProfiles(ctx).Execute()
+
+Download STIG profiles database
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetStigProfiles(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetStigProfiles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStigProfiles`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetStigProfiles`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetStigProfilesRequest struct via the builder pattern
+
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

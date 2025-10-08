@@ -1,0 +1,13 @@
+diff --git a/pkg/experimental/model_api_error_response.go b/pkg/experimental/model_api_error_response.go
+index c279e616..0c5e0d83 100644
+--- a/pkg/experimental/model_api_error_response.go
++++ b/pkg/experimental/model_api_error_response.go
+@@ -156,7 +156,7 @@ func (o *ApiErrorResponse) GetDetail() interface{} {
+ // and a boolean to check if the value has been set.
+ func (o *ApiErrorResponse) GetDetailOk() (interface{}, bool) {
+ 	if o == nil || IsNil(o.Detail) {
+-		return interface{}{}, false
++		return nil, false
+ 	}
+ 	return o.Detail, true
+ }

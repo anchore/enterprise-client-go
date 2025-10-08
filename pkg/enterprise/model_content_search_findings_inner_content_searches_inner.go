@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.13.0
+API version: 2.14.0
 Contact: dev@anchore.com
 */
 
@@ -22,6 +22,7 @@ var _ MappedNullable = &ContentSearchFindingsInnerContentSearchesInner{}
 // ContentSearchFindingsInnerContentSearchesInner struct for ContentSearchFindingsInnerContentSearchesInner
 type ContentSearchFindingsInnerContentSearchesInner struct {
 	Classification string `json:"classification"`
+	Regex *string `json:"regex,omitempty"`
 	LineNumber int32 `json:"line_number"`
 	LineOffset int32 `json:"line_offset"`
 	SeekPosition int32 `json:"seek_position"`
@@ -75,6 +76,38 @@ func (o *ContentSearchFindingsInnerContentSearchesInner) GetClassificationOk() (
 // SetClassification sets field value
 func (o *ContentSearchFindingsInnerContentSearchesInner) SetClassification(v string) {
 	o.Classification = v
+}
+
+// GetRegex returns the Regex field value if set, zero value otherwise.
+func (o *ContentSearchFindingsInnerContentSearchesInner) GetRegex() string {
+	if o == nil || IsNil(o.Regex) {
+		var ret string
+		return ret
+	}
+	return *o.Regex
+}
+
+// GetRegexOk returns a tuple with the Regex field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentSearchFindingsInnerContentSearchesInner) GetRegexOk() (*string, bool) {
+	if o == nil || IsNil(o.Regex) {
+		return nil, false
+	}
+	return o.Regex, true
+}
+
+// HasRegex returns a boolean if a field has been set.
+func (o *ContentSearchFindingsInnerContentSearchesInner) HasRegex() bool {
+	if o != nil && !IsNil(o.Regex) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegex gets a reference to the given string and assigns it to the Regex field.
+func (o *ContentSearchFindingsInnerContentSearchesInner) SetRegex(v string) {
+	o.Regex = &v
 }
 
 // GetLineNumber returns the LineNumber field value
@@ -184,6 +217,9 @@ func (o ContentSearchFindingsInnerContentSearchesInner) MarshalJSON() ([]byte, e
 func (o ContentSearchFindingsInnerContentSearchesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["classification"] = o.Classification
+	if !IsNil(o.Regex) {
+		toSerialize["regex"] = o.Regex
+	}
 	toSerialize["line_number"] = o.LineNumber
 	toSerialize["line_offset"] = o.LineOffset
 	toSerialize["seek_position"] = o.SeekPosition
@@ -236,6 +272,7 @@ func (o *ContentSearchFindingsInnerContentSearchesInner) UnmarshalJSON(data []by
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "classification")
+		delete(additionalProperties, "regex")
 		delete(additionalProperties, "line_number")
 		delete(additionalProperties, "line_offset")
 		delete(additionalProperties, "seek_position")

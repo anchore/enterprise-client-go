@@ -1,0 +1,3167 @@
+openapi: 3.0.1
+info:
+  title: Anchore Experimental API
+  description: This is the Anchore Experiment API. Interfaces in this specification are unstable and will change in breaking ways between releases of Anchore Enterprise.
+  contact:
+    email: dev@anchore.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.9.1
+servers:
+  - url: /exp
+tags:
+  - name: System
+    description: System
+  - name: Images
+    description: Image Management
+paths:
+  /:
+    get:
+      tags:
+        - System
+      description: Simple status check
+      operationId: ping
+      responses:
+        200:
+          description: Version check response, returns the api version prefix (e.g. 'v2')
+          content:
+            application/json:
+              schema:
+                type: string
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
+  /images:
+    get:
+      tags:
+        - Images
+      summary: Summarize images by registry and repository
+      description: Count tags and show subscription status per repository
+      operationId: summary_images
+      parameters:
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - registry
+                - repo
+                - tag_count
+                - latest_analyzed_at
+                - alert
+                - watch_repo
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: filter
+          in: query
+          description: >-
+            Filter against 'registry', 'repo', or 'tag_count' fields,
+            using partial or full string match
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of rows to return
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Page number to return, one's based
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnchoreSummaryImages"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: listImages
+  /images/registry:
+    get:
+      tags:
+        - Images
+      summary: Summarize image registry
+      description: List repos within a registry including analysis stats
+      operationId: summary_images_for_registry
+      parameters:
+        - name: registry
+          in: query
+          description: Registry name
+          required: true
+          schema:
+            type: string
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - repo
+                - image_count
+                - latest_analyzed_at
+                - alert
+                - watch_repo
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: filter
+          in: query
+          description: Filter against 'repo' field, using partial or full string match
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of rows to return
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Page number to return, one's based
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnchoreSummaryImageRegistry"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: listImages
+  /images/repo:
+    get:
+      tags:
+        - Images
+      summary: Summarize image repository
+      description: List tags within a registry/repo including image count and last_seen inventory
+      operationId: summary_images_for_repo
+      parameters:
+        - name: registry
+          in: query
+          description: Registry name
+          required: true
+          schema:
+            type: string
+        - name: repo
+          in: query
+          description: Repository name
+          required: true
+          schema:
+            type: string
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - tag
+                - analysis_status
+                - image_count
+                - latest_tag_detected_at
+                - image_digest
+                - alert
+                - watch_tag
+                - last_seen
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: filter
+          in: query
+          description: >-
+            Filter against 'tag', 'analysis_status', or 'image_digest' fields,
+            using partial or full string match
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of rows to return
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Page number to return, one's based
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnchoreSummaryImageRepo"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: listImages
+  /images/tag:
+    get:
+      tags:
+        - Images
+      summary: Summary image digests for a registry/repo:tag
+      description: List digests for a given registry/repo:tag including last_seen inventory
+      operationId: summary_images_for_tag
+      parameters:
+        - name: registry
+          in: query
+          description: Registry name
+          required: true
+          schema:
+            type: string
+        - name: repo
+          in: query
+          description: Repository name
+          required: true
+          schema:
+            type: string
+        - name: tag
+          in: query
+          description: Tag name
+          required: true
+          schema:
+            type: string
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - analysis_status
+                - image_digest
+                - tag_detected_at
+                - analyzed_at
+                - image_id
+                - last_seen
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: filter
+          in: query
+          description: >-
+            Filter against 'image_digest', 'image_id', or 'analysis_status' fields,
+            using partial or full string match
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of rows to return
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Page number to return, one's based
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnchoreSummaryImageTag"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: listImages
+  /kubernetes-clusters:
+    get:
+      tags:
+        - Inventories
+      summary: Return a summary of Kubernetes clusters and namespaces for this account
+      description: Return a summary of Kubernetes clusters and namespaces for this account
+      operationId: get_kubernetes_clusters
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnchoreSummaryKubernetesClusters"
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesClusters
+  /kubernetes-vulnerabilities-summary:
+    get:
+      tags:
+        - Inventories
+      summary: Return a summary of vulnerabilities found within the Kubernetes inventory for this account
+      description: Return a summary of vulnerabilities found within the Kubernetes inventory for this account
+      operationId: get_kubernetes_vulnerabilities_summary
+      parameters:
+        - name: context
+          in: query
+          description: Matches on an exact cluster name or exact cluster/namespace combination
+          schema:
+            type: string
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnchoreSummaryKubernetesVulnerabilities"
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesVulnerabilities
+  /sboms/{sbom_uuid}/revisions/{revision_uuid}/file:
+    get:
+      tags:
+        - SBOM Management
+      summary: Download the content of a specific revision of a given SBOM revision
+      operationId: get_sbom_revision_file
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type: string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: revision_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        200:
+          description: success
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: Not Found
+          content: { }
+        500:
+          description: Internal Error
+          content: { }
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sboms/{sbom_uuid}/revisions/{revision_uuid}:
+    get:
+      tags:
+        - SBOM Management
+      summary: Get the metadata for a specific revision of a given SBOM
+      operationId: get_sbom_revision
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: revision_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMDetail"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+    delete:
+      tags:
+        - SBOM Management
+      summary: Delete a specific revision of a given SBOM
+      operationId: delete_sbom_revision
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: revision_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        204:
+          description: success
+          content: {}
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: deleteAsset
+  /sboms/{sbom_uuid}/file:
+    get:
+      tags:
+        - SBOM Management
+      summary: Download the content of the latest revision of a given SBOM
+      operationId: get_sbom_file
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        200:
+          description: success
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: Not Found
+          content: { }
+        500:
+          description: Internal Error
+          content: { }
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sboms/{sbom_uuid}/packages:
+    get:
+      tags:
+        - SBOM Management
+      summary: Return the package information for the latest revision of a given SBOM, this is sorted
+        alphabetically by default
+      operationId: get_latest_sbom_packages_by_uuid
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: limit
+          in: query
+          description: Maximum number of rows to return per page
+          schema:
+            type: integer
+            default: 1000
+        - name: page
+          in: query
+          description: Page number to return
+          schema:
+            type: integer
+            default: 1
+        - name: order_by
+          in: query
+          description: Field name to order by, ascending by default
+          schema:
+            type: string
+            enum:
+              - name
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of the specified order_by
+            value to be descending (true) instead of ascending (false)
+          schema:
+            type: boolean
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMPackageDetail"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sboms/{sbom_uuid}/vulnerabilities/detail-csv:
+    get:
+      tags:
+        - SBOM Management
+      summary: >-
+        Download a csv file containing a list of package 
+        vulnerabilities found within a given SBOM during the most recent scan.
+      operationId: get_sbom_vulnerabilities_csv
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: force_refresh
+          in: query
+          description: Force a re-scan of SBOM vulnerabilities before returning results
+          schema:
+            type: boolean
+            default: false
+        - name: anchore_score
+          in: query
+          description: The minimum Anchore Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: cvss_score
+          in: query
+          description: The minimum CVSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_score
+          in: query
+          description: The minimum EPSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_percentile
+          in: query
+          description: The minimum EPSS Percentile to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: is_kev
+          in: query
+          description: Filter results based on presence in the CISA Known Exploitable Vulnerabilities list
+          schema:
+            type: boolean
+        - name: severity
+          in: query
+          description: The minimum severity to be included in the results
+          schema:
+            type: string
+            enum:
+              - unknown
+              - negligible
+              - low
+              - medium
+              - high
+              - critical
+        - name: last_found_after
+          in: query
+          description: The earliest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: last_found_before
+          in: query
+          description: The latest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - cve
+                - anchore_score
+                - cvss_score
+                - epss_score
+                - epss_percentile
+                - is_kev
+                - severity
+                - advisory
+                - last_found_at
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+      responses:
+        200:
+          description: success
+          content:
+            application/csv:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sboms/{sbom_uuid}/vulnerabilities:
+    get:
+      tags:
+        - SBOM Management
+      summary: >-
+        Get a list of vulnerabilities found within a given SBOM during the most recent scan.
+        Returns summary data of the complete result set and a list of the first 100 results.
+      operationId: list_sbom_vulnerabilities
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: force_refresh
+          in: query
+          description: Force a re-scan of SBOM vulnerabilities before returning results
+          schema:
+            type: boolean
+            default: false
+        - name: anchore_score
+          in: query
+          description: The minimum Anchore Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: cvss_score
+          in: query
+          description: The minimum CVSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_score
+          in: query
+          description: The minimum EPSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_percentile
+          in: query
+          description: The minimum EPSS Percentile to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: is_kev
+          in: query
+          description: Filter results based on presence in the CISA Known Exploitable Vulnerabilities list
+          schema:
+            type: boolean
+        - name: severity
+          in: query
+          description: The minimum severity to be included in the results
+          schema:
+            type: string
+            enum:
+              - unknown
+              - negligible
+              - low
+              - medium
+              - high
+              - critical
+        - name: last_found_after
+          in: query
+          description: The earliest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: last_found_before
+          in: query
+          description: The latest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - cve
+                - anchore_score
+                - cvss_score
+                - epss_score
+                - epss_percentile
+                - is_kev
+                - severity
+                - advisory
+                - last_found_at
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMVulnerabilityList"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sboms/{sbom_uuid}:
+    get:
+      tags:
+        - SBOM Management
+      summary: Get the metadata of the latest revision of a given SBOM
+      operationId: get_latest_sbom_by_uuid
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMDetail"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+    patch:
+      tags:
+        - SBOM Management
+      summary: >-
+        Update the properties of the given SBOM.
+        Existing annotations and group memberships will be updated, not be replaced.
+      operationId: patch_sbom
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      requestBody:
+        description: The SBOM properties to be updated
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/SBOMUpdateRequest"
+        required: true
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMDetail"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: updateAsset
+    put:
+      tags:
+        - SBOM Management
+      summary: Update the properties of the given SBOM. Replaces all existing annotations and group memberships.
+      operationId: put_sbom
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      requestBody:
+        description: The SBOM properties to be updated
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/SBOMUpdateRequest"
+        required: true
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMDetail"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: updateAsset
+    delete:
+      tags:
+        - SBOM Management
+      summary: Delete an SBOM and all associated document revisions
+      operationId: delete_sbom
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: sbom_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        204:
+          description: success
+          content: {}
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: deleteAsset
+  /sboms:
+    get:
+      tags:
+        - SBOM Management
+      summary: Get a list of all SBOMs belonging to your account
+      operationId: list_sboms
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: name
+          in: query
+          description: sbom name, not case sensitive
+          schema:
+            type: string
+        - name: version
+          in: query
+          description: sbom version
+          schema:
+            type: string
+        - name: groups
+          in: query
+          description: A list of Group UUIDs
+          schema:
+            type: array
+            items:
+              type: string
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - name
+                - version
+                - created_at
+                - updated_at
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: limit
+          in: query
+          description: Maximum number of rows to return per page
+          schema:
+            type: integer
+            default: 1000
+        - name: page
+          in: query
+          description: Page number to return
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMDetailList"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: listAssets
+    post:
+      tags:
+        - SBOM Management
+      summary: Add an SBOM to your SBOM library
+      operationId: add_sbom
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+      requestBody:
+        description: The SBOM file to be uploaded
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/SBOMCreateRequest"
+        required: true
+      responses:
+        201:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SBOMDetail"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: createAsset
+  /sbom-groups/memberships:
+    patch:
+      tags:
+        - SBOM Management
+      summary: >-
+        Modify the set of SBOMs belonging to a set of Groups to simplify bulk updates.
+        To modify the set of SBOMs belonging to a single group, use /sbom-groups/{group_uuid}/memberships.
+        Returns a list of Groups and the SBOM UUIDs belonging to each Group after the requested changes.
+        Limited to a maximum of 10,000 additions and 10,000 removals per group, except when using remove_all.
+      operationId: bulk_modify_sbom_group_memberships
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SBOMBulkGroupMembershipRequest"
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMBulkGroupMembershipResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: updateAsset
+  /sbom-groups/{group_uuid}/memberships:
+    patch:
+      tags:
+        - SBOM Management
+      summary: >- 
+        Modify the set of SBOMs belonging to a given Group.
+        Returns a list of SBOM UUIDs belonging to the Group after the requested changes.
+        Limited to a maximum of 10,000 additions and 10,000 removals in a single request, except when using remove_all.
+      operationId: modify_sbom_group_memberships
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SBOMGroupMembershipRequest"
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMGroupMembershipResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: updateAsset
+  /sbom-groups/{group_uuid}/sbom-bundle:
+    get:
+      tags:
+        - SBOM Management
+      summary: Download a zip file containing all SBOMs from a given group
+      operationId: get_sbom_group_zip
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        200:
+          description: success
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: Not Found
+          content: { }
+        500:
+          description: Internal Error
+          content: { }
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sbom-groups/{group_uuid}/vulnerabilities/detail-csv:
+    get:
+      tags:
+        - SBOM Management
+      summary: >-
+        Download a csv file containing a list of package vulnerabilities found within
+        the SBOMs belonging to the given SBOM Group during the most recent scans.
+      operationId: get_sbom_group_vulnerabilities_csv
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: anchore_score
+          in: query
+          description: The minimum Anchore Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: cvss_score
+          in: query
+          description: The minimum CVSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_score
+          in: query
+          description: The minimum EPSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_percentile
+          in: query
+          description: The minimum EPSS Percentile to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: is_kev
+          in: query
+          description: Filter results based on presence in the CISA Known Exploitable Vulnerabilities list
+          schema:
+            type: boolean
+        - name: severity
+          in: query
+          description: The minimum severity to be included in the results
+          schema:
+            type: string
+            enum:
+              - unknown
+              - negligible
+              - low
+              - medium
+              - high
+              - critical
+        - name: last_found_after
+          in: query
+          description: The earliest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: last_found_before
+          in: query
+          description: The latest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - cve
+                - anchore_score
+                - cvss_score
+                - epss_score
+                - epss_percentile
+                - is_kev
+                - severity
+                - advisory
+                - last_found_at
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+      responses:
+        200:
+          description: success
+          content:
+            application/csv:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sbom-groups/{group_uuid}/vulnerabilities:
+    get:
+      tags:
+        - SBOM Management
+      summary: >-
+        Get a list of vulnerabilities found within the SBOMs belonging to the given SBOM Group during the most recent scans. 
+        Returns summary data of the complete result set and a list of the first 100 results.
+      operationId: list_sbom_group_vulnerabilities
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+        - name: anchore_score
+          in: query
+          description: The minimum Anchore Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: cvss_score
+          in: query
+          description: The minimum CVSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_score
+          in: query
+          description: The minimum EPSS Score to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: epss_percentile
+          in: query
+          description: The minimum EPSS Percentile to be included in the results
+          schema:
+            type: number
+            format: float
+        - name: is_kev
+          in: query
+          description: Filter results based on presence in the CISA Known Exploitable Vulnerabilities list
+          schema:
+            type: boolean
+        - name: severity
+          in: query
+          description: The minimum severity to be included in the results
+          schema:
+            type: string
+            enum:
+              - unknown
+              - negligible
+              - low
+              - medium
+              - high
+              - critical
+        - name: last_found_after
+          in: query
+          description: The earliest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: last_found_before
+          in: query
+          description: The latest last_found_at date to be included in the results
+          schema:
+            type: string
+            format: date-time
+            example: 2024-12-31T14:40:46
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - cve
+                - anchore_score
+                - cvss_score
+                - epss_score
+                - epss_percentile
+                - is_kev
+                - severity
+                - advisory
+                - last_found_at
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: mock_data
+          in: query
+          description: Returns mock data if true. For testing purposes only.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMVulnerabilityList'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+  /sbom-groups/{group_uuid}:
+    get:
+      tags:
+        - SBOM Management
+      summary: Get the details of a specific SBOM Group
+      operationId: get_sbom_group_by_uuid
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMGroupDetail'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: getAsset
+    put:
+      tags:
+        - SBOM Management
+      summary: Update the details of a specific SBOM Group
+      operationId: update_sbom_group
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      requestBody:
+        description: Properties of the Group to be updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  # Disallow whitespace-only
+                  pattern: ^(?!\s*$).+
+                version:
+                  type: string
+                  minLength: 1
+                  # Disallow whitespace-only
+                  pattern: ^(?!\s*$).+
+                description:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMGroupDetail'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: updateAsset
+    delete:
+      tags:
+        - SBOM Management
+      summary: Delete an SBOM Group
+      operationId: delete_sbom_group
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        204:
+          description: success
+          content: {}
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: deleteAsset
+  /sbom-groups:
+    get:
+      tags:
+        - SBOM Management
+      summary: Get a list of SBOM Groups belonging to your account
+      operationId: list_sbom_groups
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+        - name: name
+          in: query
+          description: group name, not case sensitive
+          schema:
+            type: string
+        - name: version
+          in: query
+          description: group version
+          schema:
+            type: string
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - name
+                - version
+                - created_at
+                - updated_at
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: limit
+          in: query
+          description: Maximum number of rows to return per page
+          schema:
+            type: integer
+            default: 1000
+        - name: page
+          in: query
+          description: Page number to return
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMGroupDetailList'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: listAssets
+    post:
+      tags:
+        - SBOM Management
+      summary: Create an SBOM Group
+      operationId: create_sbom_group
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: The account name used for the resource scope of this request as user permissions allow
+          schema:
+            type:
+              string
+      requestBody:
+        description: Properties of the Group to be created
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - version
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  # Disallow whitespace-only
+                  pattern: ^(?!\s*$).+
+                version:
+                  type: string
+                  minLength: 1
+                  # Disallow whitespace-only
+                  pattern: ^(?!\s*$).+
+                description:
+                  type: string
+        required: true
+      responses:
+        201:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMGroupDetail'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        409:
+          description: Already Exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sbom_management
+      x-anchore-authz-action: createAsset
+  /kubernetes-images-summary:
+    get:
+      tags:
+        - Runtime Images
+      summary: Summary of Kubernetes runtime images for this account
+      description: Summary of Kubernetes runtime images for this account
+      operationId: get_kubernetes_images
+      parameters:
+        - name: order_by
+          in: query
+          description: List of field name(s) to order by, ascending by default
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - analysis_status
+                - compliant
+                - context
+                - image_tag
+                - reported_digest
+                - last_analyzed
+                - last_seen
+                - total_vulns
+        - name: order_by_descending
+          in: query
+          description: >-
+            Configures the sort order of each specified order_by
+            column to be descending (true) instead of ascending (false)
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: boolean
+        - name: context
+          in: query
+          description: Matches on an exact cluster name or exact cluster/namespace combination
+          schema:
+            type: string
+        - name: evaluated
+          in: query
+          description: Filter by evaluated
+          schema:
+            type: boolean
+        - name: compliant
+          in: query
+          description: Filter by compliance
+          schema:
+            type: boolean
+        - name: severity
+          in: query
+          description: Results will include images with at least one vulnerability matching any of the given severities
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - critical
+                - high
+                - medium
+                - low
+                - negligible
+                - unknown
+        - name: filter
+          in: query
+          description: >-
+            Filter against 'image_tag', 'reported_digest', or 'context' fields,
+            using partial or full string match
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of rows to return
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Page number to return, one's based
+          schema:
+            type: integer
+            default: 1
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnchoreSummaryRuntimeImages"
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: listRuntimeInventories
+  /system/analysis-statistics:
+    get:
+      tags:
+        - System
+      summary: Get system wide analysis statistics
+      operationId: get_analysis_statistics
+      responses:
+        "200":
+          description: Statistics on image analysis statuses
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisStatisticsResponse"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
+  /system/features:
+    get:
+      tags:
+        - System
+      summary: Get features and whether they are enabled
+      operationId: list_features
+      responses:
+        200:
+          description: List of features and whether they are enabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeatureList"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
+  /system/package-overrides/licenses:
+    get:
+      summary: List all license overrides by package purl
+      operationId: get_package_license_overrides
+      parameters:
+        - name: purl
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: '^[^:]+:[^/]+/[^@]+@[^?]+$'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PackageLicenseOverride'
+        '400':
+            description: Bad Request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-anchore-authz-action: listLicenseOverrides
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+    post:
+      summary: Create new license overrides for a package
+      operationId: create_package_license_overrides
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageLicenseOverride'
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageLicenseOverride'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '409':
+          description: Duplicate override for the same PURL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-anchore-authz-action: createLicenseOverride
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+    put:
+      summary: Update existing license overrides
+      operationId: update_package_license_overrides
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackageLicenseOverride'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageLicenseOverride'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-anchore-authz-action: updateLicenseOverride
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+  /system/services-health:
+    get:
+      tags:
+        - System
+      summary: List the health state of all services in the system.  This is an unauthenticated route.
+      operationId: list_services_health
+      responses:
+        200:
+          description: Services health listing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceList'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
+  /system/statistics:
+    get:
+      tags:
+        - Statistics
+      summary: List System Statistics
+      description: Returns list of system statistics with total all-time counts.
+        A time-based breakdown will be included if the detail parameter is set to True.
+      operationId: get_system_statistics
+      parameters:
+        - name: detail
+          in: query
+          description: Include time-based breakdown of statistics
+          schema:
+            type: boolean
+      responses:
+        200:
+          description: List of system statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemStatisticsList"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
+components:
+  schemas:
+    AnalysisStatisticsByType:
+      type: object
+      properties:
+        images:
+          $ref: "#/components/schemas/AnalysisStatistics"
+          description: Statistics on image analysis statuses
+        sources:
+          $ref: "#/components/schemas/AnalysisStatistics"
+          description: Statistics on source analysis statuses
+    AnalysisStatistics:
+      type: object
+      properties:
+        num_analyzed:
+          type: integer
+          description: The number of images in the "analyzed" state
+        num_analyzing:
+          type: integer
+          description: The number of images in the "analyzing" state
+        num_not_analyzed:
+          type: integer
+          description: The number of images in the "not_analyzed" state
+        num_failed:
+          type: integer
+          description: The number of images in the "failed" state
+    AnalysisStatisticsAccount:
+      type: object
+      properties:
+        status_summary:
+          $ref: "#/components/schemas/AnalysisStatisticsByType"
+          description: Statistics on image and source analysis statuses
+        account_name:
+          type: string
+          description: The name of the account
+    AnalysisStatisticsResponse:
+      type: object
+      properties:
+        generated_at:
+          type: string
+          format: date-time
+          description: The time the statistics were generated
+        global:
+          $ref: "#/components/schemas/AnalysisStatisticsByType"
+        details:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnalysisStatisticsAccount"
+    AnchoreSummaryImages:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnchoreSummaryImagesItem"
+        total_rows:
+          type: integer
+      description: a list of AnchoreSummaryImagesItem objects
+    AnchoreSummaryImagesItem:
+      type: object
+      properties:
+        registry:
+          type: string
+        repo:
+          type: string
+        tag_count:
+          type: integer
+        latest_analyzed_at:
+          type: string
+          format: date-time
+        alert:
+          type: boolean
+        alert_id:
+          type: string
+        watch_repo:
+          type: boolean
+        watch_repo_id:
+          type: string
+    AnchoreSummaryImageRegistry:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnchoreSummaryImageRegistryItem"
+        total_rows:
+          type: integer
+      description: a list of AnchoreSummaryImageRegistryItem objects
+    AnchoreSummaryImageRegistryItem:
+      type: object
+      properties:
+        repo:
+          type: string
+        analyzed:
+          type: integer
+        not_analyzed:
+          type: integer
+        analyzing:
+          type: integer
+        analysis_failed:
+          type: integer
+        latest_analyzed_at:
+          type: string
+          format: date-time
+        alert:
+          type: boolean
+        alert_id:
+          type: string
+        watch_repo:
+          type: boolean
+        watch_repo_id:
+          type: string
+    AnchoreSummaryImageRepo:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnchoreSummaryImageRepoItem"
+        total_rows:
+          type: integer
+      description: a list of AnchoreSummaryImageRepoItem objects
+    AnchoreSummaryImageRepoItem:
+      type: object
+      properties:
+        tag:
+          type: string
+        analysis_status:
+          type: string
+        image_count:
+          type: integer
+        latest_tag_detected_at:
+          type: string
+          format: date-time
+        image_digest:
+          type: string
+        inventory_type:
+          type: string
+        last_seen:
+          type: string
+          format: date-time
+        context:
+          type: string
+        alert:
+          type: boolean
+        alert_id:
+          type: string
+        watch_tag:
+          type: boolean
+        watch_tag_id:
+          type: string
+    AnchoreSummaryImageTag:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnchoreSummaryImageTagItem"
+        total_rows:
+          type: integer
+      description: a list of AnchoreSummaryImageTagItem objects
+    AnchoreSummaryImageTagItem:
+      type: object
+      properties:
+        analysis_status:
+          type: string
+        image_digest:
+          type: string
+        analyzed_at:
+          type: string
+          format: date-time
+          nullable: true
+        image_id:
+          type: string
+        tag_detected_at:
+          type: string
+          format: date-time
+        inventory:
+          type: array
+          nullable: true
+          items:
+            type: object
+            properties:
+              inventory_type:
+                type: string
+                enum:
+                  - kubernetes
+                  - ecs
+              last_seen:
+                type: string
+                format: date-time
+              context:
+                type: string
+    AnchoreSummaryKubernetesClusters:
+      type: object
+      properties:
+        summary:
+          type: object
+          properties:
+            clusters_count:
+              type: integer
+            namespaces_count:
+              type: integer
+            total_images:
+              type: integer
+            compliant_images:
+              type: integer
+            non_compliant_images:
+              type: integer
+            not_evaluated_images:
+              type: integer
+        clusters:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnchoreSummaryKubernetesClustersItem"
+    AnchoreSummaryKubernetesClustersItem:
+      type: object
+      properties:
+        name:
+          type: string
+        namespaces_count:
+          type: integer
+        total_images:
+          type: integer
+        compliant_images:
+          type: integer
+        non_compliant_images:
+          type: integer
+        not_evaluated_images:
+          type: integer
+        watched:
+          type: boolean
+        subscription_id:
+          type: string
+        namespaces:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnchoreSummaryKubernetesNamespacesItem"
+    AnchoreSummaryKubernetesNamespacesItem:
+      type: object
+      properties:
+        name:
+          type: string
+        total_images:
+          type: integer
+        compliant_images:
+          type: integer
+        non_compliant_images:
+          type: integer
+        not_evaluated_images:
+          type: integer
+        watched:
+          type: boolean
+        subscription_id:
+          type: string
+    AnchoreSummaryKubernetesVulnerabilities:
+      type: object
+      properties:
+        summary:
+          type: object
+          properties:
+            total_vulns:
+              type: integer
+            critical_vulns:
+              type: integer
+            high_vulns:
+              type: integer
+            medium_vulns:
+              type: integer
+            low_vulns:
+              type: integer
+            negligible_vulns:
+              type: integer
+            unknown_vulns:
+              type: integer
+    AnchoreSummaryRuntimeImages:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/AnchoreSummaryRuntimeImagesItem"
+        total_rows:
+          type: integer
+      description: a list of AnchoreSummaryRuntimeImagesItem objects
+    AnchoreSummaryRuntimeImagesItem:
+      type: object
+      properties:
+        analysis_status:
+          type: string
+        compliant:
+          type: boolean
+        total_vulns:
+          type: integer
+        critical_vulns:
+          type: integer
+        high_vulns:
+          type: integer
+        medium_vulns:
+          type: integer
+        low_vulns:
+          type: integer
+        negligible_vulns:
+          type: integer
+        unknown_vulns:
+          type: integer
+        context:
+          type: string
+        image_tag:
+          type: string
+        reported_digest:
+          type: string
+        image_digest:
+          type: string
+        parent_digest:
+          type: string
+        last_analyzed:
+          type: string
+          format: date-time
+        last_seen:
+          type: string
+          format: date-time
+        policy_id:
+          type: string
+        policy_digest:
+          type: string
+        policy_reason:
+          type: string
+        evaluated_at:
+          type: string
+          format: date-time
+    Feature:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the feature
+          enum:
+            - applications
+            - crp
+            - dod_policies
+            - enforce_policies
+            - enforce_policy_gates
+            - fedramp_policies
+            - image_archiving
+            - runtime_inventory
+            - source_scans
+            - windows_scans
+            - static_stig
+            - runtime_stig
+        enabled:
+          type: boolean
+          description: If the feature is enabled
+    FeatureList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Feature"
+    LicenseOverride:
+      type: object
+      required:
+        - license_id  # The ID of the license override
+      properties:
+        license_id:
+          type: string
+          description: The ID of the license override e.g. GPL-2.0-only, Apache-2.0
+          minimum: 2
+        license_name:
+          type: string
+          description: The human readable name of the license e.g. GNU General Public License v2.0
+        license_text:
+          type: string
+          description: The full text of the license
+        license_url:
+          type: string
+          description: The URL to the license definition
+        license_header:
+          type: string
+          description: The standard license header for the package’s license
+        updated_by_user:
+          type: string
+          description: The user who last updated the license override
+        created_at:
+          type: string
+          format: date-time
+          description: The time the license override was created
+        updated_at:
+          type: string
+          format: date-time
+          description: The time the license override was last updated
+    PackageLicense:
+      type: object
+      properties:
+        name:
+          type: string
+        license_id:
+          type: string
+          description: The ID of the license e.g. GPL-2.0, Apache-2.0
+          minimum: 2
+        license_text:
+          type: string
+          description: The full text of the license
+        license_url:
+          type: string
+          description: The URL to the license definition
+        license_type:
+          type: string
+          description: The type of license
+        license_header:
+          type: string
+          description: The standard license header for the package’s license
+    PackageLicenseOverride:
+      type: object
+      required:
+        - purl
+        - license_overrides
+      properties:
+        purl:
+          type: string
+          description: The Package URL (PURL) of the package should match a format like "pkg:pkg_type/pkg_namespace/pkg_name@pkg_version"
+          pattern: '^[^:]+:[^/]+/[^@]+@[^?]+$'
+        license_overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseOverride'
+    Service:
+      type: object
+      required:
+        - service_name
+        - status
+        - service_detail
+      properties:
+        host_id:
+          type: string
+          description: The unique id of the host on which the service is executing
+        service_name:
+          type: string
+          description: Registered service name
+        base_url:
+          type: string
+          description: The url to reach the service, including port as needed
+        status_message:
+          type: string
+          description: A state indicating the condition of the service. Normal operation
+            is 'registered'
+        service_detail:
+          $ref: '#/components/schemas/StatusResponse'
+        status:
+          type: boolean
+        version:
+          type: string
+          description: The version of the service as reported by the service implementation
+            on registration
+      description: A service status record
+    ServiceList:
+      type: array
+      description: A list of service objects
+      items:
+        $ref: '#/components/schemas/Service'
+    StatusResponse:
+      type: object
+      properties:
+        available:
+          type: boolean
+        busy:
+          type: boolean
+        up:
+          type: boolean
+        message:
+          type: string
+        version:
+          type: string
+        db_version:
+          type: string
+        detail:
+          type: object
+          properties: { }
+      description: System status response
+    SystemStatistics:
+      type: object
+      required:
+        - name
+        - description
+        - value
+        - value_type
+      properties:
+        name:
+          type: string
+          enum:
+            - source_analysis
+            - source_inventory
+            - image_analysis
+            - image_inventory
+            - report_generation
+            - policy_evaluation
+            - policy_creation
+            - stateless_sbom_analysis
+            - kubernetes_namespace_creation
+            - kubernetes_image_creation
+            - kubernetes_node_creation
+            - kubernetes_pod_creation
+            - kubernetes_container_creation
+            - ecs_container_creation
+            - ecs_service_creation
+            - ecs_task_creation
+            - ecs_image_creation
+            - account_creation
+            - user_creation
+            - account_creation
+            - policy_inventory
+            - kubernetes_namespace_inventory
+            - kubernetes_node_inventory
+            - kubernetes_pod_inventory
+            - kubernetes_container_inventory
+            - kubernetes_image_inventory
+            - ecs_container_inventory
+            - ecs_image_inventory
+            - ecs_service_inventory
+            - ecs_task_inventory
+            - account_inventory
+            - user_inventory
+            - account_inventory
+            - report_execution_inventory
+            - report_inventory
+        description:
+          type: string
+        metric_basis:
+          type: string
+          enum:
+            - inventory
+            - accumulator
+        value_type:
+          type: string
+        value:
+          type: number
+          format: float
+        detail:
+          type: object
+          required:
+            - tracked_since
+            - monthly_twelve_months
+            - daily_thirty_days
+          properties:
+            twelve_months:
+              type: object
+              properties:
+                first_date:
+                  type: string
+                  format: date
+                last_date:
+                  type: string
+                  format: date
+                value:
+                  type: number
+                  format: float
+            thirty_days:
+              type: object
+              properties:
+                first_date:
+                  type: string
+                  format: date
+                last_date:
+                  type: string
+                  format: date
+                value:
+                  type: number
+                  format: float
+            calendar_year:
+              type: number
+              format: float
+            calendar_month:
+              type: number
+              format: float
+            tracked_since:
+              type: string
+              format: date
+            monthly_twelve_months:
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  value:
+                    type: number
+                    format: float
+            daily_thirty_days:
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                  value:
+                    type: number
+                    format: float
+    SystemStatisticsList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/SystemStatistics"
+    SBOMDetail:
+      type: object
+      properties:
+        account_name:
+          type: string
+        annotations:
+          type: object
+        name:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+        version:
+          type: string
+        uuid:
+          type: string
+        revision_uuid:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        file_format:
+          type: string
+        file_schema:
+          type: string
+        file_name:
+          type: string
+        file_size:
+          type: number
+        file_hash:
+          type: string
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              uuid:
+                type: string
+              name:
+                type: string
+              version:
+                type: string
+        revision_history:
+          type: array
+          items:
+            type: object
+            properties:
+              uuid:
+                type: string
+              file_name:
+                type: string
+              file_size:
+                type: number
+                format: int
+              file_hash:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+        document_insights:
+          type: object
+          properties:
+            valid_format:
+              type: boolean
+            valid_schema:
+              type: boolean
+            supported_format:
+              type: boolean
+            supported_schema:
+              type: boolean
+            has_artifacts:
+              type: boolean
+            has_dependencies:
+              type: boolean
+            has_author:
+              type: boolean
+            has_supplier:
+              type: boolean
+            has_timestamp:
+              type: boolean
+            quality_score:
+              type: number
+              format: float
+    SBOMDetailList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBOMDetail'
+    SBOMPackageDetail:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBOMPackageDetailItem'
+    SBOMPackageDetailItem:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+        purl:
+          type: string
+        licenses:
+          type: array
+          items:
+            type: string
+    SBOMCreateRequest:
+      type: object
+      required:
+        - name
+        - version
+        - file
+      properties:
+        name:
+          type: string
+          minLength: 1
+          # Disallow whitespace-only
+          pattern: ^(?!\s*$).+
+        version:
+          type: string
+          minLength: 1
+          # Disallow whitespace-only
+          pattern: ^(?!\s*$).+
+        annotations:
+          type: string
+          description: A json string representing a dict of string type key value pairs
+          example: "{'color': 'blue'}"
+        groups:
+          type: string
+          description: A comma separated list of Group UUIDs
+          items:
+            type: string
+        file:
+          type: string
+          format: binary
+          description: A valid SBOM file
+        type:
+          type: string
+          description: The type of SBOM being uploaded. (The values are just placeholders for now)
+          enum:
+            - container
+            - filesystem
+            - repository
+            - other
+    SBOMUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          # Disallow whitespace-only
+          pattern: ^(?!\s*$).+
+        version:
+          type: string
+          minLength: 1
+          # Disallow whitespace-only
+          pattern: ^(?!\s*$).+
+        annotations:
+          type: string
+          description: A json string representing a dict of string type key value pairs
+          example: "{'color': 'blue'}"
+        groups:
+          type: string
+          description: A comma separated list of Group UUIDs
+          items:
+            type: string
+        file:
+          type: string
+          format: binary
+          description: A valid SBOM file
+    SBOMGroupDetail:
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        account_name:
+          type: string
+        version:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        sboms:
+          type: array
+          items:
+            type: object
+            properties:
+              uuid:
+                type: string
+              name:
+                type: string
+              version:
+                type: string
+        has_supported_sboms:
+          type: boolean
+          description: >-
+            Indicates whether the SBOM Group contains at least one SBOM that is
+            supported for vulnerability scanning and content listing.
+        has_unsupported_sboms:
+          type: boolean
+          description: >-
+            Indicates whether the SBOM Group contains at least one SBOM that is
+            NOT supported for vulnerability scanning and content listing.
+        quality_score:
+          type: number
+          format: float
+    SBOMGroupDetailList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBOMGroupDetail'
+    SBOMVulnerability:
+      type: object
+      required:
+          - cve
+          - cve_uri
+          - severity
+          - anchore_rank
+          - anchore_score
+          - cvss_score
+          - epss_score
+          - epss_percentile
+          - is_kev
+          - advisory
+          - advisory_uri
+          - last_found_at
+      properties:
+        cve:
+          type: string
+        cve_uri:
+          type: string
+        severity:
+          type: string
+          enum:
+            - unknown
+            - negligible
+            - low
+            - medium
+            - high
+            - critical
+        anchore_rank:
+          type: number
+          format: int
+          description: >-
+            The Anchore Rank is a numerical representation of the importance of a vulnerability based on Anchore Score, 
+            relative to all other vulnerabilities found within a given SBOM or SBOM Group. The vulnerability with 
+            Anchore Rank 1 is considered to be the most important in the SBOM or SBOM Group being queried. The most 
+            important vulnerabilities for a given SBOM or SBOM Group may not always appear in the result set depending 
+            on the given filter criteria.
+        anchore_score:
+          type: number
+          format: float
+        cvss_score:
+          type: number
+          format: float
+          description: >-
+            The greatest CNA CVSS score for the vulnerability across all provider data sources, or the NVD CVSS score 
+            if no provider data sources are available.
+        epss_score:
+          type: number
+          format: float
+        epss_percentile:
+          type: number
+          format: float
+        is_kev:
+          type: boolean
+          description: >-
+            Indicates whether the vulnerability appears on the CISA KEV (Known Exploited Vulnerability) list.
+        advisory:
+          type: string
+        advisory_uri:
+          type: string
+        last_found_at:
+          type: string
+          format: date-time
+          description: >-
+            The time that this vulnerability was most recently found
+            in the given SBOM or an SBOM within the given SBOM Group for the first time.
+    SBOMVulnerabilityListCounts:
+      type: object
+      required:
+        - critical
+        - high
+        - medium
+        - low
+        - negligible
+        - unknown
+        - total
+      properties:
+        critical:
+          type: number
+          format: int
+        high:
+          type: number
+          format: int
+        medium:
+          type: number
+          format: int
+        low:
+          type: number
+          format: int
+        negligible:
+          type: number
+          format: int
+        unknown:
+          type: number
+          format: int
+        total:
+          type: number
+          format: int
+    SBOMVulnerabilityList:
+      type: object
+      required:
+        - vulnerability_counts
+        - items
+      properties:
+        vulnerability_counts:
+          $ref: '#/components/schemas/SBOMVulnerabilityListCounts'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SBOMVulnerability'
+    SBOMGroupMembershipResponse:
+      type: object
+      properties:
+        sbom_uuids:
+          description: The list of SBOM UUIDs belonging to the Group after the requested changes
+          type: array
+          items:
+            type: string
+    SBOMBulkGroupMembershipResponse:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/SBOMGroupMembershipResponse'
+      example:
+        group_uuid_1:
+          sbom_uuids: [ sbom_uuid_1 ]
+        group_uuid_2:
+          sbom_uuids: [ sbom_uuid_1, sbom_uuid_2 ]
+    SBOMGroupMembershipRequest:
+      type: object
+      properties:
+        remove_all:
+          description: >-
+            Setting this to True will cause ALL SBOMs to be removed from the group.
+            Cannot be used in combination with the add_sboms or remove_sboms properties.
+          type: boolean
+        add_sboms:
+          description: A list of SBOM UUIDs to be added to the Group
+          type: array
+          items:
+            type: string
+        remove_sboms:
+          description: A list of SBOM UUIDs to be removed from the Group
+          type: array
+          items:
+            type: string
+    SBOMBulkGroupMembershipRequest:
+      type: object
+      required:
+        - groups
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            required:
+              - group_uuid
+            properties:
+              group_uuid:
+                type: string
+              remove_all:
+                description: >-
+                  Setting this to True will cause ALL SBOMs to be removed from the group.
+                  Cannot be used in combination with the add_sboms or remove_sboms properties.
+                type: boolean
+              add_sboms:
+                description: A list of SBOM UUIDs to be added to the Group
+                type: array
+                items:
+                  type: string
+              remove_sboms:
+                description: A list of SBOM UUIDs to be removed from the Group
+                type: array
+                items:
+                  type: string
+    AnyValue: {}
+    NullType:
+      title: OpenAPI 3.0.` null-type ref
+      description: for adding nullability to a ref
+      enum:
+        - null
+    ApiErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        error_type:
+          type: string
+        message:
+          type: string
+        detail:
+          type: object
+          properties: {}
+          description: Details structure for additional information about the error
+            if available. Content and structure will be error specific.
+      description: Generic HTTP API error response

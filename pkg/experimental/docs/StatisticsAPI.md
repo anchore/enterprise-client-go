@@ -1,0 +1,75 @@
+# \StatisticsAPI
+
+All URIs are relative to */exp*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**GetSystemStatistics**](StatisticsAPI.md#GetSystemStatistics) | **Get** /system/statistics | List System Statistics
+
+
+
+## GetSystemStatistics
+
+> SystemStatisticsList GetSystemStatistics(ctx).Detail(detail).Execute()
+
+List System Statistics
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	detail := true // bool | Include time-based breakdown of statistics (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StatisticsAPI.GetSystemStatistics(context.Background()).Detail(detail).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StatisticsAPI.GetSystemStatistics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSystemStatistics`: SystemStatisticsList
+	fmt.Fprintf(os.Stdout, "Response from `StatisticsAPI.GetSystemStatistics`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemStatisticsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **detail** | **bool** | Include time-based breakdown of statistics | 
+
+### Return type
+
+[**SystemStatisticsList**](SystemStatisticsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.13.0
+  version: 2.14.0
 servers:
 - url: /v2
 tags:
@@ -5769,7 +5769,7 @@ paths:
           type: boolean
         style: form
       - description: "When true, include detailed vulnerability annotations in the\
-          \ report. Requires vuln-annotator-viewer or vuln-annotator-editor user role."
+          \ report."
         explode: true
         in: query
         name: include_annotation_detail
@@ -5876,7 +5876,7 @@ paths:
           type: boolean
         style: form
       - description: "When true, include detailed vulnerability annotations in the\
-          \ report. Requires vuln-annotator-viewer or vuln-annotator-editor user role."
+          \ report."
         explode: true
         in: query
         name: include_annotation_detail
@@ -14238,6 +14238,35 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /stig-profiles:
+    get:
+      description: Retrieve the latest STIG profiles database for airgap environments
+      operationId: get_stig_profiles
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: STIG profiles database file
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: STIG profiles database not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Download STIG profiles database
+      tags:
+      - System
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
+      x-anchore-authz-action: getStigProfiles
   /subscriptions:
     get:
       operationId: list_subscriptions
@@ -15549,6 +15578,7 @@ paths:
           - clamav_db
           - epss_db
           - vulnerability_match_exclusions_db
+          - stig_profiles_db
           type: string
         style: simple
       - description: The version of the feed to query
@@ -24859,12 +24889,14 @@ components:
               path: path
               layerID: layerID
             content_searches:
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
               line_offset: 6
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
@@ -24873,12 +24905,14 @@ components:
               path: path
               layerID: layerID
             content_searches:
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
               line_offset: 6
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
@@ -24911,12 +24945,14 @@ components:
               path: path
               layerID: layerID
             content_searches:
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
               line_offset: 6
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
@@ -24925,16 +24961,19 @@ components:
               path: path
               layerID: layerID
             content_searches:
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
               line_offset: 6
-            - line_number: 0
+            - regex: regex
+              line_number: 0
               seek_position: 1
               length: 5
               classification: classification
               line_offset: 6
+        dockerfile: dockerfile
         sbom:
           schema:
             version: version
@@ -25037,6 +25076,12 @@ components:
           $ref: '#/components/schemas/ContentSearch'
         retrieved_files:
           $ref: '#/components/schemas/FileContents'
+        dockerfile:
+          description: "Base64 encoded content of the dockerfile used to build the\
+            \ image, if available."
+          nullable: true
+          pattern: "^[a-zA-Z0-9+/=]+$"
+          type: string
       type: object
     ContentSearch:
       example:
@@ -25051,12 +25096,14 @@ components:
             path: path
             layerID: layerID
           content_searches:
-          - line_number: 0
+          - regex: regex
+            line_number: 0
             seek_position: 1
             length: 5
             classification: classification
             line_offset: 6
-          - line_number: 0
+          - regex: regex
+            line_number: 0
             seek_position: 1
             length: 5
             classification: classification
@@ -25065,12 +25112,14 @@ components:
             path: path
             layerID: layerID
           content_searches:
-          - line_number: 0
+          - regex: regex
+            line_number: 0
             seek_position: 1
             length: 5
             classification: classification
             line_offset: 6
-          - line_number: 0
+          - regex: regex
+            line_number: 0
             seek_position: 1
             length: 5
             classification: classification
@@ -32555,6 +32604,7 @@ components:
     ContentSearch_findings_inner_content_searches_inner:
       additionalProperties: true
       example:
+        regex: regex
         line_number: 0
         seek_position: 1
         length: 5
@@ -32562,6 +32612,8 @@ components:
         line_offset: 6
       properties:
         classification:
+          type: string
+        regex:
           type: string
         line_number:
           type: integer
@@ -32584,12 +32636,14 @@ components:
           path: path
           layerID: layerID
         content_searches:
-        - line_number: 0
+        - regex: regex
+          line_number: 0
           seek_position: 1
           length: 5
           classification: classification
           line_offset: 6
-        - line_number: 0
+        - regex: regex
+          line_number: 0
           seek_position: 1
           length: 5
           classification: classification

@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.13.0
+  version: 2.14.0
 servers:
 - url: /v2
 tags:
@@ -5232,7 +5232,6 @@ paths:
         - name: include_annotation_detail
           in: query
           description: When true, include detailed vulnerability annotations in the report.
-            Requires vuln-annotator-viewer or vuln-annotator-editor user role.
           schema:
             type: boolean
             default: false
@@ -5320,7 +5319,6 @@ paths:
         - name: include_annotation_detail
           in: query
           description: When true, include detailed vulnerability annotations in the report.
-            Requires vuln-annotator-viewer or vuln-annotator-editor user role.
           schema:
             type: boolean
             default: false
@@ -13171,6 +13169,35 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /stig-profiles:
+    get:
+      tags:
+      - System
+      summary: Download STIG profiles database
+      description: Retrieve the latest STIG profiles database for airgap environments
+      operationId: get_stig_profiles
+      responses:
+        200:
+          description: STIG profiles database file
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: STIG profiles database not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
+      x-anchore-authz-action: getStigProfiles
   /subscriptions:
     get:
       tags:
@@ -14405,6 +14432,7 @@ paths:
               - clamav_db
               - epss_db
               - vulnerability_match_exclusions_db
+              - stig_profiles_db
         - name: version
           in: query
           description: The version of the feed to query
@@ -20382,6 +20410,12 @@ components:
           $ref: "#/components/schemas/ContentSearch"
         retrieved_files:
           $ref: "#/components/schemas/FileContents"
+        dockerfile:
+          nullable: true
+          pattern: ^[a-zA-Z0-9+/=]+$
+          type: string
+          description: Base64 encoded content of the dockerfile used to build the
+            image, if available.
     ContentSearch:
       type: object
       required:
@@ -20446,6 +20480,8 @@ components:
                     - length
                   properties:
                     classification:
+                      type: string
+                    regex:
                       type: string
                     line_number:
                       type: integer

@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.13.0
+API version: 2.14.0
 Contact: dev@anchore.com
 */
 
@@ -24,6 +24,8 @@ type ScanRequest struct {
 	SecretScan *ContentSearch `json:"secret_scan,omitempty"`
 	ContentSearch *ContentSearch `json:"content_search,omitempty"`
 	RetrievedFiles *FileContents `json:"retrieved_files,omitempty"`
+	// Base64 encoded content of the dockerfile used to build the image, if available.
+	Dockerfile NullableString `json:"dockerfile,omitempty" validate:"regexp=^[a-zA-Z0-9+\\/=]+$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -174,6 +176,48 @@ func (o *ScanRequest) SetRetrievedFiles(v FileContents) {
 	o.RetrievedFiles = &v
 }
 
+// GetDockerfile returns the Dockerfile field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ScanRequest) GetDockerfile() string {
+	if o == nil || IsNil(o.Dockerfile.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Dockerfile.Get()
+}
+
+// GetDockerfileOk returns a tuple with the Dockerfile field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ScanRequest) GetDockerfileOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Dockerfile.Get(), o.Dockerfile.IsSet()
+}
+
+// HasDockerfile returns a boolean if a field has been set.
+func (o *ScanRequest) HasDockerfile() bool {
+	if o != nil && o.Dockerfile.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDockerfile gets a reference to the given NullableString and assigns it to the Dockerfile field.
+func (o *ScanRequest) SetDockerfile(v string) {
+	o.Dockerfile.Set(&v)
+}
+// SetDockerfileNil sets the value for Dockerfile to be an explicit nil
+func (o *ScanRequest) SetDockerfileNil() {
+	o.Dockerfile.Set(nil)
+}
+
+// UnsetDockerfile ensures that no value is present for Dockerfile, not even an explicit nil
+func (o *ScanRequest) UnsetDockerfile() {
+	o.Dockerfile.Unset()
+}
+
 func (o ScanRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -195,6 +239,9 @@ func (o ScanRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.RetrievedFiles) {
 		toSerialize["retrieved_files"] = o.RetrievedFiles
+	}
+	if o.Dockerfile.IsSet() {
+		toSerialize["dockerfile"] = o.Dockerfile.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -222,6 +269,7 @@ func (o *ScanRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "secret_scan")
 		delete(additionalProperties, "content_search")
 		delete(additionalProperties, "retrieved_files")
+		delete(additionalProperties, "dockerfile")
 		o.AdditionalProperties = additionalProperties
 	}
 

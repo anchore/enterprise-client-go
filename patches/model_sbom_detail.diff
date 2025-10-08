@@ -1,0 +1,13 @@
+diff --git a/pkg/experimental/model_sbom_detail.go b/pkg/experimental/model_sbom_detail.go
+index e64a0838..1d8b0ec6 100644
+--- a/pkg/experimental/model_sbom_detail.go
++++ b/pkg/experimental/model_sbom_detail.go
+@@ -104,7 +104,7 @@ func (o *SBOMDetail) GetAnnotations() interface{} {
+ // and a boolean to check if the value has been set.
+ func (o *SBOMDetail) GetAnnotationsOk() (interface{}, bool) {
+ 	if o == nil || IsNil(o.Annotations) {
+-		return interface{}{}, false
++		return nil, false
+ 	}
+ 	return o.Annotations, true
+ }

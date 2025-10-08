@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.13.0
+API version: 2.14.0
 Contact: dev@anchore.com
 */
 
@@ -4470,7 +4470,7 @@ func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) IncludeVulnDescr
 	return r
 }
 
-// When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role.
+// When true, include detailed vulnerability annotations in the report.
 func (r ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest) IncludeAnnotationDetail(includeAnnotationDetail bool) ApiGetImageVulnerabilitiesByDigestCyclonedxJsonRequest {
 	r.includeAnnotationDetail = &includeAnnotationDetail
 	return r
@@ -4678,7 +4678,7 @@ func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) IncludeVulnDescri
 	return r
 }
 
-// When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role.
+// When true, include detailed vulnerability annotations in the report.
 func (r ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest) IncludeAnnotationDetail(includeAnnotationDetail bool) ApiGetImageVulnerabilitiesByDigestCyclonedxXmlRequest {
 	r.includeAnnotationDetail = &includeAnnotationDetail
 	return r

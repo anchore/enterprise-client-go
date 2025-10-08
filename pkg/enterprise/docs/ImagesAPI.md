@@ -1864,7 +1864,7 @@ func main() {
 	vulnType := "vulnType_example" // string | 
 	forceRefresh := true // bool |  (optional) (default to false)
 	includeVulnDescription := true // bool |  (optional) (default to false)
-	includeAnnotationDetail := true // bool | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. (optional) (default to false)
+	includeAnnotationDetail := true // bool | When true, include detailed vulnerability annotations in the report. (optional) (default to false)
 	vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
@@ -1900,7 +1900,7 @@ Name | Type | Description  | Notes
 
  **forceRefresh** | **bool** |  | [default to false]
  **includeVulnDescription** | **bool** |  | [default to false]
- **includeAnnotationDetail** | **bool** | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. | [default to false]
+ **includeAnnotationDetail** | **bool** | When true, include detailed vulnerability annotations in the report. | [default to false]
  **vendorOnly** | **bool** | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60; | [default to true]
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
@@ -1945,7 +1945,7 @@ func main() {
 	vulnType := "vulnType_example" // string | 
 	forceRefresh := true // bool |  (optional) (default to false)
 	includeVulnDescription := true // bool |  (optional) (default to false)
-	includeAnnotationDetail := true // bool | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. (optional) (default to false)
+	includeAnnotationDetail := true // bool | When true, include detailed vulnerability annotations in the report. (optional) (default to false)
 	vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
@@ -1981,7 +1981,7 @@ Name | Type | Description  | Notes
 
  **forceRefresh** | **bool** |  | [default to false]
  **includeVulnDescription** | **bool** |  | [default to false]
- **includeAnnotationDetail** | **bool** | When true, include detailed vulnerability annotations in the report. Requires vuln-annotator-viewer or vuln-annotator-editor user role. | [default to false]
+ **includeAnnotationDetail** | **bool** | When true, include detailed vulnerability annotations in the report. | [default to false]
  **vendorOnly** | **bool** | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60; | [default to true]
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 

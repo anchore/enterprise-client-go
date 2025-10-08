@@ -1,0 +1,13 @@
+diff --git a/pkg/experimental/model_status_response.go b/pkg/experimental/model_status_response.go
+index 238861b9..36d6963c 100644
+--- a/pkg/experimental/model_status_response.go
++++ b/pkg/experimental/model_status_response.go
+@@ -254,7 +254,7 @@ func (o *StatusResponse) GetDetail() interface{} {
+ // and a boolean to check if the value has been set.
+ func (o *StatusResponse) GetDetailOk() (interface{}, bool) {
+ 	if o == nil || IsNil(o.Detail) {
+-		return interface{}{}, false
++		return nil, false
+ 	}
+ 	return o.Detail, true
+ }

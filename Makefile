@@ -10,9 +10,13 @@ OPENAPI_GENERATOR_VERSION = v7.8.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = main
+ENTERPRISE_REF = ENTERPRISE-6835
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
+
+# --- anchore enterprise experimental API references
+EXPERIMENTAL_ROOT = $(PROJECT_ROOT)/experimental
+EXPERIMENTAL_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-experimental-swagger-$(ENTERPRISE_REF).yaml
 
 define generate_openapi_client
 	# remove previous API clients
@@ -63,9 +67,14 @@ $(ENTERPRISE_OPENAPI_DOC): $(PROJECT_ROOT) ## pull the enterprise external API s
 	# the tr/sed cmds are a workaround for now.
 	cp $(CLONE_DIR)/anchore_enterprise/swagger/anchore_api_swagger.yaml $(ENTERPRISE_OPENAPI_DOC)
 
+$(EXPERIMENTAL_OPENAPI_DOC): $(PROJECT_ROOT) ## pull the enterprise experimental API swagger document
+	$(call clone)
+	cp $(CLONE_DIR)/anchore_enterprise/swagger/api_experimental_swagger.yaml $(EXPERIMENTAL_OPENAPI_DOC)
+
 .PHONY :=
-generate-clients: $(ENTERPRISE_OPENAPI_DOC) ## generate client code for anchore external API
+generate-clients: $(ENTERPRISE_OPENAPI_DOC) $(EXPERIMENTAL_OPENAPI_DOC) ## generate client code for anchore external and experimental APIs
 	$(call generate_openapi_client,$(ENTERPRISE_OPENAPI_DOC),enterprise,$(ENTERPRISE_ROOT))
+	$(call generate_openapi_client,$(EXPERIMENTAL_OPENAPI_DOC),experimental,$(EXPERIMENTAL_ROOT))
 	# add any tailored code via go generate
 	go generate .
 
