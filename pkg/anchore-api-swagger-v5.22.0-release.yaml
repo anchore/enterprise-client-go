@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.13.0
+  version: 2.14.0
 servers:
 - url: /v2
 tags:
@@ -23040,6 +23040,7 @@ components:
             - vulnerable_code_not_in_execute_path
             - vulnerable_code_cannot_be_controlled_by_adversary
             - inline_mitigations_already_exist
+            - fix_not_planned
         impact_statement:
           type: string
           nullable: true
