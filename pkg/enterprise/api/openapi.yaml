@@ -5769,7 +5769,7 @@ paths:
           type: boolean
         style: form
       - description: "When true, include detailed vulnerability annotations in the\
-          \ report. Requires vuln-annotator-viewer or vuln-annotator-editor user role."
+          \ report."
         explode: true
         in: query
         name: include_annotation_detail
@@ -5876,7 +5876,7 @@ paths:
           type: boolean
         style: form
       - description: "When true, include detailed vulnerability annotations in the\
-          \ report. Requires vuln-annotator-viewer or vuln-annotator-editor user role."
+          \ report."
         explode: true
         in: query
         name: include_annotation_detail
@@ -24973,6 +24973,7 @@ components:
               length: 5
               classification: classification
               line_offset: 6
+        dockerfile: dockerfile
         sbom:
           schema:
             version: version
@@ -25075,6 +25076,12 @@ components:
           $ref: '#/components/schemas/ContentSearch'
         retrieved_files:
           $ref: '#/components/schemas/FileContents'
+        dockerfile:
+          description: "Base64 encoded content of the dockerfile used to build the\
+            \ image, if available."
+          nullable: true
+          pattern: "^[a-zA-Z0-9+/=]+$"
+          type: string
       type: object
     ContentSearch:
       example:

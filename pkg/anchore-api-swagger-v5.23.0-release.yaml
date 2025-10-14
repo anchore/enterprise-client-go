@@ -5232,7 +5232,6 @@ paths:
         - name: include_annotation_detail
           in: query
           description: When true, include detailed vulnerability annotations in the report.
-            Requires vuln-annotator-viewer or vuln-annotator-editor user role.
           schema:
             type: boolean
             default: false
@@ -5320,7 +5319,6 @@ paths:
         - name: include_annotation_detail
           in: query
           description: When true, include detailed vulnerability annotations in the report.
-            Requires vuln-annotator-viewer or vuln-annotator-editor user role.
           schema:
             type: boolean
             default: false
@@ -20412,6 +20410,12 @@ components:
           $ref: "#/components/schemas/ContentSearch"
         retrieved_files:
           $ref: "#/components/schemas/FileContents"
+        dockerfile:
+          nullable: true
+          pattern: ^[a-zA-Z0-9+/=]+$
+          type: string
+          description: Base64 encoded content of the dockerfile used to build the
+            image, if available.
     ContentSearch:
       type: object
       required:

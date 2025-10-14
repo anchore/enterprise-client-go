@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **SecretScan** | Pointer to [**ContentSearch**](ContentSearch.md) |  | [optional] 
 **ContentSearch** | Pointer to [**ContentSearch**](ContentSearch.md) |  | [optional] 
 **RetrievedFiles** | Pointer to [**FileContents**](FileContents.md) |  | [optional] 
+**Dockerfile** | Pointer to **NullableString** | Base64 encoded content of the dockerfile used to build the image, if available. | [optional] 
 
 ## Methods
 
@@ -128,6 +129,41 @@ SetRetrievedFiles sets RetrievedFiles field to given value.
 
 HasRetrievedFiles returns a boolean if a field has been set.
 
+### GetDockerfile
+
+`func (o *ScanRequest) GetDockerfile() string`
+
+GetDockerfile returns the Dockerfile field if non-nil, zero value otherwise.
+
+### GetDockerfileOk
+
+`func (o *ScanRequest) GetDockerfileOk() (*string, bool)`
+
+GetDockerfileOk returns a tuple with the Dockerfile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDockerfile
+
+`func (o *ScanRequest) SetDockerfile(v string)`
+
+SetDockerfile sets Dockerfile field to given value.
+
+### HasDockerfile
+
+`func (o *ScanRequest) HasDockerfile() bool`
+
+HasDockerfile returns a boolean if a field has been set.
+
+### SetDockerfileNil
+
+`func (o *ScanRequest) SetDockerfileNil(b bool)`
+
+ SetDockerfileNil sets the value for Dockerfile to be an explicit nil
+
+### UnsetDockerfile
+`func (o *ScanRequest) UnsetDockerfile()`
+
+UnsetDockerfile ensures that no value is present for Dockerfile, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
